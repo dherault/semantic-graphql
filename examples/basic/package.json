@@ -1,0 +1,17 @@
+{
+  "name": "semantic-graphql-example-basic",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --preserve-symlinks index.js",
+    "watch": "nodemon --watch ../../ --exec \"npm start\"",
+    "//note": "preserve-symlinks because of https://github.com/npm/npm/issues/5875"
+  },
+  "author": "David Hérault <dherault@gmail.com> (https://github.com/dherault)",
+  "license": "SEE LICENSE IN LICENSE",
+  "dependencies": {
+    "express": "^4.14.0",
+    "express-graphql": "^0.5.4"
+  }
+}

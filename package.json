@@ -1,0 +1,46 @@
+{
+  "name": "semantic-graphql",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "David Hérault <dherault@gmail.com> (https://github.com/dherault)",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nelson-ai/semantic-graphql.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nelson-ai/semantic-graphql/issues"
+  },
+  "homepage": "https://github.com/nelson-ai/semantic-graphql#readme",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha $npm_package_options_mocha",
+    "coverage": "./node_modules/.bin/istanbul cover _mocha -- $npm_package_options_mocha",
+    "coverage:serve": "cd coverage/lcov-report && python -m SimpleHTTPServer",
+    "coverage:all": "npm run coverage && npm run coverage:serve",
+    "dev": "cd examples/basic && npm run watch",
+    "prepublish": "./scripts/checkgit.sh && npm test && npm run build"
+  },
+  "options": {
+    "mocha": "--bail --check-leaks"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.10.2",
+    "eslint-config-airbnb-base": "^10.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "graphql": "^0.8.2",
+    "graphql-relay": "^0.4.4",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.1.2"
+  },
+  "dependencies": {
+    "n3": "^0.8.1"
+  },
+  "peerDependencies": {
+    "graphql": "^0.7.0"
+  }
+}

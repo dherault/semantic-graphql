@@ -1,0 +1,130 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foo: <http://foo.com#> .
+
+<http://foo.com#Company>
+  a owl:Class ;
+  rdfs:comment "A company to work and play." ;
+  rdfs:label "Company" ;
+  rdfs:subClassOf <http://foo.com#Thing> .
+
+<http://foo.com#Language>
+  a owl:Class ;
+  rdfs:comment "A system for communication." ;
+  rdfs:label "Language" ;
+  rdfs:subClassOf <http://foo.com#Thing> .
+
+<http://foo.com#Person>
+  a owl:Class ;
+  rdfs:comment "A human being." ;
+  rdfs:label "Person" ;
+  rdfs:subClassOf <http://foo.com#Thing> .
+
+<http://foo.com#Thing>
+  a owl:Class ;
+  rdfs:comment "An object, being, or entity." ;
+  rdfs:label "Thing" ;
+  rdfs:subClassOf owl:Thing .
+
+<http://foo.com#basicWords>
+  a owl:DatatypeProperty ;
+  rdfs:comment "A few words in that language." ;
+  rdfs:domain <http://foo.com#Language> ;
+  rdfs:label "Basic words" ;
+  rdfs:range xsd:string .
+
+<http://foo.com#foundingYear>
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:comment "The year the Company was created." ;
+  rdfs:domain <http://foo.com#Company> ;
+  rdfs:label "Founding year" ;
+  rdfs:range xsd:integer .
+
+<http://foo.com#gender>
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:comment "The gender of the Person. False: female, true: male." ;
+  rdfs:domain <http://foo.com#Person> ;
+  rdfs:label "Gender" ;
+  rdfs:range xsd:boolean .
+
+<http://foo.com#hasCEO>
+  foo:storageName "CEO" ;
+  a owl:FunctionalProperty, owl:ObjectProperty ;
+  rdfs:comment "The Person that is the CEO of the Company." ;
+  rdfs:domain foo:Company ;
+  rdfs:label "Has CEO" ;
+  rdfs:range foo:Person .
+
+foo:hasEmployees
+  a owl:ObjectProperty ;
+  rdfs:comment "The Persons that work for this company" ;
+  rdfs:domain foo:Company ;
+  rdfs:label "Has employees" ;
+  rdfs:range foo:Person ;
+  owl:inverseOf foo:worksForCompany .
+
+foo:isCEOOfCompany
+  a owl:FunctionalProperty, owl:ObjectProperty ;
+  rdfs:comment "The Company this Person is the CEO of." ;
+  rdfs:domain foo:Person ;
+  rdfs:label "is CEO of company" ;
+  rdfs:range foo:Company ;
+  owl:inverseOf foo:hasCEO .
+
+foo:localName
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:comment "The Language in that Language." ;
+  rdfs:domain foo:Language ;
+  rdfs:label "Local name" ;
+  rdfs:range xsd:string .
+
+foo:luckyNumber
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:comment "The lucky number of the Person." ;
+  rdfs:domain foo:Person ;
+  rdfs:label "Lucky number" ;
+  rdfs:range xsd:float, xsd:string .
+
+foo:motherTongue
+  a owl:FunctionalProperty, owl:ObjectProperty ;
+  rdfs:comment "The first Language the Person has been exposed to from birth." ;
+  rdfs:domain foo:Person ;
+  rdfs:label "Mother tongue" ;
+  rdfs:range foo:Language .
+
+foo:name
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:comment "A term used for identification." ;
+  rdfs:domain foo:Thing ;
+  rdfs:label "Name" ;
+  rdfs:range xsd:string .
+
+foo:nickname
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:comment "The nickname of the Person." ;
+  rdfs:domain foo:Person ;
+  rdfs:label "Nickname" ;
+  rdfs:range xsd:string .
+
+foo:speaks
+  foo:comments "The Languages the Person speaks" ;
+  a owl:ObjectProperty ;
+  rdfs:domain foo:Person ;
+  rdfs:label "Speaks" ;
+  rdfs:range foo:Language .
+
+foo:vatIdentificationNumber
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:comment "The identifier used in many countries for value added tax purposes." ;
+  rdfs:domain foo:Company ;
+  rdfs:label "VAT indentification number" ;
+  rdfs:range xsd:string .
+
+foo:worksForCompany
+  a owl:FunctionalProperty, owl:ObjectProperty ;
+  rdfs:comment "The Company this Person works for." ;
+  rdfs:domain foo:Person ;
+  rdfs:label "Works for company" ;
+  rdfs:range foo:Company ;
+  owl:inverseOf foo:hasEmployees .

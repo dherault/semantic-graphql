@@ -1,0 +1,45 @@
+{
+  "extends": "airbnb-base",
+  "rules": {
+    "arrow-parens": [2, "as-needed"],
+    "brace-style": [2, "stroustrup", { "allowSingleLine": true }],
+    "comma-dangle": [1, {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "always-multiline",
+      "functions": "ignore",
+    }],
+    "consistent-return": 0,
+    "default-case": 0,
+    "eol-last": 0,                # Belongs to editorconfig
+    "global-require": 0,
+    "guard-for-in": 0,
+    "max-len": 0,
+    "newline-before-return": 2,
+    "no-confusing-arrow": 0,
+    "no-console": 0,
+    "import/no-dynamic-require": 0,
+    "no-mixed-operators": 0,
+    "no-multi-spaces": 1,
+    "no-nested-ternary": 0,
+    "no-new": 0,
+    "no-plusplus": 0,
+    "no-return-assign": 0,
+    "no-self-compare": 0,         # For NaN check
+    "no-shadow": 0,
+    "no-trailing-spaces": 0,      # Belongs to editorconfig
+    "no-unused-expressions": 1,
+    "no-unused-vars": 1,
+    "no-underscore-dangle": 0,
+    "no-use-before-define": [2, { "functions": false, "classes": false }],
+    "object-curly-spacing": 1,
+    "one-var-declaration-per-line": 0,
+    "one-var": [2, { "uninitialized": "always", "initialized": "never" }],
+    "padded-blocks": 0,
+    "semi": 1,
+    "space-in-parens": 1,
+    "import/no-unresolved": [2, { "ignore": ['graphql'] }],
+    "import/no-extraneous-dependencies": [2, { "devDependencies": true }],
+  }
+}
