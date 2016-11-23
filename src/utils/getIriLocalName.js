@@ -1,6 +1,7 @@
 const pound = '#';
 const slash = '/';
 const colon = ':';
+const memory = {};
 
 function sliceOrFail(string, sep) {
   const array = string.split(sep);
@@ -12,6 +13,7 @@ function sliceOrFail(string, sep) {
 // Extracts the localName of an IRI
 // Algo inspired by http://rdf4j.org/javadoc/latest/org/eclipse/rdf4j/model/IRI.html
 function getIriLocalName(iri) {
+  if (memory[iri]) return memory[iri]; // !
   if (!(typeof iri === 'string' && iri.includes(colon))) throw new Error(`Given IRI "${iri}" is invalid`);
 
   let workingIri = iri;
@@ -25,7 +27,7 @@ function getIriLocalName(iri) {
   if (typeof resPound === 'string') {
     if (!resPound.length) throw new Error(`Given IRI "${iri}" is invalid`);
 
-    return resPound;
+    return memory[iri] = resPound;
   }
 
   const resSlash = sliceOrFail(workingIri, slash);
@@ -33,14 +35,14 @@ function getIriLocalName(iri) {
   if (typeof resSlash === 'string') {
     if (!resSlash.length) throw new Error(`Given IRI "${iri}" is invalid`);
 
-    return resSlash;
+    return memory[iri] = resSlash;
   }
   const resColon = sliceOrFail(workingIri, colon);
 
   if (typeof resColon === 'string') {
     if (!resColon.length) throw new Error(`Given IRI "${iri}" is invalid`);
 
-    return resColon;
+    return memory[iri] = resColon;
   }
 
   throw new Error(`Given IRI "${iri}" is invalid`);
