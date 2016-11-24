@@ -147,25 +147,25 @@ const companies = [
   {
     name: 'Edge Factory',
     foundingYear: 2015,
-    CEO: 'Gaëtan Barral',
+    hasCEO: 'Gaëtan Barral',
     vat: 'EF0000',
   },
   {
     name: 'Human Space Agency',
     foundingYear: 2215,
-    CEO: 'Ahre Zo',
+    hasCEO: 'Ahre Zo',
     vat: 'HSA000',
   },
   {
     name: 'Greasy burgers',
     foundingYear: 1998,
-    CEO: 'Gregor MacBurgers',
+    hasCEO: 'Gregor MacBurgers',
     vat: 'GB0000',
   },
   {
     name: 'Four wheels',
     foundingYear: 1960,
-    CEO: 'Heinrich Müller',
+    hasCEO: 'Heinrich Müller',
     vat: 'FW0000',
   },
 ].map(assignTypeAndId('Company'));

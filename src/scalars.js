@@ -3,6 +3,7 @@ const { GraphQLID, GraphQLBoolean, GraphQLInt, GraphQLFloat, GraphQLString, Kind
 // https://www.w3.org/TR/xmlschema-2
 // http://graphql.org/docs/api-reference-type-system/#graphqlscalartype
 const graphqlScalarTypes = {
+  Literal: GraphQLString, // refers to rdfs:Literal
   /* --------------------
     Primitive datatypes
   -------------------- */
@@ -97,9 +98,7 @@ const graphqlScalarMethods = new Map([
 
       const number = Number(value);
 
-      if (number === number) return number;
-
-      return null;
+      return number === number ? number : null;
     },
     parseLiteral: ast => ast.kind === Kind.FLOAT || ast.kind === Kind.INT ? parseFloat(ast.value) : null,
   }],

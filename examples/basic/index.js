@@ -7,7 +7,7 @@ const Graph = require('../..');
 const data = require('./data');
 const resolvers = require('./resolvers');
 
-const _ = new Graph(resolvers);
+const _ = new Graph(resolvers, { owl: true });
 
 console.log(`Collection created: ${_}.\n`);
 

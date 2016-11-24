@@ -39,4 +39,4 @@ class ArrayKeyedMap extends Map {
   */
 }
 
-module.exports = new ArrayKeyedMap();
+module.exports = ArrayKeyedMap;
