@@ -5,8 +5,11 @@ const invariant = require('./utils/invariant');
 const isValidIri = require('./utils/isValidIri');
 const getIriLocalName = require('./utils/getIriLocalName');
 const validateResolvers = require('./validateResolvers');
+const requireGraphqlRelay = require('./requireGraphqlRelay');
 const getGraphqlObjectType = require('./graphql/getGraphqlObjectType');
 const getGraphqlInterfaceType = require('./graphql/getGraphqlInterfaceType');
+const getRelayEdgeType = require('./graphql/getRelayEdgeType');
+const getRelayConnectionType = require('./graphql/getRelayConnectionType');
 
 const baseGraph = {};
 const utf8 = 'utf-8';
@@ -29,12 +32,24 @@ class SemanticGraph {
     if (config.owl) parseFileAndIndex(this, '../ontologies/owl.ttl');
     if (config.skos) parseFileAndIndex(this, '../ontologies/skos.ttl');
 
+    if (config.relay) {
+      const { fromGlobalId, nodeDefinitions } = requireGraphqlRelay();
+
+      const resolveNode = (globalId, context, info) => this.resolvers.resolveResource(fromGlobalId(globalId).id, context, info);
+      const resolveType = node => getGraphqlObjectType(this, this.resolvers.resolveSourceClass(node));
+
+      // Add this.nodeInterface and this.nodeField
+      Object.assign(this, nodeDefinitions(resolveNode, resolveType));
+    }
+
     this.addTriple = t => indexTriple(this, t);
     this.parse = (d, o) => createRdfParser(o).parse(d).forEach(this.addTriple);
     this.parseFile = (l, e = utf8) => this.parse(readFileSync(l, e));
     this.getLocalName = iri => this[iri].localName ? this[iri].localName : this[iri].localName = getIriLocalName(iri);
     this.getObjectType = iri => getGraphqlObjectType(this, iri);
     this.getInterfaceType = iri => getGraphqlInterfaceType(this, iri);
+    this.getEdgeType = iri => getRelayEdgeType(this, iri);
+    this.getConnectionType = iri => getRelayConnectionType(this, iri);
     this.toString = () => '[SemanticGraph]';
   }
 }

@@ -1,8 +1,10 @@
 const resolverNames = [
-  'resolveFieldValue',
-  'resolveId',
-  'resolveIds',
-  'resolveClassIri',
+  'resolveSourceId',
+  'resolveSourceValue',
+  'resolveSourceClass',
+  'resolveResource',
+  'resolveResources',
+  'resolveResourcesByPredicate',
 ];
 
 // Asserts that the inputed object has resolverNames within its key and functions as underlying values

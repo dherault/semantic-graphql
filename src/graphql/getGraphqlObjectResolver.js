@@ -1,35 +1,81 @@
+const { owlInverseOf, _owlInverseOf, rdfsRange, rdfsDomain, _subClassOf } = require('../constants');
+const { walkmap } = require('../walkGraph');
 const isGraphqlList = require('./isGraphqlList');
+const requireGraphqlRelay = require('../requireGraphqlRelay');
 
 function getGraphqlObjectResolver(g, iri) {
-  const localName = g.getLocalName(iri);
+  const { resolvers } = g;
   const isList = isGraphqlList(g, iri);
-  const resolveValue = g.resolvers.resolveFieldValue;
-  const resolveRef = isList ? g.resolvers.resolveIds : g.resolvers.resolveId;
 
-  // console.log('__getGraphqlObjectResolver', iri);
-  // process.exit();
+  let inverseOfMap;
 
-  return source => {
-    const ref = resolveValue(source, iri, localName);
+  // If inverseProperties exists, we can use them to retrieve missing remote data
+  if (g[iri][owlInverseOf] || g[iri][_owlInverseOf]) {
+    const extendedRanges = new Set();
+    const inverseProperties = new Set();
+
+    if (g[iri][owlInverseOf]) g[iri][owlInverseOf].forEach(inverseProperties.add, inverseProperties);
+    if (g[iri][_owlInverseOf]) g[iri][_owlInverseOf].forEach(inverseProperties.add, inverseProperties);
+
+    // We want to look for the full extent of the currentProperty's range, i.e. include its subClasses
+    g[iri][rdfsRange].forEach(rangeIri => walkmap(g, rangeIri, _subClassOf, extendedRanges));
+
+    // For each inverseProperty we map the corresponding classes
+    // That are both of the currentProperty's extended range and the inverseProperty's domain
+    // NOTE: should we extend the inverseProperty's domain as well?
+    inverseOfMap = new Map();
+
+    inverseProperties.forEach(propertyIri => {
+      if (!g[propertyIri][rdfsDomain]) return;
+
+      const admitingRanges = g[propertyIri][rdfsDomain].filter(domainIri => extendedRanges.has(domainIri));
+
+      inverseOfMap.set(propertyIri, admitingRanges);
+    });
+  }
+
+  // The actual resolve function
+  const resolver = (source, args, context, info) => {
+    const ref = resolvers.resolveSourceValue(source, iri);
 
     if (ref === null) return null;
 
     if (typeof ref !== 'undefined') {
       return isList ?
-        resolveRef(Array.isArray(ref) ? ref : [ref]) :
-        resolveRef(Array.isArray(ref) ? ref[0] : ref);
+        resolvers.resolveResources(Array.isArray(ref) ? ref : [ref], context, info) :
+        resolvers.resolveResource(Array.isArray(ref) ? ref[0] : ref, context, info);
     }
 
-    /*
-      New polymorphic deal:
-      forEach(inverseProperty)
-        find class on range that admit the property, including subclasses
-        invoke resolveNodesByTypeAndKeyValue with multiple types
-    */
+    if (inverseOfMap && inverseOfMap.size) {
+
+      const sourceId = resolvers.resolveSourceId(source, context, info);
+      const promises = [];
+
+      inverseOfMap.forEach((admitingRanges, propertyIri) => {
+        promises.push(resolvers.resolveResourcesByPredicate(admitingRanges, propertyIri, sourceId, context, info));
+      });
+
+      return Promise.all(promises).then(results => {
+        const finalResult = results.reduce((a, b) => a.concat(b), []);
+
+        return isList ? finalResult : finalResult[0];
+      });
+    }
 
     return null;
-    // TODO: inverseOf
   };
+
+  if (g.config.relay && g[iri].isRelayConnection) {
+    const { connectionFromArray, connectionFromPromisedArray } = requireGraphqlRelay();
+
+    return (node, args, context, info) => {
+      const results = resolver(node, args, context, info);
+
+      return (Array.isArray(results) ? connectionFromArray : connectionFromPromisedArray)(results, args);
+    };
+  }
+
+  return resolver;
 }
 
 module.exports = getGraphqlObjectResolver;

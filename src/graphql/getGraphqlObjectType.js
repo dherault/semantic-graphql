@@ -4,7 +4,6 @@ const getGraphqlDescription = require('./getGraphqlDescription');
 const memorize = require('../memorize');
 
 function getGraphqlObjectType(g, iri) {
-  // console.log('_getObjectType', iri);
 
   return new GraphQLObjectType({
     name: getGraphqlName(g, iri),

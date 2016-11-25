@@ -1,5 +1,5 @@
 function getGraphqlScalarResolver(g, iri) {
-  return source => g.resolvers.resolveFieldValue(source, iri, g.getLocalName(iri));
+  return (source, context, info) => g.resolvers.resolveSourceValue(source, iri, context, info);
 }
 
 module.exports = getGraphqlScalarResolver;

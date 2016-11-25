@@ -11,6 +11,8 @@ function getGraphqlInterfaces(g, iri) {
   .add(rdfsResource)
   .forEach(classIri => interfaces.push(getGraphqlInterfaceType(g, classIri)));
 
+  if (g.config.relay) interfaces.push(g.nodeInterface);
+
   return interfaces;
 }
 

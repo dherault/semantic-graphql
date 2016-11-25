@@ -1,8 +1,10 @@
 const { GraphQLID } = require('graphql');
 const { rdfsSubClassOf, rdfsResource, _rdfsDomain, _rdfsSubPropertyOf } = require('../constants');
-const { walkmap } = require('../walkGraph');
-const getGraphqlFieldConfig = require('./getGraphqlFieldConfig');
 const memorize = require('../memorize');
+const { walkmap } = require('../walkGraph');
+const requireGraphqlRelay = require('../requireGraphqlRelay');
+const getGraphqlFieldConfig = require('./getGraphqlFieldConfig');
+const getGraphqlName = require('./getGraphqlName');
 
 function getGraphqlFieldConfigMap(g, iri) {
   const properties = new Set();
@@ -28,10 +30,11 @@ function getGraphqlFieldConfigMap(g, iri) {
     if (fieldConfig) fieldConfigMap[localName] = fieldConfig;
   });
 
+  if (g.config.relay) fieldConfigMap.id = requireGraphqlRelay().globalIdField(getGraphqlName(g, iri), g.resolvers.resolveSourceId);
   if (!(g.config.preventIdField || fieldConfigMap.id)) {
     fieldConfigMap.id = {
       type: GraphQLID,
-      resolve: source => g.resolvers.resolveFieldValue(source, null, 'id'), // Looks like a HACK, NOTE: maybe use rdf:about ?
+      resolve: g.resolvers.resolveSourceId,
     };
   }
 

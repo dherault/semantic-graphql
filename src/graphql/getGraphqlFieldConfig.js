@@ -2,6 +2,7 @@ const { GraphQLList } = require('graphql');
 const { xsdIri, rdfsLiteral, rdfsSubPropertyOf, rdfsRange } = require('../constants');
 const { walklook } = require('../walkGraph');
 const memorize = require('../memorize');
+const requireGraphqlRelay = require('../requireGraphqlRelay');
 const isGraphqlList = require('./isGraphqlList');
 const getGraphqlDescription = require('./getGraphqlDescription');
 const getGraphqlObjectType = require('./getGraphqlObjectType');
@@ -10,6 +11,7 @@ const getGraphqlPolymorphicScalarType = require('./getGraphqlPolymorphicScalarTy
 const getGraphqlPolymorphicObjectType = require('./getGraphqlPolymorphicObjectType');
 const getGraphqlScalarResolver = require('./getGraphqlScalarResolver');
 const getGraphqlObjectResolver = require('./getGraphqlObjectResolver');
+const getRelayConnectionType = require('./getRelayConnectionType');
 
 const isLiteral = iri => iri.startsWith(xsdIri) || iri === rdfsLiteral;
 
@@ -41,6 +43,11 @@ function getGraphqlFieldConfig(g, iri) {
   }
 
   if (isGraphqlList(g, iri)) fieldConfig.type = new GraphQLList(fieldConfig.type);
+
+  if (g.config.relay && g[iri].isRelayConnection) {
+    fieldConfig.args = requireGraphqlRelay().connectionArgs;
+    fieldConfig.type = getRelayConnectionType(g, ranges[0]);
+  }
 
   // Support partial overrides from user
   // full override is achieved with the memorize wrapper

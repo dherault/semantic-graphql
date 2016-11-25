@@ -1,0 +1,28 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foo: <http://foo.com#> .
+
+<http://foo.com#Article>
+  a owl:Class ;
+  rdfs:comment "An article that someone wrote about something" ;
+  rdfs:label "Article" .
+
+<http://foo.com#Comment>
+  a owl:Class ;
+  rdfs:comment "A comment on an article" ;
+  rdfs:label "Comment" .
+
+foo:hasComments
+  a owl:ObjectProperty ;
+  rdfs:comment "The comments about the article" ;
+  rdfs:domain foo:Article ;
+  rdfs:label "Has comments" ;
+  rdfs:range foo:Comment .
+
+foo:text
+  a owl:DatatypeProperty, owl:FunctionalProperty ;
+  rdfs:comment "The content of a comment" ;
+  rdfs:domain foo:Comment ;
+  rdfs:label "Text" ;
+  rdfs:range xsd:string .
