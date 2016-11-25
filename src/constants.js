@@ -7,18 +7,18 @@ const x = {
 
 x.rdfType = `${x.rdfIri}type`;
 x.rdfsClass = `${x.rdfsIri}Class`;
-x.rdfsComment = `${x.rdfsIri}comment`;
 x.rdfsLabel = `${x.rdfsIri}label`;
 x.rdfsLiteral = `${x.rdfsIri}Literal`;
-x.rdfsRange = `${x.rdfsIri}range`;
 x.rdfsResource = `${x.rdfsIri}Resource`;
+x.rdfsComment = `${x.rdfsIri}comment`;
+x.rdfsRange = `${x.rdfsIri}range`;
 x.rdfsSubClassOf = `${x.rdfsIri}subClassOf`;
 x.rdfsSubPropertyOf = `${x.rdfsIri}subPropertyOf`;
 x.owlFunctionalProperty = `${x.owlIri}FunctionalProperty`;
 
+x._rdfType = `_${x.rdfType}`;
 x._rdfsDomain = `_${x.rdfsIri}domain`;
 x._rdfsSubClassOf = `_${x.rdfsSubClassOf}`;
 x._rdfsSubPropertyOf = `_${x.rdfsSubPropertyOf}`;
-x._rdfType = `_${x.rdfType}`;
 
 module.exports = x;

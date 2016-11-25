@@ -16,4 +16,7 @@ module.exports = {
 
     return data.filter(n => ids.includes(n.id));
   },
+  resolveClassIri(source) {
+    return `http://foo.com#${source.type}`;
+  },
 };

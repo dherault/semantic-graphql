@@ -19,7 +19,6 @@
     "newline-before-return": 2,
     "no-confusing-arrow": 0,
     "no-console": 0,
-    "import/no-dynamic-require": 0,
     "no-mixed-operators": 0,
     "no-multi-spaces": 1,
     "no-nested-ternary": 0,
@@ -30,18 +29,19 @@
     "no-self-compare": 0,         # For NaN check
     "no-shadow": 0,
     "no-trailing-spaces": 0,      # Belongs to editorconfig
+    "no-underscore-dangle": 0,
     "no-unused-expressions": 0,
     "no-unused-vars": 1,
-    "no-underscore-dangle": 0,
     "no-use-before-define": [2, { "functions": false, "classes": false }],
     "object-curly-spacing": 1,
     "one-var-declaration-per-line": 0,
     "one-var": [2, { "uninitialized": "always", "initialized": "never" }],
     "padded-blocks": 0,
     "semi": 1,
-    "spaced-comment": 0,
     "space-in-parens": 1,
-    "import/no-unresolved": [2, { "ignore": ['graphql'] }],
+    "spaced-comment": 0,
+    "import/no-dynamic-require": 0,
     "import/no-extraneous-dependencies": [2, { "devDependencies": true }],
+    "import/no-unresolved": [2, { "ignore": ['graphql'] }],
   }
 }

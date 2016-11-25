@@ -2,6 +2,7 @@ const resolverNames = [
   'resolveFieldValue',
   'resolveId',
   'resolveIds',
+  'resolveClassIri',
 ];
 
 // Asserts that the inputed object has resolverNames within its key and functions as underlying values

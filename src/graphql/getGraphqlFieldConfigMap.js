@@ -1,7 +1,8 @@
+const { GraphQLID } = require('graphql');
 const { rdfsSubClassOf, rdfsResource, _rdfsDomain, _rdfsSubPropertyOf } = require('../constants');
 const { walkmap } = require('../walkGraph');
 const getGraphqlFieldConfig = require('./getGraphqlFieldConfig');
-// const memorize = require('../memorize'); // NOTE: when interfaces show up
+const memorize = require('../memorize');
 
 function getGraphqlFieldConfigMap(g, iri) {
   const properties = new Set();
@@ -17,17 +18,24 @@ function getGraphqlFieldConfigMap(g, iri) {
 
   const fieldConfigMap = {};
 
-  properties.forEach(property => {
-    const localName = g.getLocalName(property);
+  properties.forEach(propertyIri => {
+    const localName = g.getLocalName(propertyIri);
 
-    if (fieldConfigMap[localName]) return console.log(`Warning: Duplicate localName with ${property} on fieldConfigMap of ${iri}`);
+    if (fieldConfigMap[localName]) return console.log(`Warning: Duplicate localName with ${propertyIri} on fieldConfigMap of ${iri}`);
 
-    const fieldConfig = getGraphqlFieldConfig(g, property);
+    const fieldConfig = getGraphqlFieldConfig(g, propertyIri);
 
     if (fieldConfig) fieldConfigMap[localName] = fieldConfig;
   });
 
+  if (!(g.config.preventIdField || fieldConfigMap.id)) {
+    fieldConfigMap.id = {
+      type: GraphQLID,
+      resolve: source => g.resolvers.resolveFieldValue(source, null, 'id'), // Looks like a HACK, NOTE: maybe use rdf:about ?
+    };
+  }
+
   return fieldConfigMap;
 }
 
-module.exports = getGraphqlFieldConfigMap;
+module.exports = memorize(getGraphqlFieldConfigMap, 'graphqlFieldConfigMap');

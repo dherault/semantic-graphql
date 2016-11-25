@@ -1,1 +1,1 @@
-module.exports = require('./src/Graph');
+module.exports = require('./src/SemanticGraph');

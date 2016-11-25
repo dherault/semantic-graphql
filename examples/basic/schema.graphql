@@ -1,0 +1,973 @@
+# Class - The class of classes.
+type Class implements rdfsClassInterface, rdfsResourceInterface {
+  # subClassOf - The subject is a subclass of a class.
+  subClassOf: [Class]
+
+  # equivalentClass - The property that determines that two given classes are
+  # equivalent, and that is used to specify datatype definitions.
+  equivalentClass: [Class]
+
+  # intersectionOf - The property that determines the collection of classes or data ranges that build an intersection.
+  intersectionOf: [List]
+
+  # oneOf - The property that determines the collection of individuals or data values that build an enumeration.
+  oneOf: [List]
+
+  # unionOf - The property that determines the collection of classes or data ranges that build a union.
+  unionOf: [List]
+
+  # type - The subject is an instance of a class.
+  type: [Class]
+
+  # value - Idiomatic property used for structured values.
+  value: [Resource]
+
+  # comment - A description of the subject resource.
+  comment: [String]
+
+  # label - A human-readable name for the subject.
+  label: [String]
+
+  # seeAlso - Further information about the subject resource.
+  seeAlso: [Resource]
+
+  # isDefinedBy - The defininition of the subject resource.
+  isDefinedBy: [Resource]
+
+  # member - A member of the subject resource.
+  member: [Resource]
+
+  # annotatedProperty - The property that determines the predicate of an annotated axiom or annotated annotation.
+  annotatedProperty: [Resource]
+
+  # annotatedSource - The property that determines the subject of an annotated axiom or annotated annotation.
+  annotatedSource: [Resource]
+
+  # annotatedTarget - The property that determines the object of an annotated axiom or annotated annotation.
+  annotatedTarget: [Resource]
+
+  # deprecated - The annotation property that indicates that a given entity has been deprecated.
+  deprecated: [Resource]
+
+  # members - The property that determines the collection of members in either a
+  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  members: [List]
+
+  # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
+  versionInfo: [Resource]
+  id: ID
+}
+
+# Company - A company to work and play.
+type Company implements CompanyInterface, ThingInterface, owlThingInterface, rdfsResourceInterface {
+  # Founding year - The year the Company was created.
+  foundingYear: Int
+
+  # Has CEO - The Person that is the CEO of the Company.
+  hasCEO: Person
+
+  # Has employees - The Persons that work for this company
+  hasEmployees: [Person]
+
+  # VAT indentification number - The identifier used in many countries for value added tax purposes.
+  vatIdentificationNumber: String
+
+  # Name - A term used for identification.
+  name: String
+
+  # bottomDataProperty - The data property that does not relate any individual to any data value.
+  bottomDataProperty: [String]
+
+  # bottomObjectProperty - The object property that does not relate any two individuals.
+  bottomObjectProperty: [Thing]
+
+  # differentFrom - The property that determines that two given individuals are different.
+  differentFrom: [Thing]
+
+  # sameAs - The property that determines that two given individuals are equal.
+  sameAs: [Thing]
+
+  # topDataProperty - The data property that relates every individual to every data value.
+  topDataProperty: [String]
+
+  # topObjectProperty - The object property that relates every two individuals.
+  topObjectProperty: [Thing]
+
+  # type - The subject is an instance of a class.
+  type: [Class]
+
+  # value - Idiomatic property used for structured values.
+  value: [Resource]
+
+  # comment - A description of the subject resource.
+  comment: [String]
+
+  # label - A human-readable name for the subject.
+  label: [String]
+
+  # seeAlso - Further information about the subject resource.
+  seeAlso: [Resource]
+
+  # isDefinedBy - The defininition of the subject resource.
+  isDefinedBy: [Resource]
+
+  # member - A member of the subject resource.
+  member: [Resource]
+
+  # annotatedProperty - The property that determines the predicate of an annotated axiom or annotated annotation.
+  annotatedProperty: [Resource]
+
+  # annotatedSource - The property that determines the subject of an annotated axiom or annotated annotation.
+  annotatedSource: [Resource]
+
+  # annotatedTarget - The property that determines the object of an annotated axiom or annotated annotation.
+  annotatedTarget: [Resource]
+
+  # deprecated - The annotation property that indicates that a given entity has been deprecated.
+  deprecated: [Resource]
+
+  # members - The property that determines the collection of members in either a
+  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  members: [List]
+
+  # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
+  versionInfo: [Resource]
+  id: ID
+}
+
+# Interface for http://foo.com#Company
+interface CompanyInterface {
+  # Founding year - The year the Company was created.
+  foundingYear: Int
+
+  # Has CEO - The Person that is the CEO of the Company.
+  hasCEO: Person
+
+  # Has employees - The Persons that work for this company
+  hasEmployees: [Person]
+
+  # VAT indentification number - The identifier used in many countries for value added tax purposes.
+  vatIdentificationNumber: String
+
+  # Name - A term used for identification.
+  name: String
+
+  # bottomDataProperty - The data property that does not relate any individual to any data value.
+  bottomDataProperty: [String]
+
+  # bottomObjectProperty - The object property that does not relate any two individuals.
+  bottomObjectProperty: [Thing]
+
+  # differentFrom - The property that determines that two given individuals are different.
+  differentFrom: [Thing]
+
+  # sameAs - The property that determines that two given individuals are equal.
+  sameAs: [Thing]
+
+  # topDataProperty - The data property that relates every individual to every data value.
+  topDataProperty: [String]
+
+  # topObjectProperty - The object property that relates every two individuals.
+  topObjectProperty: [Thing]
+
+  # type - The subject is an instance of a class.
+  type: [Class]
+
+  # value - Idiomatic property used for structured values.
+  value: [Resource]
+
+  # comment - A description of the subject resource.
+  comment: [String]
+
+  # label - A human-readable name for the subject.
+  label: [String]
+
+  # seeAlso - Further information about the subject resource.
+  seeAlso: [Resource]
+
+  # isDefinedBy - The defininition of the subject resource.
+  isDefinedBy: [Resource]
+
+  # member - A member of the subject resource.
+  member: [Resource]
+
+  # annotatedProperty - The property that determines the predicate of an annotated axiom or annotated annotation.
+  annotatedProperty: [Resource]
+
+  # annotatedSource - The property that determines the subject of an annotated axiom or annotated annotation.
+  annotatedSource: [Resource]
+
+  # annotatedTarget - The property that determines the object of an annotated axiom or annotated annotation.
+  annotatedTarget: [Resource]
+
+  # deprecated - The annotation property that indicates that a given entity has been deprecated.
+  deprecated: [Resource]
+
+  # members - The property that determines the collection of members in either a
+  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  members: [List]
+
+  # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
+  versionInfo: [Resource]
+  id: ID
+}
+
+# Language - A system for communication.
+type Language implements LanguageInterface, ThingInterface, owlThingInterface, rdfsResourceInterface {
+  # Basic words - A few words in that language.
+  basicWords: [String]
+
+  # Local name - The Language in that Language.
+  localName: String
+
+  # Name - A term used for identification.
+  name: String
+
+  # bottomDataProperty - The data property that does not relate any individual to any data value.
+  bottomDataProperty: [String]
+
+  # bottomObjectProperty - The object property that does not relate any two individuals.
+  bottomObjectProperty: [Thing]
+
+  # differentFrom - The property that determines that two given individuals are different.
+  differentFrom: [Thing]
+
+  # sameAs - The property that determines that two given individuals are equal.
+  sameAs: [Thing]
+
+  # topDataProperty - The data property that relates every individual to every data value.
+  topDataProperty: [String]
+
+  # topObjectProperty - The object property that relates every two individuals.
+  topObjectProperty: [Thing]
+
+  # type - The subject is an instance of a class.
+  type: [Class]
+
+  # value - Idiomatic property used for structured values.
+  value: [Resource]
+
+  # comment - A description of the subject resource.
+  comment: [String]
+
+  # label - A human-readable name for the subject.
+  label: [String]
+
+  # seeAlso - Further information about the subject resource.
+  seeAlso: [Resource]
+
+  # isDefinedBy - The defininition of the subject resource.
+  isDefinedBy: [Resource]
+
+  # member - A member of the subject resource.
+  member: [Resource]
+
+  # annotatedProperty - The property that determines the predicate of an annotated axiom or annotated annotation.
+  annotatedProperty: [Resource]
+
+  # annotatedSource - The property that determines the subject of an annotated axiom or annotated annotation.
+  annotatedSource: [Resource]
+
+  # annotatedTarget - The property that determines the object of an annotated axiom or annotated annotation.
+  annotatedTarget: [Resource]
+
+  # deprecated - The annotation property that indicates that a given entity has been deprecated.
+  deprecated: [Resource]
+
+  # members - The property that determines the collection of members in either a
+  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  members: [List]
+
+  # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
+  versionInfo: [Resource]
+  id: ID
+}
+
+# Interface for http://foo.com#Language
+interface LanguageInterface {
+  # Basic words - A few words in that language.
+  basicWords: [String]
+
+  # Local name - The Language in that Language.
+  localName: String
+
+  # Name - A term used for identification.
+  name: String
+
+  # bottomDataProperty - The data property that does not relate any individual to any data value.
+  bottomDataProperty: [String]
+
+  # bottomObjectProperty - The object property that does not relate any two individuals.
+  bottomObjectProperty: [Thing]
+
+  # differentFrom - The property that determines that two given individuals are different.
+  differentFrom: [Thing]
+
+  # sameAs - The property that determines that two given individuals are equal.
+  sameAs: [Thing]
+
+  # topDataProperty - The data property that relates every individual to every data value.
+  topDataProperty: [String]
+
+  # topObjectProperty - The object property that relates every two individuals.
+  topObjectProperty: [Thing]
+
+  # type - The subject is an instance of a class.
+  type: [Class]
+
+  # value - Idiomatic property used for structured values.
+  value: [Resource]
+
+  # comment - A description of the subject resource.
+  comment: [String]
+
+  # label - A human-readable name for the subject.
+  label: [String]
+
+  # seeAlso - Further information about the subject resource.
+  seeAlso: [Resource]
+
+  # isDefinedBy - The defininition of the subject resource.
+  isDefinedBy: [Resource]
+
+  # member - A member of the subject resource.
+  member: [Resource]
+
+  # annotatedProperty - The property that determines the predicate of an annotated axiom or annotated annotation.
+  annotatedProperty: [Resource]
+
+  # annotatedSource - The property that determines the subject of an annotated axiom or annotated annotation.
+  annotatedSource: [Resource]
+
+  # annotatedTarget - The property that determines the object of an annotated axiom or annotated annotation.
+  annotatedTarget: [Resource]
+
+  # deprecated - The annotation property that indicates that a given entity has been deprecated.
+  deprecated: [Resource]
+
+  # members - The property that determines the collection of members in either a
+  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  members: [List]
+
+  # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
+  versionInfo: [Resource]
+  id: ID
+}
+
+# List - The class of RDF Lists.
+type List implements rdfListInterface, rdfsResourceInterface {
+  # first - The first item in the subject RDF list.
+  first: [Resource]
+
+  # rest - The rest of the subject RDF list after the first item.
+  rest: [List]
+
+  # type - The subject is an instance of a class.
+  type: [Class]
+
+  # value - Idiomatic property used for structured values.
+  value: [Resource]
+
+  # comment - A description of the subject resource.
+  comment: [String]
+
+  # label - A human-readable name for the subject.
+  label: [String]
+
+  # seeAlso - Further information about the subject resource.
+  seeAlso: [Resource]
+
+  # isDefinedBy - The defininition of the subject resource.
+  isDefinedBy: [Resource]
+
+  # member - A member of the subject resource.
+  member: [Resource]
+
+  # annotatedProperty - The property that determines the predicate of an annotated axiom or annotated annotation.
+  annotatedProperty: [Resource]
+
+  # annotatedSource - The property that determines the subject of an annotated axiom or annotated annotation.
+  annotatedSource: [Resource]
+
+  # annotatedTarget - The property that determines the object of an annotated axiom or annotated annotation.
+  annotatedTarget: [Resource]
+
+  # deprecated - The annotation property that indicates that a given entity has been deprecated.
+  deprecated: [Resource]
+
+  # members - The property that determines the collection of members in either a
+  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  members: [List]
+
+  # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
+  versionInfo: [Resource]
+  id: ID
+}
+
+# Interface for http://www.w3.org/2002/07/owl#Thing
+interface owlThingInterface {
+  # bottomDataProperty - The data property that does not relate any individual to any data value.
+  bottomDataProperty: [String]
+
+  # bottomObjectProperty - The object property that does not relate any two individuals.
+  bottomObjectProperty: [Thing]
+
+  # differentFrom - The property that determines that two given individuals are different.
+  differentFrom: [Thing]
+
+  # sameAs - The property that determines that two given individuals are equal.
+  sameAs: [Thing]
+
+  # topDataProperty - The data property that relates every individual to every data value.
+  topDataProperty: [String]
+
+  # topObjectProperty - The object property that relates every two individuals.
+  topObjectProperty: [Thing]
+
+  # type - The subject is an instance of a class.
+  type: [Class]
+
+  # value - Idiomatic property used for structured values.
+  value: [Resource]
+
+  # comment - A description of the subject resource.
+  comment: [String]
+
+  # label - A human-readable name for the subject.
+  label: [String]
+
+  # seeAlso - Further information about the subject resource.
+  seeAlso: [Resource]
+
+  # isDefinedBy - The defininition of the subject resource.
+  isDefinedBy: [Resource]
+
+  # member - A member of the subject resource.
+  member: [Resource]
+
+  # annotatedProperty - The property that determines the predicate of an annotated axiom or annotated annotation.
+  annotatedProperty: [Resource]
+
+  # annotatedSource - The property that determines the subject of an annotated axiom or annotated annotation.
+  annotatedSource: [Resource]
+
+  # annotatedTarget - The property that determines the object of an annotated axiom or annotated annotation.
+  annotatedTarget: [Resource]
+
+  # deprecated - The annotation property that indicates that a given entity has been deprecated.
+  deprecated: [Resource]
+
+  # members - The property that determines the collection of members in either a
+  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  members: [List]
+
+  # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
+  versionInfo: [Resource]
+  id: ID
+}
+
+# Person - A human being.
+type Person implements PersonInterface, ThingInterface, owlThingInterface, rdfsResourceInterface {
+  # Gender - The gender of the Person. False: female, true: male.
+  gender: Boolean
+
+  # is CEO of company - The Company this Person is the CEO of.
+  isCEOOfCompany: Company
+
+  # Lucky number - The lucky number of the Person.
+  luckyNumber: Polymorphic_scalar_float_string
+
+  # Mother tongue - The first Language the Person has been exposed to from birth.
+  motherTongue: Language
+
+  # Nickname - The nickname of the Person.
+  nickname: String
+
+  # Speaks
+  speaks: [Language]
+
+  # Works for company - The Company this Person works for.
+  worksForCompany: Company
+
+  # Name - A term used for identification.
+  name: String
+
+  # bottomDataProperty - The data property that does not relate any individual to any data value.
+  bottomDataProperty: [String]
+
+  # bottomObjectProperty - The object property that does not relate any two individuals.
+  bottomObjectProperty: [Thing]
+
+  # differentFrom - The property that determines that two given individuals are different.
+  differentFrom: [Thing]
+
+  # sameAs - The property that determines that two given individuals are equal.
+  sameAs: [Thing]
+
+  # topDataProperty - The data property that relates every individual to every data value.
+  topDataProperty: [String]
+
+  # topObjectProperty - The object property that relates every two individuals.
+  topObjectProperty: [Thing]
+
+  # type - The subject is an instance of a class.
+  type: [Class]
+
+  # value - Idiomatic property used for structured values.
+  value: [Resource]
+
+  # comment - A description of the subject resource.
+  comment: [String]
+
+  # label - A human-readable name for the subject.
+  label: [String]
+
+  # seeAlso - Further information about the subject resource.
+  seeAlso: [Resource]
+
+  # isDefinedBy - The defininition of the subject resource.
+  isDefinedBy: [Resource]
+
+  # member - A member of the subject resource.
+  member: [Resource]
+
+  # annotatedProperty - The property that determines the predicate of an annotated axiom or annotated annotation.
+  annotatedProperty: [Resource]
+
+  # annotatedSource - The property that determines the subject of an annotated axiom or annotated annotation.
+  annotatedSource: [Resource]
+
+  # annotatedTarget - The property that determines the object of an annotated axiom or annotated annotation.
+  annotatedTarget: [Resource]
+
+  # deprecated - The annotation property that indicates that a given entity has been deprecated.
+  deprecated: [Resource]
+
+  # members - The property that determines the collection of members in either a
+  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  members: [List]
+
+  # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
+  versionInfo: [Resource]
+  id: ID
+}
+
+# Interface for http://foo.com#Person
+interface PersonInterface {
+  # Gender - The gender of the Person. False: female, true: male.
+  gender: Boolean
+
+  # is CEO of company - The Company this Person is the CEO of.
+  isCEOOfCompany: Company
+
+  # Lucky number - The lucky number of the Person.
+  luckyNumber: Polymorphic_scalar_float_string
+
+  # Mother tongue - The first Language the Person has been exposed to from birth.
+  motherTongue: Language
+
+  # Nickname - The nickname of the Person.
+  nickname: String
+
+  # Speaks
+  speaks: [Language]
+
+  # Works for company - The Company this Person works for.
+  worksForCompany: Company
+
+  # Name - A term used for identification.
+  name: String
+
+  # bottomDataProperty - The data property that does not relate any individual to any data value.
+  bottomDataProperty: [String]
+
+  # bottomObjectProperty - The object property that does not relate any two individuals.
+  bottomObjectProperty: [Thing]
+
+  # differentFrom - The property that determines that two given individuals are different.
+  differentFrom: [Thing]
+
+  # sameAs - The property that determines that two given individuals are equal.
+  sameAs: [Thing]
+
+  # topDataProperty - The data property that relates every individual to every data value.
+  topDataProperty: [String]
+
+  # topObjectProperty - The object property that relates every two individuals.
+  topObjectProperty: [Thing]
+
+  # type - The subject is an instance of a class.
+  type: [Class]
+
+  # value - Idiomatic property used for structured values.
+  value: [Resource]
+
+  # comment - A description of the subject resource.
+  comment: [String]
+
+  # label - A human-readable name for the subject.
+  label: [String]
+
+  # seeAlso - Further information about the subject resource.
+  seeAlso: [Resource]
+
+  # isDefinedBy - The defininition of the subject resource.
+  isDefinedBy: [Resource]
+
+  # member - A member of the subject resource.
+  member: [Resource]
+
+  # annotatedProperty - The property that determines the predicate of an annotated axiom or annotated annotation.
+  annotatedProperty: [Resource]
+
+  # annotatedSource - The property that determines the subject of an annotated axiom or annotated annotation.
+  annotatedSource: [Resource]
+
+  # annotatedTarget - The property that determines the object of an annotated axiom or annotated annotation.
+  annotatedTarget: [Resource]
+
+  # deprecated - The annotation property that indicates that a given entity has been deprecated.
+  deprecated: [Resource]
+
+  # members - The property that determines the collection of members in either a
+  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  members: [List]
+
+  # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
+  versionInfo: [Resource]
+  id: ID
+}
+
+scalar Polymorphic_scalar_float_string
+
+type Query {
+  companies: [Company]
+
+  # Anything you like, by id. Similar to Relay's node field.
+  thing(id: String = "French"): ThingInterface
+}
+
+# Interface for http://www.w3.org/1999/02/22-rdf-syntax-ns#List
+interface rdfListInterface {
+  # first - The first item in the subject RDF list.
+  first: [Resource]
+
+  # rest - The rest of the subject RDF list after the first item.
+  rest: [List]
+
+  # type - The subject is an instance of a class.
+  type: [Class]
+
+  # value - Idiomatic property used for structured values.
+  value: [Resource]
+
+  # comment - A description of the subject resource.
+  comment: [String]
+
+  # label - A human-readable name for the subject.
+  label: [String]
+
+  # seeAlso - Further information about the subject resource.
+  seeAlso: [Resource]
+
+  # isDefinedBy - The defininition of the subject resource.
+  isDefinedBy: [Resource]
+
+  # member - A member of the subject resource.
+  member: [Resource]
+
+  # annotatedProperty - The property that determines the predicate of an annotated axiom or annotated annotation.
+  annotatedProperty: [Resource]
+
+  # annotatedSource - The property that determines the subject of an annotated axiom or annotated annotation.
+  annotatedSource: [Resource]
+
+  # annotatedTarget - The property that determines the object of an annotated axiom or annotated annotation.
+  annotatedTarget: [Resource]
+
+  # deprecated - The annotation property that indicates that a given entity has been deprecated.
+  deprecated: [Resource]
+
+  # members - The property that determines the collection of members in either a
+  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  members: [List]
+
+  # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
+  versionInfo: [Resource]
+  id: ID
+}
+
+# Interface for http://www.w3.org/2000/01/rdf-schema#Class
+interface rdfsClassInterface {
+  # subClassOf - The subject is a subclass of a class.
+  subClassOf: [Class]
+
+  # equivalentClass - The property that determines that two given classes are
+  # equivalent, and that is used to specify datatype definitions.
+  equivalentClass: [Class]
+
+  # intersectionOf - The property that determines the collection of classes or data ranges that build an intersection.
+  intersectionOf: [List]
+
+  # oneOf - The property that determines the collection of individuals or data values that build an enumeration.
+  oneOf: [List]
+
+  # unionOf - The property that determines the collection of classes or data ranges that build a union.
+  unionOf: [List]
+
+  # type - The subject is an instance of a class.
+  type: [Class]
+
+  # value - Idiomatic property used for structured values.
+  value: [Resource]
+
+  # comment - A description of the subject resource.
+  comment: [String]
+
+  # label - A human-readable name for the subject.
+  label: [String]
+
+  # seeAlso - Further information about the subject resource.
+  seeAlso: [Resource]
+
+  # isDefinedBy - The defininition of the subject resource.
+  isDefinedBy: [Resource]
+
+  # member - A member of the subject resource.
+  member: [Resource]
+
+  # annotatedProperty - The property that determines the predicate of an annotated axiom or annotated annotation.
+  annotatedProperty: [Resource]
+
+  # annotatedSource - The property that determines the subject of an annotated axiom or annotated annotation.
+  annotatedSource: [Resource]
+
+  # annotatedTarget - The property that determines the object of an annotated axiom or annotated annotation.
+  annotatedTarget: [Resource]
+
+  # deprecated - The annotation property that indicates that a given entity has been deprecated.
+  deprecated: [Resource]
+
+  # members - The property that determines the collection of members in either a
+  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  members: [List]
+
+  # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
+  versionInfo: [Resource]
+  id: ID
+}
+
+# Interface for http://www.w3.org/2000/01/rdf-schema#Resource
+interface rdfsResourceInterface {
+  # type - The subject is an instance of a class.
+  type: [Class]
+
+  # value - Idiomatic property used for structured values.
+  value: [Resource]
+
+  # comment - A description of the subject resource.
+  comment: [String]
+
+  # label - A human-readable name for the subject.
+  label: [String]
+
+  # seeAlso - Further information about the subject resource.
+  seeAlso: [Resource]
+
+  # isDefinedBy - The defininition of the subject resource.
+  isDefinedBy: [Resource]
+
+  # member - A member of the subject resource.
+  member: [Resource]
+
+  # annotatedProperty - The property that determines the predicate of an annotated axiom or annotated annotation.
+  annotatedProperty: [Resource]
+
+  # annotatedSource - The property that determines the subject of an annotated axiom or annotated annotation.
+  annotatedSource: [Resource]
+
+  # annotatedTarget - The property that determines the object of an annotated axiom or annotated annotation.
+  annotatedTarget: [Resource]
+
+  # deprecated - The annotation property that indicates that a given entity has been deprecated.
+  deprecated: [Resource]
+
+  # members - The property that determines the collection of members in either a
+  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  members: [List]
+
+  # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
+  versionInfo: [Resource]
+  id: ID
+}
+
+# Resource - The class resource, everything.
+type Resource implements rdfsResourceInterface {
+  # type - The subject is an instance of a class.
+  type: [Class]
+
+  # value - Idiomatic property used for structured values.
+  value: [Resource]
+
+  # comment - A description of the subject resource.
+  comment: [String]
+
+  # label - A human-readable name for the subject.
+  label: [String]
+
+  # seeAlso - Further information about the subject resource.
+  seeAlso: [Resource]
+
+  # isDefinedBy - The defininition of the subject resource.
+  isDefinedBy: [Resource]
+
+  # member - A member of the subject resource.
+  member: [Resource]
+
+  # annotatedProperty - The property that determines the predicate of an annotated axiom or annotated annotation.
+  annotatedProperty: [Resource]
+
+  # annotatedSource - The property that determines the subject of an annotated axiom or annotated annotation.
+  annotatedSource: [Resource]
+
+  # annotatedTarget - The property that determines the object of an annotated axiom or annotated annotation.
+  annotatedTarget: [Resource]
+
+  # deprecated - The annotation property that indicates that a given entity has been deprecated.
+  deprecated: [Resource]
+
+  # members - The property that determines the collection of members in either a
+  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  members: [List]
+
+  # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
+  versionInfo: [Resource]
+  id: ID
+}
+
+# Thing - The class of OWL individuals.
+type Thing implements owlThingInterface, rdfsResourceInterface {
+  # bottomDataProperty - The data property that does not relate any individual to any data value.
+  bottomDataProperty: [String]
+
+  # bottomObjectProperty - The object property that does not relate any two individuals.
+  bottomObjectProperty: [Thing]
+
+  # differentFrom - The property that determines that two given individuals are different.
+  differentFrom: [Thing]
+
+  # sameAs - The property that determines that two given individuals are equal.
+  sameAs: [Thing]
+
+  # topDataProperty - The data property that relates every individual to every data value.
+  topDataProperty: [String]
+
+  # topObjectProperty - The object property that relates every two individuals.
+  topObjectProperty: [Thing]
+
+  # type - The subject is an instance of a class.
+  type: [Class]
+
+  # value - Idiomatic property used for structured values.
+  value: [Resource]
+
+  # comment - A description of the subject resource.
+  comment: [String]
+
+  # label - A human-readable name for the subject.
+  label: [String]
+
+  # seeAlso - Further information about the subject resource.
+  seeAlso: [Resource]
+
+  # isDefinedBy - The defininition of the subject resource.
+  isDefinedBy: [Resource]
+
+  # member - A member of the subject resource.
+  member: [Resource]
+
+  # annotatedProperty - The property that determines the predicate of an annotated axiom or annotated annotation.
+  annotatedProperty: [Resource]
+
+  # annotatedSource - The property that determines the subject of an annotated axiom or annotated annotation.
+  annotatedSource: [Resource]
+
+  # annotatedTarget - The property that determines the object of an annotated axiom or annotated annotation.
+  annotatedTarget: [Resource]
+
+  # deprecated - The annotation property that indicates that a given entity has been deprecated.
+  deprecated: [Resource]
+
+  # members - The property that determines the collection of members in either a
+  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  members: [List]
+
+  # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
+  versionInfo: [Resource]
+  id: ID
+}
+
+# Interface for http://foo.com#Thing
+interface ThingInterface {
+  # Name - A term used for identification.
+  name: String
+
+  # bottomDataProperty - The data property that does not relate any individual to any data value.
+  bottomDataProperty: [String]
+
+  # bottomObjectProperty - The object property that does not relate any two individuals.
+  bottomObjectProperty: [Thing]
+
+  # differentFrom - The property that determines that two given individuals are different.
+  differentFrom: [Thing]
+
+  # sameAs - The property that determines that two given individuals are equal.
+  sameAs: [Thing]
+
+  # topDataProperty - The data property that relates every individual to every data value.
+  topDataProperty: [String]
+
+  # topObjectProperty - The object property that relates every two individuals.
+  topObjectProperty: [Thing]
+
+  # type - The subject is an instance of a class.
+  type: [Class]
+
+  # value - Idiomatic property used for structured values.
+  value: [Resource]
+
+  # comment - A description of the subject resource.
+  comment: [String]
+
+  # label - A human-readable name for the subject.
+  label: [String]
+
+  # seeAlso - Further information about the subject resource.
+  seeAlso: [Resource]
+
+  # isDefinedBy - The defininition of the subject resource.
+  isDefinedBy: [Resource]
+
+  # member - A member of the subject resource.
+  member: [Resource]
+
+  # annotatedProperty - The property that determines the predicate of an annotated axiom or annotated annotation.
+  annotatedProperty: [Resource]
+
+  # annotatedSource - The property that determines the subject of an annotated axiom or annotated annotation.
+  annotatedSource: [Resource]
+
+  # annotatedTarget - The property that determines the object of an annotated axiom or annotated annotation.
+  annotatedTarget: [Resource]
+
+  # deprecated - The annotation property that indicates that a given entity has been deprecated.
+  deprecated: [Resource]
+
+  # members - The property that determines the collection of members in either a
+  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  members: [List]
+
+  # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
+  versionInfo: [Resource]
+  id: ID
+}

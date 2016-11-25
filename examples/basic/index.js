@@ -1,19 +1,18 @@
+const fs = require('fs');
 const path = require('path');
-const { GraphQLSchema, GraphQLObjectType, GraphQLList } = require('graphql'); // eslint-disable-line import/no-extraneous-dependencies
+const { GraphQLSchema, GraphQLObjectType, GraphQLList, GraphQLString, printSchema } = require('graphql'); // eslint-disable-line import/no-extraneous-dependencies
 const graphqlHTTP = require('express-graphql');
 const express = require('express');
-const Graph = require('../..');
+const SemanticGraph = require('../..');
 
 const data = require('./data');
 const resolvers = require('./resolvers');
 
-const _ = new Graph(resolvers, { owl: true });
+const _ = new SemanticGraph(resolvers, { owl: true });
 
-console.log(`Collection created: ${_}.\n`);
+console.log(`graph created: ${_}`);
 
 _.parseFile(path.join(__dirname, './ontology.ttl'));
-
-// _.getGraphqlFieldConfigMap('http://foo.com#Person');
 
 const schema = new GraphQLSchema({
   query: new GraphQLObjectType({
@@ -24,21 +23,25 @@ const schema = new GraphQLSchema({
         descriptions: 'All the Companies in database.',
         resolve: () => data.filter(node => node.type === 'Company'),
       },
-      // thing: {
-      //   type: _.getInterfaceType('Thing'),
-      //   description: 'Anything you like, by id. Similar to Relay\'s node field.',
-      //   args: {
-      //     id: {
-      //       type: new GraphQLNonNull(GraphQLString),
-      //     },
-      //   },
-      //   resolve: (_, { id }) => data.find(node => node.id === id),
-      // },
+      thing: {
+        // Using rdfs:Resource also works. It queries anything.
+        // type: _.getInterfaceType('http://www.w3.org/2000/01/rdf-schema#Resource'),
+        type: _.getInterfaceType('http://foo.com#Thing'),
+        description: 'Anything you like, by id. Similar to Relay\'s node field.',
+        args: {
+          id: {
+            type: GraphQLString,
+            defaultValue: 'French',
+          },
+        },
+        resolve: (_, { id }) => data.find(node => node.id === id),
+      },
     },
   }),
 });
 
-// return console.log(printSchema(schema));
+fs.writeFileSync(path.join(__dirname, './schema.graphql'), printSchema(schema));
+console.log('Schema saved on disk');
 
 express()
 .use('/graphql', graphqlHTTP({
@@ -46,8 +49,4 @@ express()
   pretty: true,
   graphiql: true,
 }))
-.listen(3000, err => {
-  if (err) return console.error(err);
-
-  console.log('GraphQL endpoint listening on port 3000');
-});
+.listen(3000, err => console.log(err || 'GraphQL endpoint listening on port 3000\n'));

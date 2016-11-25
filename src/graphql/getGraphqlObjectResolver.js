@@ -6,7 +6,7 @@ function getGraphqlObjectResolver(g, iri) {
   const resolveValue = g.resolvers.resolveFieldValue;
   const resolveRef = isList ? g.resolvers.resolveIds : g.resolvers.resolveId;
 
-  console.log('__getGraphqlObjectResolver', iri);
+  // console.log('__getGraphqlObjectResolver', iri);
   // process.exit();
 
   return source => {
