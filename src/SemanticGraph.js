@@ -19,6 +19,7 @@ const parseFileAndIndex = (g, l) => ttlParser.parse(readFileSync(path.join(__dir
 
 parseFileAndIndex(baseGraph, '../ontologies/rdf.ttl');
 parseFileAndIndex(baseGraph, '../ontologies/rdfs.ttl');
+parseFileAndIndex(baseGraph, '../ontologies/owl.ttl');
 
 class SemanticGraph {
 
@@ -29,9 +30,6 @@ class SemanticGraph {
     validateResolvers(resolvers);
 
     Object.assign(this, baseGraph, { resolvers, config });
-
-    if (config.owl) parseFileAndIndex(this, '../ontologies/owl.ttl');
-    if (config.skos) parseFileAndIndex(this, '../ontologies/skos.ttl');
 
     if (config.relay) {
       const { fromGlobalId, nodeDefinitions } = requireGraphqlRelay();
