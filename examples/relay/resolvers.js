@@ -5,10 +5,10 @@ module.exports = {
   resolveSourceId(source) {
     return source.id;
   },
-  resolveSourceValue(source, iri) {
+  resolveSourcePropertyValue(source, iri) {
     return source[getIriLocalName(iri)];
   },
-  resolveSourceClass(source) {
+  resolveSourceClassIri(source) {
     return `http://foo.com#${source.type}`;
   },
   resolveResource(id) {

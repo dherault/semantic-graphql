@@ -1,6 +1,7 @@
 const path = require('path');
 const { readFileSync } = require('fs');
 const createRdfParser = require('n3').Parser;
+const { rdfsDomain } = require('./constants');
 const invariant = require('./utils/invariant');
 const isValidIri = require('./utils/isValidIri');
 const getIriLocalName = require('./utils/getIriLocalName');
@@ -36,7 +37,7 @@ class SemanticGraph {
       const { fromGlobalId, nodeDefinitions } = requireGraphqlRelay();
 
       const resolveNode = (globalId, context, info) => this.resolvers.resolveResource(fromGlobalId(globalId).id, context, info);
-      const resolveType = node => getGraphqlObjectType(this, this.resolvers.resolveSourceClass(node));
+      const resolveType = node => getGraphqlObjectType(this, this.resolvers.resolveSourceClassIri(node));
 
       // Add this.nodeInterface and this.nodeField
       Object.assign(this, nodeDefinitions(resolveNode, resolveType));
@@ -44,7 +45,7 @@ class SemanticGraph {
 
     this.addTriple = t => indexTriple(this, t);
     this.parse = (d, o) => createRdfParser(o).parse(d).forEach(this.addTriple);
-    this.parseFile = (l, e = utf8) => this.parse(readFileSync(l, e));
+    this.parseFile = (l, o, e = utf8) => this.parse(readFileSync(l, e), o);
     this.getLocalName = iri => this[iri].localName ? this[iri].localName : this[iri].localName = getIriLocalName(iri);
     this.getObjectType = iri => getGraphqlObjectType(this, iri);
     this.getInterfaceType = iri => getGraphqlInterfaceType(this, iri);
@@ -52,6 +53,20 @@ class SemanticGraph {
     this.getConnectionType = iri => getRelayConnectionType(this, iri);
     this.toString = () => '[SemanticGraph]';
   }
+
+  addField(classIri, fieldName, graphqlFieldConfig) {
+    const iri = `http://CUSTOM_FIELD#${fieldName}`;
+
+    this[iri] = { graphqlFieldConfig };
+    upsert(this, iri, rdfsDomain, classIri);
+
+    return iri;
+    // TODO:
+    // extend field for a given class
+    // ignore class or field globally
+    // delete field on an ObjectType
+  }
+
 }
 
 function indexTriple(g, { subject, predicate, object }) {

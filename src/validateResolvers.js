@@ -1,7 +1,7 @@
 const resolverNames = [
   'resolveSourceId',
-  'resolveSourceValue',
-  'resolveSourceClass',
+  'resolveSourcePropertyValue',
+  'resolveSourceClassIri',
   'resolveResource',
   'resolveResources',
   'resolveResourcesByPredicate',

@@ -36,7 +36,7 @@ function getGraphqlObjectResolver(g, iri) {
 
   // The actual resolve function
   const resolver = (source, args, context, info) => {
-    const ref = resolvers.resolveSourceValue(source, iri);
+    const ref = resolvers.resolveSourcePropertyValue(source, iri);
 
     if (ref === null) return null;
 
