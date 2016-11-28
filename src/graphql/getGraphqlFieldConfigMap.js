@@ -38,12 +38,7 @@ function getGraphqlFieldConfigMap(g, iri) {
     fieldConfigMap.id = {
       type: GraphQLID,
       description: 'A unique identifier for the resource',
-      resolve: (source, args, context, info) => {
-        // If the source is an IRI, we are dealing with an in-graph individual
-        if (isValidIri(source)) return source;
-
-        return g.resolvers.resolveSourceId(source, args, context, info);
-      },
+      resolve: (source, args, context, info) => g.resolvers.resolveSourceId(source, context, info),
     };
   }
 

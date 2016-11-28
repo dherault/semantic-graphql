@@ -39,20 +39,9 @@ function getGraphqlObjectResolver(g, iri) {
   // The actual resolve function
   const resolver = (source, args, context, info) => {
 
-    // If the source is an IRI, we are dealing with an in-graph individual
-    if (isValidIri(source)) {
-      if (g[source] && g[source][iri]) {
-        const data = g[source][iri];
-
-        return isList ? data : data[0];
-      }
-
-      return isList ? [] : null;
-    }
-
     const ref = resolvers.resolveSourcePropertyValue(source, iri);
 
-    if (ref === null) return null;
+    if (ref === null) return isList ? [] : null;
 
     if (typeof ref !== 'undefined') {
       return isList ?
@@ -76,7 +65,7 @@ function getGraphqlObjectResolver(g, iri) {
       });
     }
 
-    return null;
+    return isList ? [] : null;
   };
 
   if (g.config.relay && g[iri].isRelayConnection) {

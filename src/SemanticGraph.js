@@ -5,6 +5,7 @@ const { rdfIri, rdfsIri, owlIri, rdfsDomain } = require('./constants');
 const invariant = require('./utils/invariant');
 const isValidIri = require('./utils/isValidIri');
 const getIriLocalName = require('./utils/getIriLocalName');
+const createResolvers = require('./createResolvers');
 const validateResolvers = require('./validateResolvers');
 const requireGraphqlRelay = require('./requireGraphqlRelay');
 const getGraphqlObjectType = require('./graphql/getGraphqlObjectType');
@@ -33,9 +34,9 @@ class SemanticGraph {
     invariant(resolvers && typeof resolvers === 'object', 'Expected first arg to be an object');
     invariant(config && typeof config === 'object', 'Expected second arg to be an object');
 
-    validateResolvers(resolvers);
+    Object.assign(this, baseGraph, { config });
 
-    Object.assign(this, baseGraph, { resolvers, config });
+    this.resolvers = createResolvers(this, validateResolvers(resolvers));
 
     this.config.prefixes = Object.assign({}, basePrefixes, this.config.prefixes);
 
