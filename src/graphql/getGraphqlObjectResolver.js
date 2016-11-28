@@ -1,5 +1,6 @@
 const { owlInverseOf, _owlInverseOf, rdfsRange, rdfsDomain, _subClassOf } = require('../constants');
 const { walkmap } = require('../walkGraph');
+const isValidIri = require('../utils/isValidIri');
 const isGraphqlList = require('./isGraphqlList');
 const requireGraphqlRelay = require('../requireGraphqlRelay');
 
@@ -34,8 +35,21 @@ function getGraphqlObjectResolver(g, iri) {
     });
   }
 
+  // XXX: put outside of scope to avoid re-allocation ?
   // The actual resolve function
   const resolver = (source, args, context, info) => {
+
+    // If the source is an IRI, we are dealing with an in-graph individual
+    if (isValidIri(source)) {
+      if (g[source] && g[source][iri]) {
+        const data = g[source][iri];
+
+        return isList ? data : data[0];
+      }
+
+      return isList ? [] : null;
+    }
+
     const ref = resolvers.resolveSourcePropertyValue(source, iri);
 
     if (ref === null) return null;

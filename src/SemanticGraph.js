@@ -1,7 +1,7 @@
 const path = require('path');
 const { readFileSync } = require('fs');
 const createRdfParser = require('n3').Parser;
-const { rdfsDomain } = require('./constants');
+const { rdfIri, rdfsIri, owlIri, rdfsDomain } = require('./constants');
 const invariant = require('./utils/invariant');
 const isValidIri = require('./utils/isValidIri');
 const getIriLocalName = require('./utils/getIriLocalName');
@@ -12,10 +12,16 @@ const getGraphqlInterfaceType = require('./graphql/getGraphqlInterfaceType');
 const getRelayEdgeType = require('./graphql/getRelayEdgeType');
 const getRelayConnectionType = require('./graphql/getRelayConnectionType');
 
-const baseGraph = {};
 const utf8 = 'utf-8';
 const ttlParser = createRdfParser();
 const parseFileAndIndex = (g, l) => ttlParser.parse(readFileSync(path.join(__dirname, l), utf8)).forEach(t => indexTriple(g, t));
+
+const baseGraph = {};
+const basePrefixes = {
+  Rdf: rdfIri,
+  Rdfs: rdfsIri,
+  Owl: owlIri,
+};
 
 parseFileAndIndex(baseGraph, '../ontologies/rdf.ttl');
 parseFileAndIndex(baseGraph, '../ontologies/rdfs.ttl');
@@ -30,6 +36,8 @@ class SemanticGraph {
     validateResolvers(resolvers);
 
     Object.assign(this, baseGraph, { resolvers, config });
+
+    this.config.prefixes = Object.assign({}, basePrefixes, this.config.prefixes);
 
     if (config.relay) {
       const { fromGlobalId, nodeDefinitions } = requireGraphqlRelay();
@@ -52,17 +60,25 @@ class SemanticGraph {
     this.toString = () => '[SemanticGraph]';
   }
 
-  addField(classIri, fieldName, graphqlFieldConfig) {
-    const iri = `http://CUSTOM_FIELD#${fieldName}`;
+  addFieldOnObjectType(classIri, fieldName, graphqlFieldConfig) {
+    if (!this[classIri]) throw new Error(`Class not found: ${classIri}`);
+
+    const iri = `http://CUSTOM_FIELD_${Math.random().slice(2)}#${fieldName}`;
 
     this[iri] = { graphqlFieldConfig };
     upsert(this, iri, rdfsDomain, classIri);
 
-    return iri;
-    // TODO:
-    // extend field for a given class
-    // ignore class or field globally
-    // delete field on an ObjectType
+    return iri; // If the user wants to extend it later (why not)
+  }
+
+  extendFieldOnObjectType(classIri, propertyIri, graphqlFieldConfigExtension) {
+    const x = this[classIri];
+
+    if (!x) throw new Error(`Class not found: ${classIri}`);
+
+    if (!x.graphqlFieldConfigExtensionMap) x.graphqlFieldConfigExtensionMap = {};
+
+    x.graphqlFieldConfigExtensionMap[propertyIri] = graphqlFieldConfigExtension;
   }
 
 }

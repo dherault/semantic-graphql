@@ -29,16 +29,16 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "eslint": "^3.10.2",
+    "eslint": "^3.11.0",
     "eslint-config-airbnb-base": "^10.0.1",
     "eslint-plugin-import": "^2.2.0",
     "graphql": "^0.8.2",
     "graphql-relay": "^0.4.4",
     "istanbul": "^0.4.5",
-    "mocha": "^3.1.2"
+    "mocha": "^3.2.0"
   },
   "dependencies": {
-    "n3": "^0.8.2"
+    "n3": "^0.8.3"
   },
   "peerDependencies": {
     "graphql": "^0.7.0"
