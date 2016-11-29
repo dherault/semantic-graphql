@@ -1,7 +1,8 @@
 const { GraphQLObjectType } = require('graphql');
+const memorize = require('../graph/memorize');
+const ensureResourceExistance = require('../graph/ensureResourceExistance');
 const getGraphqlName = require('./getGraphqlName');
 const getGraphqlDescription = require('./getGraphqlDescription');
-const memorize = require('../memorize');
 
 function getGraphqlObjectType(g, iri) {
 
@@ -13,4 +14,4 @@ function getGraphqlObjectType(g, iri) {
   });
 }
 
-module.exports = memorize(getGraphqlObjectType, 'graphqlObjectType');
+module.exports = ensureResourceExistance(memorize(getGraphqlObjectType, 'graphqlObjectType'));

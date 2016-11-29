@@ -1,9 +1,8 @@
 const { rdfsResource } = require('../constants');
 const getGraphqlInterfaceType = require('./getGraphqlInterfaceType');
 
-function getGraphqlPolymorphicObjectType(g, ranges) {
-  // throw new Error('getGraphqlPolymorphicObjectType');
-
+function getGraphqlPolymorphicObjectType(g/*, ranges*/) {
+  // TODO
   return getGraphqlInterfaceType(g, rdfsResource);
 }
 

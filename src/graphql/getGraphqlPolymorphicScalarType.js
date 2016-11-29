@@ -1,5 +1,6 @@
 const { GraphQLScalarType } = require('graphql');
 const ArrayKeyedMap = require('../ArrayKeyedMap');
+const getIriLocalName = require('../utils/getIriLocalName');
 const { graphqlScalarTypes, graphqlScalarMethods } = require('../scalars');
 
 const memory = new ArrayKeyedMap();
@@ -10,7 +11,7 @@ function getGraphqlPolymorphicScalarType(g, ranges) {
   // Polymorphic range: not cached, so we create it
   // NOTE: The current implementation uses the ordered ranges to pick the prefered type when
   // multiple types are available. (typically float and integer, string and id, etc...)
-  const localNames = ranges.map(range => g.getLocalName(range));
+  const localNames = ranges.map(range => getIriLocalName(range));
   const scalarTypes = localNames.map(localName => graphqlScalarTypes[localName]);
 
   if (scalarTypes.some(type => !type)) throw new Error(`Validate much? ranges: ${ranges}`);

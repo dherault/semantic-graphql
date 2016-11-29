@@ -1,5 +1,5 @@
 const { rdfsSubClassOf, rdfsResource } = require('../constants');
-const { walkmap } = require('../walkGraph');
+const { walkmap } = require('../graph/traversal');
 const getGraphqlInterfaceType = require('./getGraphqlInterfaceType');
 
 function getGraphqlInterfaces(g, iri) {

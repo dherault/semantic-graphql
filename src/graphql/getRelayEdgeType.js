@@ -1,5 +1,6 @@
 const requireGraphqlRelay = require('../requireGraphqlRelay');
-const memorize = require('../memorize');
+const memorize = require('../graph/memorize');
+const ensureResourceExistance = require('../graph/ensureResourceExistance');
 const getGraphqlObjectType = require('./getGraphqlObjectType');
 
 // Yes this can be dryer
@@ -12,4 +13,4 @@ function getRelayEdgeType(g, iri) {
   }
 }
 
-module.exports = memorize(getRelayEdgeType, 'relayEdgeType');
+module.exports = ensureResourceExistance(memorize(getRelayEdgeType, 'relayEdgeType'));

@@ -1,8 +1,8 @@
 const { GraphQLID } = require('graphql');
 const { rdfsSubClassOf, rdfsResource, _rdfsDomain, _rdfsSubPropertyOf } = require('../constants');
-const memorize = require('../memorize');
-const { walkmap } = require('../walkGraph');
-const isValidIri = require('../utils/isValidIri');
+const getIriLocalName = require('../utils/getIriLocalName');
+const memorize = require('../graph/memorize');
+const { walkmap } = require('../graph/traversal');
 const requireGraphqlRelay = require('../requireGraphqlRelay');
 const getGraphqlFieldConfig = require('./getGraphqlFieldConfig');
 const getGraphqlName = require('./getGraphqlName');
@@ -23,7 +23,7 @@ function getGraphqlFieldConfigMap(g, iri) {
   const fieldConfigExtensionMap = g[iri].graphqlFieldConfigExtensions || {}; // From userland
 
   properties.forEach(propertyIri => {
-    const localName = g.getLocalName(propertyIri);
+    const localName = getIriLocalName(propertyIri);
 
     if (fieldConfigMap[localName]) return console.log(`Warning: Duplicate localName with ${propertyIri} on fieldConfigMap of ${iri}`);
 

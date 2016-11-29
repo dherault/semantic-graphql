@@ -1,6 +1,7 @@
 const { GraphQLInterfaceType } = require('graphql');
-const memorize = require('../memorize');
-const isValidIri = require('../utils/isValidIri');
+const memorize = require('../graph/memorize');
+const ensureResourceExistance = require('../graph/ensureResourceExistance');
+const isIri = require('../utils/isIri');
 const getGraphqlName = require('./getGraphqlName');
 const getGraphqlObjectType = require('./getGraphqlObjectType');
 const getGraphqlFieldConfigMap = require('./getGraphqlFieldConfigMap');
@@ -14,9 +15,9 @@ function getGraphqlInterfaceType(g, iri) {
     resolveType: (source, info) => {
       const iri = g.resolvers.resolveSourceClassIri(source, info);
 
-      return isValidIri(iri) ? getGraphqlObjectType(g, iri) : null;
+      return isIri(iri) ? getGraphqlObjectType(g, iri) : null;
     },
   });
 }
 
-module.exports = memorize(getGraphqlInterfaceType, 'graphqlInterfaceType');
+module.exports = ensureResourceExistance(memorize(getGraphqlInterfaceType, 'graphqlInterfaceType'));

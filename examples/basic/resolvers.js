@@ -12,12 +12,12 @@ module.exports = {
     return `http://foo.com#${source.type}`;
   },
   resolveResource(id) {
-    console.log('resolveId', id);
+    console.log('resolveResource', id);
 
     return data.find(n => n.id === id);
   },
   resolveResources(ids) {
-    console.log('resolveId', ids);
+    console.log('resolveResources', ids);
 
     return data.filter(n => ids.includes(n.id));
   },
@@ -25,7 +25,7 @@ module.exports = {
     const typesLocalNames = types.map(getIriLocalName);
     const localName = getIriLocalName(iri);
 
-    console.log('resolvePredicate', typesLocalNames, localName, value);
+    console.log('resolveResourcesByPredicate', typesLocalNames, localName, value);
 
     return data.filter(n => typesLocalNames.includes(n.type) && n[localName] === value);
   },

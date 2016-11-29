@@ -3,10 +3,7 @@ const { readFileSync } = require('fs');
 const createRdfParser = require('n3').Parser;
 const { rdfIri, rdfsIri, owlIri, rdfsDomain } = require('./constants');
 const invariant = require('./utils/invariant');
-const isValidIri = require('./utils/isValidIri');
-const getIriLocalName = require('./utils/getIriLocalName');
-const createResolvers = require('./createResolvers');
-const validateResolvers = require('./validateResolvers');
+const isIri = require('./utils/isIri');
 const requireGraphqlRelay = require('./requireGraphqlRelay');
 const getGraphqlObjectType = require('./graphql/getGraphqlObjectType');
 const getGraphqlInterfaceType = require('./graphql/getGraphqlInterfaceType');
@@ -33,10 +30,9 @@ class SemanticGraph {
   constructor(resolvers, config = {}) {
     invariant(resolvers && typeof resolvers === 'object', 'Expected first arg to be an object');
     invariant(config && typeof config === 'object', 'Expected second arg to be an object');
+    validateResolvers(resolvers);
 
-    Object.assign(this, baseGraph, { config });
-
-    this.resolvers = createResolvers(this, validateResolvers(resolvers));
+    Object.assign(this, baseGraph, { config, resolvers });
 
     this.config.prefixes = Object.assign({}, basePrefixes, this.config.prefixes);
 
@@ -53,7 +49,6 @@ class SemanticGraph {
     this.addTriple = t => indexTriple(this, t);
     this.parse = (d, o) => createRdfParser(o).parse(d).forEach(this.addTriple);
     this.parseFile = (l, o, e = utf8) => this.parse(readFileSync(l, e), o);
-    this.getLocalName = iri => this[iri].localName ? this[iri].localName : this[iri].localName = getIriLocalName(iri);
     this.getObjectType = iri => getGraphqlObjectType(this, iri);
     this.getInterfaceType = iri => getGraphqlInterfaceType(this, iri);
     this.getEdgeType = iri => getRelayEdgeType(this, iri);
@@ -85,11 +80,11 @@ class SemanticGraph {
 }
 
 function indexTriple(g, { subject, predicate, object }) {
-  if (!(isValidIri(subject) && isValidIri(predicate)) || g[subject] && g[subject][predicate] && g[subject][predicate].includes(object)) return;
+  if (!(isIri(subject) && isIri(predicate)) || g[subject] && g[subject][predicate] && g[subject][predicate].includes(object)) return;
 
   upsert(g, subject, predicate, object);
 
-  if (isValidIri(object)) upsert(g, object, `_${predicate}`, subject);
+  if (isIri(object)) upsert(g, object, `_${predicate}`, subject);
 }
 
 function upsert(theGuy, whoDid, what, kevinOffACliff) {
@@ -100,6 +95,25 @@ function upsert(theGuy, whoDid, what, kevinOffACliff) {
   theGuyWhoDid[what].push(kevinOffACliff) :
   theGuyWhoDid[what] = [kevinOffACliff] : // ?!!??!
   theGuy[whoDid] = { [what]: [kevinOffACliff] };
+}
+
+const resolverNames = [
+  'resolveSourceId',
+  'resolveSourcePropertyValue',
+  'resolveSourceClassIri',
+  'resolveResource',
+  'resolveResources',
+  'resolveResourcesByPredicate',
+];
+
+function validateResolvers(resolvers) {
+  resolverNames.forEach(key => {
+    const type = typeof resolvers[key];
+
+    invariant(type === 'function', `Resolver validation: expected "${key}" to be a function, got ${type} instead.`);
+  });
+
+  return resolvers;
 }
 
 module.exports = SemanticGraph;

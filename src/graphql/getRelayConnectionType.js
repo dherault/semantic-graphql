@@ -1,5 +1,6 @@
 const requireGraphqlRelay = require('../requireGraphqlRelay');
-const memorize = require('../memorize');
+const memorize = require('../graph/memorize');
+const ensureResourceExistance = require('../graph/ensureResourceExistance');
 const getGraphqlObjectType = require('./getGraphqlObjectType');
 
 function getRelayConnectionType(g, iri) {
@@ -11,4 +12,4 @@ function getRelayConnectionType(g, iri) {
   }
 }
 
-module.exports = memorize(getRelayConnectionType, 'relayConnectionType');
+module.exports = ensureResourceExistance(memorize(getRelayConnectionType, 'relayConnectionType'));

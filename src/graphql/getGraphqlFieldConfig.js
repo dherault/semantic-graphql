@@ -1,7 +1,7 @@
 const { GraphQLList } = require('graphql');
 const { xsdIri, rdfsLiteral, rdfsSubPropertyOf, rdfsRange } = require('../constants');
-const { walklook } = require('../walkGraph');
-const memorize = require('../memorize');
+const { walklook } = require('../graph/traversal');
+const memorize = require('../graph/memorize');
 const requireGraphqlRelay = require('../requireGraphqlRelay');
 const isGraphqlList = require('./isGraphqlList');
 const getGraphqlDescription = require('./getGraphqlDescription');

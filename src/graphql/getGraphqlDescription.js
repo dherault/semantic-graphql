@@ -1,6 +1,6 @@
 const { getLiteralValue } = require('n3').Util;
 const { rdfsLabel, rdfsComment } = require('../constants');
-const memorize = require('../memorize');
+const memorize = require('../graph/memorize');
 
 function getGraphqlDescription(g, iri) {
   const label = g[iri][rdfsLabel] ? getLiteralValue(g[iri][rdfsLabel][0]) : '';

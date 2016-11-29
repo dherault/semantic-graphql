@@ -1,6 +1,5 @@
 const { owlInverseOf, _owlInverseOf, rdfsRange, rdfsDomain, _subClassOf } = require('../constants');
-const { walkmap } = require('../walkGraph');
-const isValidIri = require('../utils/isValidIri');
+const { walkmap } = require('../graph/traversal');
 const isGraphqlList = require('./isGraphqlList');
 const requireGraphqlRelay = require('../requireGraphqlRelay');
 
