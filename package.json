@@ -16,13 +16,13 @@
   "engines": {
     "node": ">=6.0.0"
   },
+  "//test": "./node_modules/.bin/mocha $npm_package_options_mocha",
+  "//prepublish": "./scripts/checkgit.sh && npm test && npm run build",
   "scripts": {
-    "test": "./node_modules/.bin/mocha $npm_package_options_mocha",
     "coverage": "./node_modules/.bin/istanbul cover _mocha -- $npm_package_options_mocha",
     "coverage:serve": "cd coverage/lcov-report && python -m SimpleHTTPServer",
     "coverage:all": "npm run coverage && npm run coverage:serve",
-    "dev": "cd examples/basic && npm run watch",
-    "prepublish": "./scripts/checkgit.sh && npm test && npm run build"
+    "dev": "cd examples/basic && npm run watch"
   },
   "options": {
     "mocha": "--bail --check-leaks"
@@ -41,6 +41,6 @@
     "n3": "^0.8.3"
   },
   "peerDependencies": {
-    "graphql": "^0.7.0"
+    "graphql": "^0.8.2"
   }
 }
