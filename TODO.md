@@ -8,4 +8,4 @@
 - [x] extend field for a given class
 - [x] ignore class or field globally: userland
 - [x] delete field on an ObjectType: userland ?
-- [ ] mutate graph data: wont do
+- [x] mutate graph data: wont do

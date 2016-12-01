@@ -1,7 +1,7 @@
 {
   "name": "semantic-graphql",
   "version": "0.1.0",
-  "description": "",
+  "description": "Create GraphQL schemas from RDF-based ontologies",
   "main": "index.js",
   "author": "David Hérault <dherault@gmail.com> (https://github.com/dherault)",
   "license": "SEE LICENSE IN LICENSE",

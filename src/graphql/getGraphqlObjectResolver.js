@@ -1,4 +1,7 @@
 const { owlInverseOf, _owlInverseOf, rdfsRange, rdfsDomain, _subClassOf } = require('../constants');
+const isNil = require('../utils/isNil');
+const castArrayShape = require('../utils/castArrayShape');
+const promisify = require('../utils/promisify');
 const { walkmap } = require('../graph/traversal');
 const isGraphqlList = require('./isGraphqlList');
 const requireGraphqlRelay = require('../requireGraphqlRelay');
@@ -36,36 +39,37 @@ function getGraphqlObjectResolver(g, iri) {
 
   // XXX: put outside of scope to avoid re-allocation ?
   // The actual resolve function
-  const resolver = (source, args, context, info) => {
+  const resolver = (source, args, context, info) => promisify(resolvers.resolveSourcePropertyValue(source, iri))
+  .then(ref => {
 
-    const ref = resolvers.resolveSourcePropertyValue(source, iri);
-
-    if (ref === null) return isList ? [] : null;
-
-    if (typeof ref !== 'undefined') {
-      return isList ?
-        resolvers.resolveResources(Array.isArray(ref) ? ref : [ref], context, info) :
-        resolvers.resolveResource(Array.isArray(ref) ? ref[0] : ref, context, info);
+    if (!isNil(ref)) {
+      return (isList ? resolvers.resolveResources : resolvers.resolveResource)(castArrayShape(isList, ref));
     }
 
+    // No reference(s) to data was resolved, maybe the data is on an inverse Property
     if (inverseOfMap && inverseOfMap.size) {
 
-      const sourceId = resolvers.resolveSourceId(source, context, info);
-      const promises = [];
+      return promisify(resolvers.resolveSourceId(source, context, info))
+      .then(sourceId => {
 
-      inverseOfMap.forEach((admitingRanges, propertyIri) => {
-        promises.push(resolvers.resolveResourcesByPredicate(admitingRanges, propertyIri, sourceId, context, info));
-      });
+        const promises = [];
 
-      return Promise.all(promises).then(results => {
-        const finalResult = results.reduce((a, b) => a.concat(b), []);
+        inverseOfMap.forEach((admitingRanges, propertyIri) => {
+          promises.push(resolvers.resolveResourcesByPredicate(admitingRanges, propertyIri, sourceId, context, info));
+        });
 
-        return isList ? finalResult : finalResult[0];
+        return Promise.all(promises)
+        .then(results => {
+          const finalResult = results.reduce((a, b) => a.concat(b), []);
+
+          return isList ? finalResult : finalResult[0];
+        });
       });
     }
 
+    // Give up
     return isList ? [] : null;
-  };
+  });
 
   if (g.config.relay && g[iri].isRelayConnection) {
     const { connectionFromArray, connectionFromPromisedArray } = requireGraphqlRelay();
