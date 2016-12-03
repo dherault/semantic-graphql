@@ -4,7 +4,7 @@
   "description": "Create GraphQL schemas from RDF-based ontologies",
   "main": "index.js",
   "author": "David Hérault <dherault@gmail.com> (https://github.com/dherault)",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nelson-ai/semantic-graphql.git"
