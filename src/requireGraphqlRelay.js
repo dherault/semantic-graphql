@@ -15,7 +15,7 @@ function requireGraphqlRelay() {
   if (!graphqlRelay) {
     // Go up until graphql-relay is found
     // Inspired by https://www.npmjs.com/package/parent-require
-    for (let parent = module.parent; !graphqlRelay || parent; parent = parent.parent) {
+    for (let parent = module.parent; parent && !graphqlRelay; parent = parent.parent) {
       try {
         graphqlRelay = parent.require('graphql-relay');
       }
