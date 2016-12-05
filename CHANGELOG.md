@@ -6,9 +6,10 @@
 - Promise support for all resolvers
 
 **Bug fixes:**
-- Fix requireGraphqlRelay behavior
-- Fix a bug on SemanticGraph#addFieldOnObjectType
-- Fix a bug that happened when inferring owl:inverseOf on properties that are a rdfs:subProperty with no rdfs:range
+- Fixed requireGraphqlRelay behavior
+- Fixed a bug on SemanticGraph#addFieldOnObjectType
+- Fixed a bug that happened when inferring owl:inverseOf on properties that are a rdfs:subProperty with no rdfs:range
+- Fixed a circular dependency in ./src/graphql
 
 **Miscellaneous:**
 - Add .npmignore file
