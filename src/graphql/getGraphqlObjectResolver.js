@@ -1,4 +1,4 @@
-const { owlInverseOf, _owlInverseOf, rdfsRange, rdfsDomain, _subClassOf } = require('../constants');
+const { owlInverseOf, _owlInverseOf, rdfsDomain, _subClassOf } = require('../constants');
 const isNil = require('../utils/isNil');
 const castArrayShape = require('../utils/castArrayShape');
 const promisify = require('../utils/promisify');
@@ -6,7 +6,7 @@ const { walkmap } = require('../graph/traversal');
 const isGraphqlList = require('./isGraphqlList');
 const requireGraphqlRelay = require('../requireGraphqlRelay');
 
-function getGraphqlObjectResolver(g, iri) {
+function getGraphqlObjectResolver(g, iri, ranges) {
   const { resolvers } = g;
   const isList = isGraphqlList(g, iri);
 
@@ -21,7 +21,7 @@ function getGraphqlObjectResolver(g, iri) {
     if (g[iri][_owlInverseOf]) g[iri][_owlInverseOf].forEach(inverseProperties.add, inverseProperties);
 
     // We want to look for the full extent of the currentProperty's range, i.e. include its subClasses
-    g[iri][rdfsRange].forEach(rangeIri => walkmap(g, rangeIri, _subClassOf, extendedRanges));
+    ranges.forEach(rangeIri => walkmap(g, rangeIri, _subClassOf, extendedRanges));
 
     // For each inverseProperty we map the corresponding classes
     // That are both of the currentProperty's extended range and the inverseProperty's domain

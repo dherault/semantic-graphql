@@ -38,7 +38,7 @@ function getGraphqlFieldConfig(g, iri) {
     return console.log(`Warning: mixed literal/non-literal ranges on ${iri}:\n${ranges}`);
   }
   else {
-    fieldConfig.resolve = getGraphqlObjectResolver(g, iri);
+    fieldConfig.resolve = getGraphqlObjectResolver(g, iri, ranges);
     fieldConfig.type = nRanges === 1 ? getGraphqlObjectType(g, ranges[0]) : getGraphqlPolymorphicObjectType(g, ranges);
   }
 
