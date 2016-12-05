@@ -7,6 +7,7 @@
 
 **Bug fixes:**
 - Fix requireGraphqlRelay behavior
+- Fix a bug on SemanticGraph#addFieldOnObjectType
 
 **Miscellaneous:**
 - Add .npmignore file

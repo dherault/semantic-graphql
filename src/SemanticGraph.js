@@ -59,10 +59,15 @@ class SemanticGraph {
   addFieldOnObjectType(classIri, fieldName, graphqlFieldConfig) {
     if (!this[classIri]) throw new Error(`Class not found: ${classIri}`);
 
-    const iri = `http://CUSTOM_FIELD_${Math.random().slice(2)}#${fieldName}`;
+    const iri = `http://CUSTOM_FIELD_${Math.random().toString().slice(2)}#${fieldName}`;
 
     this[iri] = { graphqlFieldConfig };
-    upsert(this, iri, rdfsDomain, classIri);
+
+    indexTriple(this, {
+      subject: iri,
+      predicate: rdfsDomain,
+      object: classIri,
+    });
 
     return iri; // If the user wants to extend it later (why not)
   }
