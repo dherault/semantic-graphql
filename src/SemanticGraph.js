@@ -38,12 +38,10 @@ class SemanticGraph {
 
     if (config.relay) {
       const { fromGlobalId, nodeDefinitions } = requireGraphqlRelay();
-
       const resolveNode = (globalId, context, info) => this.resolvers.resolveResource(fromGlobalId(globalId).id, context, info);
-      const resolveType = node => getGraphqlObjectType(this, this.resolvers.resolveSourceClassIri(node));
 
       // Add this.nodeInterface and this.nodeField
-      Object.assign(this, nodeDefinitions(resolveNode, resolveType));
+      Object.assign(this, nodeDefinitions(resolveNode));
     }
 
     this.addTriple = t => indexTriple(this, t);
@@ -104,8 +102,8 @@ function upsert(theGuy, whoDid, what, kevinOffACliff) {
 
 const resolverNames = [
   'resolveSourceId',
+  'resolveSourceTypes',
   'resolveSourcePropertyValue',
-  'resolveSourceClassIri',
   'resolveResource',
   'resolveResources',
   'resolveResourcesByPredicate',

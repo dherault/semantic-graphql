@@ -8,7 +8,7 @@ module.exports = {
   resolveSourcePropertyValue(source, iri) {
     return source[getIriLocalName(iri)];
   },
-  resolveSourceClassIri(source) {
+  resolveSourceTypes(source) {
     return `http://foo.com#${source.type}`;
   },
   resolveResource(id) {

@@ -1,4 +1,4 @@
-function castArrayShape(shouldBeArray, value) {
+function castArrayShape(value, shouldBeArray = true) {
   const isArray = Array.isArray(value);
 
   return shouldBeArray ?

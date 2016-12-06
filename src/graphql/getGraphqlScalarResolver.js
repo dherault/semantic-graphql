@@ -9,7 +9,7 @@ function getGraphqlScalarResolver(g, iri) {
   return (source, args, context, info) => promisify(g.resolvers.resolveSourcePropertyValue(source, iri, context, info))
   // We try to return data that is consistant with the property definition
   // i.e. if it's a list, return an Array
-  .then(result => isNil(result) ? isList ? [] : null : castArrayShape(isList, result));
+  .then(result => isNil(result) ? isList ? [] : null : castArrayShape(result, isList));
 }
 
 module.exports = getGraphqlScalarResolver;

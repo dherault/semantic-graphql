@@ -100,7 +100,7 @@ See the [Relay example](#).
 
 #### resolveSourceId
 
-#### resolveSourceClassIri
+#### resolveSourceTypes
 
 #### resolveSourcePropertyValue
 
@@ -130,6 +130,7 @@ If "key" is already present, the library will use the underlying value and won't
 | class | relayConnectionType | ConnectionType |
 | class | relayEdgeType | EdgeType |
 | property | isGraphqlList | Boolean |
+| property | isRelayConnection | Boolean |
 | property | graphqlFieldConfig | GraphQLFieldConfig |
 | property | graphqlFieldConfigExtension | partial GraphQLFieldConfig, to modify only parts of it |
 

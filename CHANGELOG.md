@@ -2,6 +2,11 @@
 
 # 0.2.0
 
+**Breaking changes:**
+- Removed resolvers.resolveSourceClassIri
+- Added resolvers.resolveSourceTypes
+- Interface type resolving now happens on GraphQLObjectTypes. This means that your external GraphQLObjectTypes must provide an isTypeOf method.
+
 **New features:**
 - Promise support for all resolvers
 

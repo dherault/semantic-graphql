@@ -6,10 +6,10 @@ module.exports = {
     return source.id;
   },
   resolveSourcePropertyValue(source, iri) {
-    return source[getIriLocalName(iri)];
+    return source[getIriLocalName(iri)]; // The correct shape (array or not) will be cast
   },
-  resolveSourceClassIri(source) {
-    return `http://foo.com#${source.type}`;
+  resolveSourceTypes(source) {
+    return `http://foo.com#${source.type}`; // Or an array of types
   },
   resolveResource(id) {
     console.log('resolveResource', id);

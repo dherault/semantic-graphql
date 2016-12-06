@@ -43,7 +43,7 @@ function getGraphqlObjectResolver(g, iri, ranges) {
   .then(ref => {
 
     if (!isNil(ref)) {
-      return (isList ? resolvers.resolveResources : resolvers.resolveResource)(castArrayShape(isList, ref));
+      return (isList ? resolvers.resolveResources : resolvers.resolveResource)(castArrayShape(ref, isList));
     }
 
     // No reference(s) to data was resolved, maybe the data is on an inverse Property

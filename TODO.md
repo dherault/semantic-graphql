@@ -1,9 +1,15 @@
 # TODO
 
-- [ ] use GraphQLObjectTypeConfig.isTypeOf (with multiple class IRI) instead of GraphQLInterfaceTypeConfig.resolveType.
-      it's optionnal on relay: https://github.com/graphql/graphql-relay-js/blob/373f2dab5fc6d4ac4cf6394aa94cbebd8cb64650/src/node/node.js
 - [ ] Change SemanticGraph API to pass resolvers whenever
 - [ ] isGraphqlList: infer desecendant of owl:FunctionalProperty
+- [ ] promisify resolver at set time
+- [ ] refactor and dry up graphql folder
+- [ ] error messages
+- [ ] docs
+- [ ] tests
+
+- [x] use GraphQLObjectTypeConfig.isTypeOf (with multiple class IRI) instead of GraphQLInterfaceTypeConfig.resolveType.
+      it's optionnal on relay: https://github.com/graphql/graphql-relay-js/blob/373f2dab5fc6d4ac4cf6394aa94cbebd8cb64650/src/node/node.js
 - [x] full promise support
 - [x] individuals support
 - [x] remove individuals support

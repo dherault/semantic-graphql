@@ -31,7 +31,7 @@ const schema = new GraphQLSchema({
         args: {
           id: {
             type: GraphQLString,
-            defaultValue: 'French',
+            defaultValue: 'French', // of rdf:type foo:Language
           },
         },
         resolve: (_, { id }) => data.find(node => node.id === id),
