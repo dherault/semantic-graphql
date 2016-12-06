@@ -1,5 +1,8 @@
 # Company - A company to work and play.
 type Company implements CompanyInterface, ThingInterface, OwlThingInterface, RdfsResourceInterface {
+  # A unique identifier for the resource
+  id: ID
+
   # Founding year - The year the Company was created.
   foundingYear: Int
 
@@ -72,13 +75,13 @@ type Company implements CompanyInterface, ThingInterface, OwlThingInterface, Rdf
 
   # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
   versionInfo: [RdfsResource]
-
-  # A unique identifier for the resource
-  id: ID
 }
 
 # Interface for http://foo.com#Company
 interface CompanyInterface {
+  # A unique identifier for the resource
+  id: ID
+
   # Founding year - The year the Company was created.
   foundingYear: Int
 
@@ -151,13 +154,13 @@ interface CompanyInterface {
 
   # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
   versionInfo: [RdfsResource]
-
-  # A unique identifier for the resource
-  id: ID
 }
 
 # Language - A system for communication.
 type Language implements LanguageInterface, ThingInterface, OwlThingInterface, RdfsResourceInterface {
+  # A unique identifier for the resource
+  id: ID
+
   # Basic words - A few words in that language.
   basicWords: [String]
 
@@ -224,13 +227,13 @@ type Language implements LanguageInterface, ThingInterface, OwlThingInterface, R
 
   # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
   versionInfo: [RdfsResource]
-
-  # A unique identifier for the resource
-  id: ID
 }
 
 # Interface for http://foo.com#Language
 interface LanguageInterface {
+  # A unique identifier for the resource
+  id: ID
+
   # Basic words - A few words in that language.
   basicWords: [String]
 
@@ -297,13 +300,13 @@ interface LanguageInterface {
 
   # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
   versionInfo: [RdfsResource]
-
-  # A unique identifier for the resource
-  id: ID
 }
 
 # Thing - The class of OWL individuals.
 type OwlThing implements OwlThingInterface, RdfsResourceInterface {
+  # A unique identifier for the resource
+  id: ID
+
   # bottomDataProperty - The data property that does not relate any individual to any data value.
   bottomDataProperty: [String]
 
@@ -361,13 +364,13 @@ type OwlThing implements OwlThingInterface, RdfsResourceInterface {
 
   # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
   versionInfo: [RdfsResource]
-
-  # A unique identifier for the resource
-  id: ID
 }
 
 # Interface for http://www.w3.org/2002/07/owl#Thing
 interface OwlThingInterface {
+  # A unique identifier for the resource
+  id: ID
+
   # bottomDataProperty - The data property that does not relate any individual to any data value.
   bottomDataProperty: [String]
 
@@ -425,13 +428,13 @@ interface OwlThingInterface {
 
   # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
   versionInfo: [RdfsResource]
-
-  # A unique identifier for the resource
-  id: ID
 }
 
 # Person - A human being.
 type Person implements PersonInterface, ThingInterface, OwlThingInterface, RdfsResourceInterface {
+  # A unique identifier for the resource
+  id: ID
+
   # Gender - The gender of the Person. False: female, true: male.
   gender: Boolean
 
@@ -513,13 +516,13 @@ type Person implements PersonInterface, ThingInterface, OwlThingInterface, RdfsR
 
   # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
   versionInfo: [RdfsResource]
-
-  # A unique identifier for the resource
-  id: ID
 }
 
 # Interface for http://foo.com#Person
 interface PersonInterface {
+  # A unique identifier for the resource
+  id: ID
+
   # Gender - The gender of the Person. False: female, true: male.
   gender: Boolean
 
@@ -601,9 +604,6 @@ interface PersonInterface {
 
   # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
   versionInfo: [RdfsResource]
-
-  # A unique identifier for the resource
-  id: ID
 }
 
 scalar Polymorphic_scalar_float_string
@@ -617,6 +617,9 @@ type Query {
 
 # List - The class of RDF Lists.
 type RdfList implements RdfListInterface, RdfsResourceInterface {
+  # A unique identifier for the resource
+  id: ID
+
   # first - The first item in the subject RDF list.
   first: [RdfsResource]
 
@@ -662,13 +665,13 @@ type RdfList implements RdfListInterface, RdfsResourceInterface {
 
   # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
   versionInfo: [RdfsResource]
-
-  # A unique identifier for the resource
-  id: ID
 }
 
 # Interface for http://www.w3.org/1999/02/22-rdf-syntax-ns#List
 interface RdfListInterface {
+  # A unique identifier for the resource
+  id: ID
+
   # first - The first item in the subject RDF list.
   first: [RdfsResource]
 
@@ -714,13 +717,13 @@ interface RdfListInterface {
 
   # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
   versionInfo: [RdfsResource]
-
-  # A unique identifier for the resource
-  id: ID
 }
 
 # Class - The class of classes.
 type RdfsClass implements RdfsClassInterface, RdfsResourceInterface {
+  # A unique identifier for the resource
+  id: ID
+
   # subClassOf - The subject is a subclass of a class.
   subClassOf: [RdfsClass]
 
@@ -776,13 +779,13 @@ type RdfsClass implements RdfsClassInterface, RdfsResourceInterface {
 
   # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
   versionInfo: [RdfsResource]
-
-  # A unique identifier for the resource
-  id: ID
 }
 
 # Interface for http://www.w3.org/2000/01/rdf-schema#Class
 interface RdfsClassInterface {
+  # A unique identifier for the resource
+  id: ID
+
   # subClassOf - The subject is a subclass of a class.
   subClassOf: [RdfsClass]
 
@@ -838,13 +841,13 @@ interface RdfsClassInterface {
 
   # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
   versionInfo: [RdfsResource]
-
-  # A unique identifier for the resource
-  id: ID
 }
 
 # Resource - The class resource, everything.
 type RdfsResource implements RdfsResourceInterface {
+  # A unique identifier for the resource
+  id: ID
+
   # type - The subject is an instance of a class.
   type: [RdfsClass]
 
@@ -884,13 +887,13 @@ type RdfsResource implements RdfsResourceInterface {
 
   # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
   versionInfo: [RdfsResource]
-
-  # A unique identifier for the resource
-  id: ID
 }
 
 # Interface for http://www.w3.org/2000/01/rdf-schema#Resource
 interface RdfsResourceInterface {
+  # A unique identifier for the resource
+  id: ID
+
   # type - The subject is an instance of a class.
   type: [RdfsClass]
 
@@ -930,13 +933,13 @@ interface RdfsResourceInterface {
 
   # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
   versionInfo: [RdfsResource]
-
-  # A unique identifier for the resource
-  id: ID
 }
 
 # Interface for http://foo.com#Thing
 interface ThingInterface {
+  # A unique identifier for the resource
+  id: ID
+
   # Name - A term used for identification.
   name: String
 
@@ -997,7 +1000,4 @@ interface ThingInterface {
 
   # versionInfo - The annotation property that provides version information for an ontology or another OWL construct.
   versionInfo: [RdfsResource]
-
-  # A unique identifier for the resource
-  id: ID
 }

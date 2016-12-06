@@ -8,6 +8,7 @@
 - [ ] docs
 - [ ] tests
 
+- [x] place id field on top of the other fields for introspection queries to look nice
 - [x] use GraphQLObjectTypeConfig.isTypeOf (with multiple class IRI) instead of GraphQLInterfaceTypeConfig.resolveType.
       it's optionnal on relay: https://github.com/graphql/graphql-relay-js/blob/373f2dab5fc6d4ac4cf6394aa94cbebd8cb64650/src/node/node.js
 - [x] full promise support

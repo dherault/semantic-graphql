@@ -18,6 +18,7 @@
 
 **Miscellaneous:**
 - Add .npmignore file
+- id field now appears on top when introspecting
 
 # 0.1.0
 
