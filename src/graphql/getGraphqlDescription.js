@@ -1,12 +1,39 @@
-const { getLiteralValue } = require('n3').Util;
+const { isLiteral, getLiteralValue, getLiteralLanguage } = require('n3').Util;
 const { rdfsLabel, rdfsComment } = require('../constants');
+const getIriLocalName = require('../utils/getIriLocalName');
 const memorize = require('../graph/memorize');
 
-function getGraphqlDescription(g, iri) {
-  const label = g[iri][rdfsLabel] ? getLiteralValue(g[iri][rdfsLabel][0]) : '';
-  const comment = g[iri][rdfsComment] && getLiteralValue(g[iri][rdfsComment][0]);
+const englishLocale = 'en';
+const isLiteralWithLocale = locale => l => isLiteral(l) && getLiteralLanguage(l) === locale;
 
-  return `${label}${label && comment ? ' - ' : ''}${comment || ''}`;
+function findValueForLocale(literals, locale) {
+  if (!literals) return null;
+
+  const literal = literals.find(isLiteralWithLocale(locale))
+    || literals.find(isLiteralWithLocale(englishLocale))
+    || literals[0];
+
+  return isLiteral(literal) ? getLiteralValue(literal) : null;
+}
+
+function getGraphqlDescription(g, iri) {
+  // The default locale is "en", can be set with config.locale
+  const { locale = englishLocale } = g.config;
+
+  const label = findValueForLocale(g[iri][rdfsLabel], locale);
+  const comment = findValueForLocale(g[iri][rdfsComment], locale);
+
+  let description = label && getIriLocalName(iri) !== label ? label : '';
+
+  if (comment) {
+    if (description) description += ' - ';
+
+    description += comment;
+  }
+
+  if (description && !description.endsWith('.')) description += '.';
+
+  return description;
 }
 
 module.exports = memorize(getGraphqlDescription, 'graphqlDescription');

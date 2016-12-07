@@ -29,7 +29,7 @@ function getGraphqlFieldConfigMap(g, iri) {
   else if (!g.config.preventIdField) {
     fieldConfigMap.id = {
       type: GraphQLID,
-      description: 'A unique identifier for the resource',
+      description: 'A unique identifier for the resource.',
       resolve: (source, args, context, info) => g.resolvers.resolveSourceId(source, context, info),
     };
   }

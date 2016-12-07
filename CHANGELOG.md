@@ -19,6 +19,7 @@
 **Miscellaneous:**
 - Add .npmignore file
 - id field now appears on top when introspecting
+- graphqlDescription are now created from the locale in config
 
 # 0.1.0
 
