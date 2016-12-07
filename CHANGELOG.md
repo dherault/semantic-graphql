@@ -17,6 +17,7 @@
 - Fixed a circular dependency in ./src/graphql
 
 **Miscellaneous:**
+- Add MIT license
 - Add .npmignore file
 - id field now appears on top when introspecting
 - graphqlDescription are now created from the locale in config
