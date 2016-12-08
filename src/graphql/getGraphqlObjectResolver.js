@@ -39,11 +39,11 @@ function getGraphqlObjectResolver(g, iri, ranges) {
 
   // XXX: put outside of scope to avoid re-allocation ?
   // The actual resolve function
-  const resolver = (source, args, context, info) => promisify(resolvers.resolveSourcePropertyValue(source, iri))
+  const resolver = (source, args, context, info) => promisify(resolvers.resolveSourcePropertyValue(source, iri, context, info))
   .then(ref => {
 
     if (!isNil(ref)) {
-      return (isList ? resolvers.resolveResources : resolvers.resolveResource)(castArrayShape(ref, isList));
+      return (isList ? resolvers.resolveResources : resolvers.resolveResource)(castArrayShape(ref, isList), context, info);
     }
 
     // No reference(s) to data was resolved, maybe the data is on an inverse Property
