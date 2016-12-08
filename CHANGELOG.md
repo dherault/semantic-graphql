@@ -1,5 +1,10 @@
 # Changelog
 
+# 0.2.1
+
+**Bug fixes:**
+- Fixed a bug concerning the inference of owl:inverseOf
+
 # 0.2.0
 
 **Breaking changes:**

@@ -1,4 +1,4 @@
-const { owlInverseOf, _owlInverseOf, rdfsDomain, _subClassOf } = require('../constants');
+const { owlInverseOf, _owlInverseOf, rdfsDomain, _rdfsSubClassOf } = require('../constants');
 const isNil = require('../utils/isNil');
 const castArrayShape = require('../utils/castArrayShape');
 const promisify = require('../utils/promisify');
@@ -20,18 +20,26 @@ function getGraphqlObjectResolver(g, iri, ranges) {
     if (g[iri][owlInverseOf]) g[iri][owlInverseOf].forEach(inverseProperties.add, inverseProperties);
     if (g[iri][_owlInverseOf]) g[iri][_owlInverseOf].forEach(inverseProperties.add, inverseProperties);
 
-    // We want to look for the full extent of the currentProperty's range, i.e. include its subClasses
-    ranges.forEach(rangeIri => walkmap(g, rangeIri, _subClassOf, extendedRanges));
+    // We want to look for the full extent of the currentProperty's ranges, i.e. include their subClasses
+    ranges.forEach(rangeIri => walkmap(g, rangeIri, _rdfsSubClassOf, extendedRanges));
 
     // For each inverseProperty we map the corresponding classes
-    // That are both of the currentProperty's extended range and the inverseProperty's domain
-    // NOTE: should we extend the inverseProperty's domain as well?
+    // That are both of the currentProperty's extended range and the inverseProperty's extended domain
     inverseOfMap = new Map();
 
     inverseProperties.forEach(propertyIri => {
       if (!g[propertyIri][rdfsDomain]) return;
 
-      const admitingRanges = g[propertyIri][rdfsDomain].filter(domainIri => extendedRanges.has(domainIri));
+      const admitingRanges = [];
+      const extendedDomains = new Set();
+
+      // Find the extended domain of the inverseProperty
+      g[propertyIri][rdfsDomain].forEach(domainIri => walkmap(g, domainIri, _rdfsSubClassOf, extendedDomains));
+
+      // And among those domain, keep only those accepted as a range of the currentProperty
+      extendedDomains.forEach(domainIri => {
+        if (extendedRanges.has(domainIri)) admitingRanges.push(domainIri);
+      });
 
       inverseOfMap.set(propertyIri, admitingRanges);
     });
