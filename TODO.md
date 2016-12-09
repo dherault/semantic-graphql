@@ -3,6 +3,7 @@
 - [ ] Change SemanticGraph API to pass resolvers whenever
 - [ ] isGraphqlList: infer desecendant of owl:FunctionalProperty
 - [ ] promisify resolver at set time
+- [ ] add recipes for resolvers
 - [ ] refactor and dry up graphql folder
 - [ ] error messages
 - [ ] docs

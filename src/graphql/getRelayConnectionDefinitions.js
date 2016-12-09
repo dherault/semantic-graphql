@@ -3,14 +3,12 @@ const memorize = require('../graph/memorize');
 const ensureResourceExistance = require('../graph/ensureResourceExistance');
 const getGraphqlObjectType = require('./getGraphqlObjectType');
 
-// Yes this can be dryer
-function getRelayEdgeType(g, iri) {
+function getRelayConnectionDefinitions(g, iri) {
   if (g.config.relay) {
-
-    const nodeType = getGraphqlObjectType(g, iri);
-
-    return requireGraphqlRelay().connectionDefinitions({ nodeType }).edgeType;
+    return requireGraphqlRelay().connectionDefinitions({
+      nodeType: getGraphqlObjectType(g, iri),
+    });
   }
 }
 
-module.exports = ensureResourceExistance(memorize(getRelayEdgeType, 'relayEdgeType'));
+module.exports = ensureResourceExistance(memorize(getRelayConnectionDefinitions, 'relayConnectionDefinitions'));

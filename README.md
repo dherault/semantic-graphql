@@ -127,8 +127,7 @@ If "key" is already present, the library will use the underlying value and won't
 | class | graphqlFieldConfigMap | GraphQLFieldConfigMap |
 | class | graphqlObjectType | GraphQLObjectType |
 | class | graphqlInterfaceType | GraphQLInterfaceType |
-| class | relayConnectionType | ConnectionType |
-| class | relayEdgeType | EdgeType |
+| class | relayConnectionDefinitions | { edgeType, connectionType } |
 | property | isGraphqlList | Boolean |
 | property | isRelayConnection | Boolean |
 | property | graphqlFieldConfig | GraphQLFieldConfig |

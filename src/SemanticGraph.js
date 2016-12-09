@@ -7,8 +7,7 @@ const isIri = require('./utils/isIri');
 const requireGraphqlRelay = require('./requireGraphqlRelay');
 const getGraphqlObjectType = require('./graphql/getGraphqlObjectType');
 const getGraphqlInterfaceType = require('./graphql/getGraphqlInterfaceType');
-const getRelayEdgeType = require('./graphql/getRelayEdgeType');
-const getRelayConnectionType = require('./graphql/getRelayConnectionType');
+const getRelayConnectionDefinitions = require('./graphql/getRelayConnectionDefinitions');
 
 const utf8 = 'utf-8';
 const ttlParser = createRdfParser();
@@ -49,8 +48,8 @@ class SemanticGraph {
     this.parseFile = (l, o, e = utf8) => this.parse(readFileSync(l, e), o);
     this.getObjectType = iri => getGraphqlObjectType(this, iri);
     this.getInterfaceType = iri => getGraphqlInterfaceType(this, iri);
-    this.getEdgeType = iri => getRelayEdgeType(this, iri);
-    this.getConnectionType = iri => getRelayConnectionType(this, iri);
+    this.getEdgeType = iri => getRelayConnectionDefinitions(this, iri).edgeType;
+    this.getConnectionType = iri => getRelayConnectionDefinitions(this, iri).connectionType;
     this.toString = () => '[SemanticGraph]';
   }
 

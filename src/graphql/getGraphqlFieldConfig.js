@@ -11,7 +11,7 @@ const getGraphqlPolymorphicScalarType = require('./getGraphqlPolymorphicScalarTy
 const getGraphqlPolymorphicObjectType = require('./getGraphqlPolymorphicObjectType');
 const getGraphqlScalarResolver = require('./getGraphqlScalarResolver');
 const getGraphqlObjectResolver = require('./getGraphqlObjectResolver');
-const getRelayConnectionType = require('./getRelayConnectionType');
+const getRelayConnectionDefinitions = require('./getRelayConnectionDefinitions');
 
 const isLiteral = iri => iri.startsWith(xsdIri) || iri === rdfsLiteral;
 
@@ -46,7 +46,7 @@ function getGraphqlFieldConfig(g, iri) {
 
   if (g.config.relay && g[iri].isRelayConnection) {
     fieldConfig.args = requireGraphqlRelay().connectionArgs;
-    fieldConfig.type = getRelayConnectionType(g, ranges[0]);
+    fieldConfig.type = getRelayConnectionDefinitions(g, ranges[0]).connectionType;
   }
 
   // Support partial overrides from user

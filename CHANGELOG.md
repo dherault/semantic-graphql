@@ -1,5 +1,13 @@
 # Changelog
 
+# 0.3.0
+
+**Breaking changes:**
+- Cannot override `relayEdgeType` and `relayConnectionType` anymore. `relayConnectionDefinitions` override added instead.
+
+**Bug fixes:**
+- Bug concerning the creation of Relay types
+
 # 0.2.1
 
 **Bug fixes:**
