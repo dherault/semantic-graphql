@@ -1,6 +1,6 @@
 # Changelog
 
-# tbd
+# 0.3.1
 
 **Bug fixes:**
 - Warn when traversing graph and encoutering missing vertices
