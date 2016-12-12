@@ -1,5 +1,6 @@
 const { GraphQLList } = require('graphql');
 const { xsdIri, rdfsLiteral, rdfsSubPropertyOf, rdfsRange } = require('../constants');
+const warn = require('../utils/warn');
 const { walklook } = require('../graph/traversal');
 const memorize = require('../graph/memorize');
 const requireGraphqlRelay = require('../requireGraphqlRelay');
@@ -35,7 +36,7 @@ function getGraphqlFieldConfig(g, iri) {
     fieldConfig.type = nRanges === 1 ? getGraphqlScalarType(g, ranges[0]) : getGraphqlPolymorphicScalarType(g, ranges);
   }
   else if (ranges.some(isLiteral)) {
-    return console.log(`Warning: mixed literal/non-literal ranges on ${iri}:\n${ranges}`);
+    return warn(`Mixed literal/non-literal ranges on ${iri}:\n${ranges}`);
   }
   else {
     fieldConfig.resolve = getGraphqlObjectResolver(g, iri, ranges);

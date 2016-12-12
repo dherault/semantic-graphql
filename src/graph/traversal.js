@@ -1,3 +1,5 @@
+const warn = require('../utils/warn');
+
 // Both methods walk a graph: g
 // from a given vertex (:=startVertex): iri
 
@@ -5,6 +7,7 @@
 // exits startVertex using a given edge: walkIri, and recurse on the result
 function walkmap(g, iri, walkIri, s = new Set()) {
   if (s.has(iri)) return s; // Prevents cycles
+  if (!g[iri]) return warn(`Resource missing in graph: ${iri}`) || s;
 
   s.add(iri);
 
@@ -18,18 +21,15 @@ function walkmap(g, iri, walkIri, s = new Set()) {
 // else exit startVertex using a given edge: walkIri, and recurse on the result
 function walklook(g, iri, walkIri, lookIri, s = new Set(), ws = new Set()) {
   if (ws.has(iri)) return s; // Prevents cycles
+  if (!g[iri]) return warn(`Resource missing in graph: ${iri}`) || s;
 
   ws.add(iri);
 
-  const lookResults = g[iri][lookIri];
-
-  if (lookResults) lookResults.forEach(lIri => s.add(lIri));
+  if (g[iri][lookIri]) g[iri][lookIri].forEach(lIri => s.add(lIri));
 
   if (s.size) return s;
 
-  const walkResult = g[iri][walkIri];
-
-  if (walkResult) walkResult.forEach(wIri => walklook(g, wIri, walkIri, lookIri, s, ws));
+  if (g[iri][walkIri]) g[iri][walkIri].forEach(wIri => walklook(g, wIri, walkIri, lookIri, s, ws));
 
   return s;
 }

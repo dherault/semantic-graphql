@@ -5,6 +5,8 @@
 - [ ] promisify resolver at set time
 - [ ] add recipes for resolvers
 - [ ] refactor and dry up graphql folder
+- [ ] support blank nodes
+- [ ] consider restrictions as classes (for now)
 - [ ] error messages
 - [ ] docs
 - [ ] tests

@@ -1,5 +1,10 @@
 # Changelog
 
+# tbd
+
+**Bug fixes:**
+- Warn when traversing graph and encoutering missing vertices
+
 # 0.3.0
 
 **Breaking changes:**
