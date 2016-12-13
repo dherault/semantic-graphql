@@ -1,7 +1,6 @@
 const { owlInverseOf, _owlInverseOf, rdfsDomain, _rdfsSubClassOf } = require('../constants');
 const isNil = require('../utils/isNil');
 const castArrayShape = require('../utils/castArrayShape');
-const promisify = require('../utils/promisify');
 const { walkmap } = require('../graph/traversal');
 const isGraphqlList = require('./isGraphqlList');
 const requireGraphqlRelay = require('../requireGraphqlRelay');
@@ -47,7 +46,7 @@ function getGraphqlObjectResolver(g, iri, ranges) {
 
   // XXX: put outside of scope to avoid re-allocation ?
   // The actual resolve function
-  const resolver = (source, args, context, info) => promisify(resolvers.resolveSourcePropertyValue(source, iri, context, info))
+  const resolver = (source, args, context, info) => Promise.resolve(resolvers.resolveSourcePropertyValue(source, iri, context, info))
   .then(ref => {
 
     if (!isNil(ref)) {
@@ -57,7 +56,7 @@ function getGraphqlObjectResolver(g, iri, ranges) {
     // No reference(s) to data was resolved, maybe the data is on an inverse Property
     if (inverseOfMap && inverseOfMap.size) {
 
-      return promisify(resolvers.resolveSourceId(source, context, info))
+      return Promise.resolve(resolvers.resolveSourceId(source, context, info))
       .then(sourceId => {
 
         const promises = [];

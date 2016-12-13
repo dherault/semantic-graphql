@@ -1,6 +1,5 @@
 const { GraphQLObjectType } = require('graphql');
 const { _rdfsSubClassOf } = require('../constants');
-const promisify = require('../utils/promisify');
 const isNil = require('../utils/isNil');
 const castArrayShape = require('../utils/castArrayShape');
 const memorize = require('../graph/memorize');
@@ -19,7 +18,7 @@ function getGraphqlObjectType(g, iri) {
     description: getGraphqlDescription(g, iri),
     fields: () => require('./getGraphqlFieldConfigMap')(g, iri), // dynamic require to prevent require cycles
     interfaces: () => require('./getGraphqlInterfaces')(g, iri),
-    isTypeOf: (value, info) => promisify(g.resolvers.resolveSourceTypes(value, info))
+    isTypeOf: (value, info) => Promise.resolve(g.resolvers.resolveSourceTypes(value, info))
     .then(iris => !isNil(iris) && castArrayShape(iris).some(iri => classes.has(iri))),
   });
 }

@@ -1,5 +1,10 @@
 # Changelog
 
+# tbd
+
+**Miscellaneous:**
+- Promisify using `Promise.resolve` instead of home-made function. It's slower but safer.
+
 # 0.3.1
 
 **Bug fixes:**
