@@ -1,6 +1,13 @@
 # Changelog
 
-# tbd
+# 0.4.0
+
+**Breaking changes:**
+- resolveSourceTypes must now be sync.
+- Interface type resolving was rolled back on InterfaceTypes (instead of ObjectTypes). Better support, although still incomplete. External ObjectTypes must not provide an `isTypeOf` method anymore, instead external InterfaceTypes must provide a `resolveType` method.
+
+**Bug fixes:**
+- Fragile type resolution on interfaces. Will require further work.
 
 **Miscellaneous:**
 - Promisify using `Promise.resolve` instead of home-made function. It's slower but safer.
@@ -28,7 +35,7 @@
 **Breaking changes:**
 - Removed resolvers.resolveSourceClassIri
 - Added resolvers.resolveSourceTypes
-- Interface type resolving now happens on GraphQLObjectTypes. This means that your external GraphQLObjectTypes must provide an isTypeOf method.
+- Interface type resolving now happens on GraphQLObjectTypes. This means that your external GraphQLObjectTypes must provide an `isTypeOf` method.
 
 **New features:**
 - Promise support for all resolvers

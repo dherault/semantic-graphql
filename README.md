@@ -103,6 +103,8 @@ See the [Relay example](#).
 
 #### resolveSourceTypes
 
+Must be sync. See [this GraphQL issue](https://github.com/graphql/graphql-js/issues/398).
+
 #### resolveSourcePropertyValue
 
 #### resolveResource

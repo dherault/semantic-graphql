@@ -1,12 +1,13 @@
 const path = require('path');
 const { readFileSync } = require('fs');
 const createRdfParser = require('n3').Parser;
-const { rdfIri, rdfsIri, owlIri, rdfsDomain } = require('./constants');
+const { rdfIri, rdfsIri, owlIri, rdfsDomain, rdfsResource } = require('./constants');
 const invariant = require('./utils/invariant');
 const isIri = require('./utils/isIri');
 const requireGraphqlRelay = require('./requireGraphqlRelay');
 const getGraphqlObjectType = require('./graphql/getGraphqlObjectType');
 const getGraphqlInterfaceType = require('./graphql/getGraphqlInterfaceType');
+const getGraphqlTypeResolver = require('./graphql/getGraphqlTypeResolver');
 const getRelayConnectionDefinitions = require('./graphql/getRelayConnectionDefinitions');
 
 const utf8 = 'utf-8';
@@ -38,9 +39,10 @@ class SemanticGraph {
     if (config.relay) {
       const { fromGlobalId, nodeDefinitions } = requireGraphqlRelay();
       const resolveNode = (globalId, context, info) => this.resolvers.resolveResource(fromGlobalId(globalId).id, context, info);
+      const resolveType = getGraphqlTypeResolver(this, rdfsResource);
 
       // Add this.nodeInterface and this.nodeField
-      Object.assign(this, nodeDefinitions(resolveNode));
+      Object.assign(this, nodeDefinitions(resolveNode, resolveType));
     }
 
     this.addTriple = t => indexTriple(this, t);
