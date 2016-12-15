@@ -1,6 +1,6 @@
 {
   "name": "semantic-graphql",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Create GraphQL schemas from RDF-based ontologies",
   "main": "index.js",
   "author": "David Hérault <david.herault@nelson.ai> (https://github.com/dherault)",
@@ -29,8 +29,8 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "eslint": "^3.12.0",
-    "eslint-config-airbnb-base": "^10.0.1",
+    "eslint": "^3.12.2",
+    "eslint-config-airbnb-base": "^11.0.0",
     "eslint-plugin-import": "^2.2.0",
     "graphql": "^0.8.2",
     "graphql-relay": "^0.4.4",
@@ -38,7 +38,7 @@
     "mocha": "^3.2.0"
   },
   "dependencies": {
-    "n3": "^0.8.3"
+    "n3": "^0.8.4"
   },
   "peerDependencies": {
     "graphql": "^0.8.2"
