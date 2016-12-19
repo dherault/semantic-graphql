@@ -6,13 +6,12 @@ const isGraphqlList = require('./isGraphqlList');
 const requireGraphqlRelay = require('../requireGraphqlRelay');
 
 function getGraphqlObjectResolver(g, iri, ranges) {
-  const { resolvers } = g;
   const isList = isGraphqlList(g, iri);
 
   let inverseOfMap;
 
   // If inverseProperties exists, we can use them to retrieve missing remote data
-  if (g[iri][owlInverseOf] || g[iri][_owlInverseOf]) {
+  if (!g[iri].shouldNeverUseInverseOf && ([iri][owlInverseOf] || g[iri][_owlInverseOf])) {
     const extendedRanges = new Set();
     const inverseProperties = new Set();
 
@@ -44,45 +43,55 @@ function getGraphqlObjectResolver(g, iri, ranges) {
     });
   }
 
+  const hasNoInverseOf = !(inverseOfMap && inverseOfMap.size);
+  const resolveNothing = () => isList ? [] : null;
+  const resolveResource = isList ? g.resolvers.resolveResources : g.resolvers.resolveResource;
+
+  // A resolver for inverseOf properties
+  const inverseOfResolver = (source, args, context, info) => {
+    if (hasNoInverseOf) return resolveNothing();
+
+    return Promise.resolve(g.resolvers.resolveSourceId(source, context, info))
+    .then(sourceId => {
+
+      const promises = [];
+
+      inverseOfMap.forEach((admitingRanges, propertyIri) => {
+        promises.push(g.resolvers.resolveResourcesByPredicate(admitingRanges, propertyIri, sourceId, context, info));
+      });
+
+      return Promise.all(promises)
+      .then(results => {
+        const finalResult = results.reduce((a, b) => a.concat(b), []);
+
+        return isList ? finalResult : finalResult[0];
+      });
+    });
+  };
+
   // XXX: put outside of scope to avoid re-allocation ?
   // The actual resolve function
-  const resolver = (source, args, context, info) => Promise.resolve(resolvers.resolveSourcePropertyValue(source, iri, context, info))
-  .then(ref => {
+  const resolver = (source, args, context, info) => {
+    if (g[iri].shouldAlwaysUseInverseOf) return inverseOfResolver(source, args, context, info);
 
-    if (!isNil(ref)) {
-      return (isList ? resolvers.resolveResources : resolvers.resolveResource)(castArrayShape(ref, isList), context, info);
-    }
+    return Promise.resolve(g.resolvers.resolveSourcePropertyValue(source, iri, context, info))
+    .then(ref => {
+      // A reference to data was resolved, we resolve the underlying resources
+      if (!isNil(ref)) return resolveResource(castArrayShape(ref, isList), context, info);
 
-    // No reference(s) to data was resolved, maybe the data is on an inverse Property
-    if (inverseOfMap && inverseOfMap.size) {
+      // No reference to data was resolved, maybe the data is on an inverse Property
+      if (!g[iri].shouldNeverUseInverseOf) return inverseOfResolver(source, args, context, info);
 
-      return Promise.resolve(resolvers.resolveSourceId(source, context, info))
-      .then(sourceId => {
-
-        const promises = [];
-
-        inverseOfMap.forEach((admitingRanges, propertyIri) => {
-          promises.push(resolvers.resolveResourcesByPredicate(admitingRanges, propertyIri, sourceId, context, info));
-        });
-
-        return Promise.all(promises)
-        .then(results => {
-          const finalResult = results.reduce((a, b) => a.concat(b), []);
-
-          return isList ? finalResult : finalResult[0];
-        });
-      });
-    }
-
-    // Give up
-    return isList ? [] : null;
-  });
+      // Give up
+      return resolveNothing();
+    });
+  };
 
   if (g.config.relay && g[iri].isRelayConnection) {
     const { connectionFromArray, connectionFromPromisedArray } = requireGraphqlRelay();
 
-    return (node, args, context, info) => {
-      const results = resolver(node, args, context, info);
+    return (source, args, context, info) => {
+      const results = resolver(source, args, context, info);
 
       return (Array.isArray(results) ? connectionFromArray : connectionFromPromisedArray)(results, args);
     };

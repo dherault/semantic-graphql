@@ -1,22 +1,31 @@
-# TODO
+# To do
 
+## High
+
+- [ ] Add iri blacklist (userland?)
+- [ ] drop n3 support (requires semantic-toolkit)
+- [ ] support blank nodes
+- [ ] consider restrictions as classes (for now)
+- [ ] allow up and down option for inverseOf inference
+
+## Low
+
+- [ ] support restrictions
 - [ ] Change SemanticGraph API to pass resolvers whenever
 - [ ] isGraphqlList: infer desecendant of owl:FunctionalProperty
 - [ ] promisify resolver at set time
 - [ ] add recipes for resolvers
 - [ ] refactor and dry up graphql folder
 - [ ] improve objectResolver performance
-- [ ] drop n3 support
 - [ ] allow contracted iris on API
 - [ ] try using interfaces instead of ObjectTypes on fields, to see
-- [ ] support blank nodes
 - [ ] support equivalences/sameAs
 - [ ] use a "consider all classes disjoint" option
-- [ ] support restrictions
-- [ ] consider restrictions as classes (for now)
 - [ ] error messages
 - [ ] docs
-- [ ] tests
+- [ ] tests (test schema (string) generation, and inference execution)
+
+## Done
 
 - [x] place id field on top of the other fields for introspection queries to look nice
 - [x] use GraphQLObjectTypeConfig.isTypeOf (with multiple class IRI) instead of GraphQLInterfaceTypeConfig.resolveType.

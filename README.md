@@ -135,6 +135,8 @@ If "key" is already present, the library will use the underlying value and won't
 | property | isRelayConnection | Boolean |
 | property | graphqlFieldConfig | GraphQLFieldConfig |
 | property | graphqlFieldConfigExtension | partial GraphQLFieldConfig, to modify only parts of it |
+| property | shouldAlwaysUseInverseOf | Boolean |
+| property | shouldNeverUseInverseOf | Boolean |
 
 Note that the following overrides must be performed *before* invoking `getObjectType` or `getInterfaceType` or `getEdgeType` or `getConnectionType` since those methods create the GraphQL objects you want to override.
 
