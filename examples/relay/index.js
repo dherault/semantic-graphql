@@ -7,7 +7,8 @@ const SemanticGraph = require('../..');
 const data = require('./data');
 const resolvers = require('./resolvers');
 
-const _ = new SemanticGraph(resolvers, { owl: true, relay: true });
+// You should check the basic example first
+const _ = new SemanticGraph(resolvers, { relay: true });
 
 console.log(`graph created: ${_}`);
 
