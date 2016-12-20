@@ -1,5 +1,5 @@
 function warn(message) {
-  console.log(`[semantic-graphql warning]: ${message}`);
+  console.warn(`[semantic-graphql] ${message}`);
 }
 
 module.exports = warn;

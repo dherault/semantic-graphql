@@ -77,6 +77,7 @@ function getGraphqlObjectResolver(g, iri, ranges) {
     return Promise.resolve(g.resolvers.resolveSourcePropertyValue(source, iri, context, info))
     .then(ref => {
       // A reference to data was resolved, we resolve the underlying resources
+      // NOTE: this does not aggregate both direct and inverse data
       if (!isNil(ref)) return resolveResource(castArrayShape(ref, isList), context, info);
 
       // No reference to data was resolved, maybe the data is on an inverse Property

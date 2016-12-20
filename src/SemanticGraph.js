@@ -83,6 +83,8 @@ class SemanticGraph {
 
 }
 
+/* Private methods */
+
 function indexTriple(g, { subject, predicate, object }) {
   if (!(isIri(subject) && isIri(predicate)) || g[subject] && g[subject][predicate] && g[subject][predicate].includes(object)) return;
 

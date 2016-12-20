@@ -17,8 +17,6 @@ const getRelayConnectionDefinitions = require('./getRelayConnectionDefinitions')
 const isLiteral = iri => iri.startsWith(xsdIri) || iri === rdfsLiteral;
 
 function getGraphqlFieldConfig(g, iri) {
-  // console.log('getGraphqlFieldConfig', iri);
-
   // Look for a range, return it if found
   // Otherwise for each super-property, look for a range, if not found, check their super-properties and so on
   // In a breath-first manner

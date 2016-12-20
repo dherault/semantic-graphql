@@ -6,7 +6,8 @@
 - [ ] drop n3 support (requires semantic-toolkit)
 - [ ] support blank nodes
 - [ ] consider restrictions as classes (for now)
-- [ ] allow up and down option for inverseOf inference
+- [ ] allow contracted iris on API (requires semantic-toolkit)
+- [x] allow up and down option for inverseOf inference
 
 ## Low
 
@@ -17,7 +18,6 @@
 - [ ] add recipes for resolvers
 - [ ] refactor and dry up graphql folder
 - [ ] improve objectResolver performance
-- [ ] allow contracted iris on API
 - [ ] try using interfaces instead of ObjectTypes on fields, to see
 - [ ] support equivalences/sameAs
 - [ ] use a "consider all classes disjoint" option

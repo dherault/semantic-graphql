@@ -2,11 +2,17 @@
 
 # tbd
 
+**Breaking changes:**
+- `getIriLocalName` is not exposed/exported by the package anymore.
+
 **New features:**
-- On in-graph properties, new `shouldAlwaysUseInverseOf` and `shouldNeverUseInverseOf` config keys to modify the resolver's behavior
+- On in-graph properties, new `shouldAlwaysUseInverseOf` and `shouldNeverUseInverseOf` config keys to modify the resolver's behavior.
 
 **Bug fixes:**
-- `isGraphqlList` is now also infered from `isGraphqlConnection` 
+- `isGraphqlList` is now also infered from `isGraphqlConnection`
+
+**Miscellaneous:**
+- Tests! :tada: (very basic for now)
 
 # 0.4.0
 
@@ -23,7 +29,7 @@
 # 0.3.1
 
 **Bug fixes:**
-- Warn when traversing graph and encoutering missing vertices
+- Warn when traversing graph and encoutering missing vertices.
 
 # 0.3.0
 
@@ -31,34 +37,34 @@
 - Cannot override `relayEdgeType` and `relayConnectionType` anymore. `relayConnectionDefinitions` override added instead.
 
 **Bug fixes:**
-- Bug concerning the creation of Relay types
+- Bug concerning the creation of Relay types.
 
 # 0.2.1
 
 **Bug fixes:**
-- Fixed a bug concerning the inference of owl:inverseOf
+- Fixed a bug concerning the inference of owl:inverseOf.
 
 # 0.2.0
 
 **Breaking changes:**
-- Removed `resolvers.resolveSourceClassIri`
-- Added `resolvers.resolveSourceTypes`
+- Removed `resolvers.resolveSourceClassIri`.
+- Added `resolvers.resolveSourceTypes`.
 - Interface type resolving now happens on GraphQLObjectTypes. This means that your external GraphQLObjectTypes must provide an `isTypeOf` method.
 
 **New features:**
-- Promise support for all resolvers
+- Promise support for all resolvers.
 
 **Bug fixes:**
-- Fixed `requireGraphqlRelay` behavior
-- Fixed a bug on `SemanticGraph#addFieldOnObjectType`
-- Fixed a bug that happened when inferring owl:inverseOf on properties that are a rdfs:subProperty with no rdfs:range
-- Fixed a circular dependency in ./src/graphql
+- Fixed `requireGraphqlRelay` behavior.
+- Fixed a bug on `SemanticGraph#addFieldOnObjectType`.
+- Fixed a bug that happened when inferring owl:inverseOf on properties that are a rdfs:subProperty with no rdfs:range.
+- Fixed a circular dependency in ./src/graphql.
 
 **Miscellaneous:**
-- Add MIT license
-- Add .npmignore file
-- id field now appears on top when introspecting
-- graphqlDescription are now created from the locale in config
+- Add MIT license.
+- Add .npmignore file.
+- id field now appears on top when introspecting.
+- graphqlDescription are now created from the locale in config.
 
 # 0.1.0
 

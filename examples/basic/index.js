@@ -8,12 +8,21 @@ const SemanticGraph = require('../..');
 const data = require('./data');
 const resolvers = require('./resolvers');
 
-const _ = new SemanticGraph(resolvers, { owl: true });
+// First we create a SemanticGraph
+const _ = new SemanticGraph(resolvers);
 
 console.log(`graph created: ${_}`);
 
+// Then we add our triples
 _.parseFile(path.join(__dirname, './ontology.ttl'));
 
+// Optionally we can tell semantic-graphql that in order to resolve foo:hasEmployees on foo:Company
+// it should not look for the data on individuals of foo:Company,
+// but use the owl:inverseOf properties on foo:hasEmployees (i.e. foo:worksForCompany on foo:Person).
+// This could allows to save a trip to the database in some real world situations.
+_['http://foo.com#hasEmployees'].shouldAlwaysUseInverseOf = true;
+
+// Finally we can build our shema
 const schema = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
@@ -40,9 +49,11 @@ const schema = new GraphQLSchema({
   }),
 });
 
+// Save schema in Schema language to disk
 fs.writeFileSync(path.join(__dirname, './schema.graphql'), printSchema(schema));
 console.log('Schema saved on disk');
 
+// Start server
 express()
 .use('/graphql', graphqlHTTP({
   schema,

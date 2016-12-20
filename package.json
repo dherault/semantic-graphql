@@ -16,12 +16,12 @@
   "engines": {
     "node": ">=6.0.0"
   },
-  "//test": "./node_modules/.bin/mocha $npm_package_options_mocha",
   "//prepublish": "./scripts/checkgit.sh && npm test && npm run build",
-  "//coverage": "./node_modules/.bin/istanbul cover _mocha -- $npm_package_options_mocha",
-  "//coverage:serve": "cd coverage/lcov-report && python -m SimpleHTTPServer",
-  "//coverage:all": "npm run coverage && npm run coverage:serve",
   "scripts": {
+    "test": "./node_modules/.bin/mocha $npm_package_options_mocha",
+    "coverage": "./node_modules/.bin/istanbul cover _mocha -- $npm_package_options_mocha",
+    "coverage:serve": "cd coverage/lcov-report && python -m SimpleHTTPServer",
+    "coverage:all": "npm run coverage && npm run coverage:serve",
     "dev": "cd examples/basic && npm run watch"
   },
   "options": {

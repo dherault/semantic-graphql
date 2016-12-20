@@ -3,12 +3,20 @@ const getIriLocalName = require('../../src/utils/getIriLocalName');
 
 module.exports = {
   resolveSourceId(source) {
+    console.log('resolveSourceId', source.id);
+
     return source.id;
   },
   resolveSourcePropertyValue(source, iri) {
-    return source[getIriLocalName(iri)]; // The correct shape (array or not) will be cast
+    const localName = getIriLocalName(iri);
+ 
+    console.log('resolveSourcePropertyValue', source.id, localName);
+
+    return source[localName]; // The correct shape (array or not) will be cast
   },
   resolveSourceTypes(source) {
+    console.log('resolveSourceTypes', source.id, source.type);
+
     return `http://foo.com#${source.type}`; // Or an array of types
   },
   resolveResource(id) {
