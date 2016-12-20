@@ -7,10 +7,17 @@ Semantic GraphQL provides an API to convert any [RDF](https://www.w3.org/TR/rdf1
 
 The library does not deal with data, only with terminology. Therefore resolving data/resources is up to you.
 
-**Table of contents**:
-- x
-- y
-- z
+**Table of contents:**
+
+- [Installation](#installation)
+- [Getting started](#getting-started)
+- [SemanticGraph API](#semanticgraph-api)
+- [Resolvers](#resolvers)
+- [Overriding default values](#overriding-default-values)
+- [Using Relay](#using-relay)
+- [OWL features roadmap](#owl-features-roadmap)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Installation
 
@@ -20,15 +27,15 @@ Runs on Node v6 or higher.
 
 ## Getting started
 
-Semantic-graphql makes no assumption about the shape of your data and only passes it around. You have to provide six functions to resolve it in different ways. See the [resolvers section](#).
+Semantic-graphql makes no assumption about the shape of your data and only passes it around. You have to provide six functions to resolve it in different ways. See the [resolvers section](#resolvers).
 
-```javascript
+```js
 const resolvers = { /* Choose how to resolve data */ };
 ```
 
 Once your resolvers are written you can create a SemanticGraph. In the graph all the triples defining RDF, RDFS and OWL are included by default.
 
-```javascript
+```js
 const SemanticGraph = require('semantic-graphql');
 
 const _ = new SemanticGraph(resolvers, config);
@@ -36,7 +43,7 @@ const _ = new SemanticGraph(resolvers, config);
 
 Now you can add your own triples. Only statements defining your terminology (classes + properties) will be used, so you shouldn't add your individuals as it will only consume memory.
 
-```javascript
+```js
 _.addTriple({
   subject: 'http://foo.com#MyClass',
   predicate: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
@@ -48,16 +55,16 @@ _.parse(string);
 _.parseFile('/path/to/ontology.ttl');
 ```
 
-When Semantic-graphql translates a rdf:Property to a GraphQLFieldConfig, the resulting type will be wrapped in a GraphQLList unless the property is a owl:FunctionalProperty. Therefore you may have to do some adjustments in order to prevent that. Almost anything can be overriden, see the [override section](#).
+When Semantic-graphql translates a rdf:Property to a GraphQLFieldConfig, the resulting type will be wrapped in a GraphQLList unless the property is a owl:FunctionalProperty. Therefore you may have to do some adjustments in order to prevent that. Almost anything can be overriden, see the [override section](#overriding-default-values).
 
-```javascript
+```js
 // We do not want rdfs:label to resolve arrays
 _['http://www.w3.org/2000/01/rdf-schema#label'].isGraphqlList = false;
 ```
 
 Now you can start building your GraphQL schema however you want.
 
-```javascript
+```js
 const schema = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
@@ -80,44 +87,219 @@ const schema = new GraphQLSchema({
 });
 ```
 
-Have a look at the [examples folder](#) to see a complete setup.
+Have a look at the [examples folder](examples/) to see a complete setup.
 
-## Using relay
+## SemanticGraph API
 
-By using the `relay: true` option:
+```
+class SemanticGraph {
+  constructor(resolvers: Resolvers, config: ?SemanticGraphConfig),
+  [subject: Iri]: object,
+  # Public methods:
+  addTriple: AddTripleFn,
+  parse: ParseFn,
+  parseFile: ParseFileFn,
+  getObjectType: GetObjectTypeFn,
+  getInterfaceType: GetInterfaceTypeFn,
+  getEdgeType: GetEdgeTypeFn,
+  getConnectionType: GetConnectionTypeFn,
+  addFieldOnObjectType: AddFieldOnObjectTypeFn,
+  extendFieldOnObjectType: ExtendFieldOnObjectTypeFn,
+  # When the relay option is on:
+  nodeField: GraphQLFieldConfig,
+  nodeInterface: GraphQLInterfaceType,
+}
 
-- The `_.nodeField` and `_.nodeInterface` object are available
-- The `_.getConnectionType` and `_.getEdgeType` methods are available
-- All ObjectTypes exhibit the Node interface
-- The id field is a globalIdField
+type SemanticGraphConfig = {
+  prefixes?: PrefixConfig,
+  # Activates the Relay features
+  relay?: boolean,
+  # Your reprefered locale when inferring names and descriptions from rdfs:label and rdfs:comment
+  locale?: string = 'en',
+  # Prevents the id field to be automatically added to every GraphlQLFieldConfigMap
+  preventIdField?: boolean,
+}
+```
 
-See the [Relay example](#).
+To prevent GraphQL names collisions, you can edit the name directly (see the [override section](#overriding-default-values))
+or specifify prefixes for ontology namespaces.
+The names of the generated GraphQL objects will be prefixed.
+RDF, RDFS and OWL ontologies are by default prefixed with "Rdf", "Rdfs" and "Owl".
+So a fragment on rdfs:Resource should be "on RdfsResource".
 
-## API
+```
+type PrefixConfig = {
+  [prefix: string]: Iri,
+}
 
-### SemanticGraph
+# Must represent a valid IRI
+type Iri = string
+```
 
-### Resolvers
+### addTriple
 
-#### resolveSourceId
+```
+type AddTripleFn(triple: Triple) => undefined
 
-#### resolveSourceTypes
+type Triple = {
+  subject: Iri,
+  predicate: Iri,
+  object: Iri | string,
+}
+```
+
+Appends a triple to the graph. No-op if the subject or predicate IRI is invalid, or if the triple already exists.
+
+### parse
+
+Will be removed someday
+
+### parseFile
+
+Will be removed someday
+
+### getObjectType
+
+```
+type GetObjectTypeFn = (classIri: Iri) => GraphQLObjectType
+```
+
+Returns the GraphQLObjectType corresponding to a given individual of rdfs:Class or its sub-classes (like owl:Class). Throws if the IRI is not found in the graph.
+
+### getInterfaceType
+
+```
+type GetInterfaceTypeFn = (classIri: Iri) => GraphQLInterfaceType
+```
+
+### getEdgeType
+
+```
+type GetEdgeTypeFn = (classIri: Iri) => ?RelayEdgeType
+```
+
+Returns a value only when the `relay: true` option is on.
+
+### getConnectionType
+
+```
+type GetConnectionTypeFn = (classIri: Iri) => ?RelayConnectionType
+```
+
+Returns a value only when the `relay: true` option is on.
+
+### addFieldOnObjectType
+
+```
+type AddFieldOnObjectTypeFn = (
+  classIri: Iri,
+  fieldName: string,
+  graphqlFieldConfig: GraphQLFieldConfig
+) => Iri
+```
+
+Adds a custom field "fieldName" on the GraphQLObjectType and GraphQLInterfaceType representing "classIri".
+Throws if "classIri" is not found in the graph.
+Returns a random IRI referencing the new virtual rdf:Property.
+
+### extendFieldOnObjectType
+
+```
+type AddFieldOnObjectTypeFn = (
+  classIri: Iri,
+  propertyIri: Iri,
+  graphqlFieldConfig: PseudoGraphQLFieldConfig
+) => undefined
+```
+
+Similar to overriding a field using `_['http://foo.com/someProperty'].graphqlFieldConfigExtension = /* ... */` but only for a particular class, not for all of the classes on the property's domain.
+A `PseudoGraphQLFieldConfig` is just a `GraphQLFieldConfig` where every key is optional. The other keys will be infered.
+Throws if "classIri" is not found in the graph.
+
+## Resolvers
+
+```
+type Resolvers = {
+  resolveSourceId: ResolveSourceIdFn,
+  resolveSourceTypes: ResolveSourceTypesFn,
+  resolveSourcePropertyValue: ResolveSourcePropertyValueFn,
+  resolveResource: ResolveResourceFn,
+  resolveResources: ResolveResourcesFn,
+  resolveResourcesByPredicate: ResolveResourcesByPredicateFn,
+}
+
+type ResolverOutput<x> = x | Array<x> | Promise<x> | Promise<Array<x>>
+```
+
+### resolveSourceId
+
+```
+type ResolveSourceIdFn = (
+  source?: any,
+  context?: any,
+  info?: GraphQLResolveInfo
+) => ?ID | ?Promise<ID>
+```
+
+### resolveSourceTypes
+
+```
+type ResolveSourceTypesFn = (
+  source?: any,
+  info?: GraphQLResolveInfo
+) => Iri | Array<Iri>
+```
 
 Must be sync. See [this GraphQL issue](https://github.com/graphql/graphql-js/issues/398).
 
-#### resolveSourcePropertyValue
+### resolveSourcePropertyValue
 
-#### resolveResource
+```
+type ResolveSourcePropertyValueFn = (
+  source?: any,
+  propertyIri?: Iri,
+  context?: any,
+  info?: GraphQLResolveInfo
+) => ?ResolverOutput<any>
+```
 
-#### resolveResources
+### resolveResource
 
-#### resolveResourcesByPredicate
+```
+type ResolveResourceFn = (
+  resourceIri?: Iri,
+  context?: any,
+  info?: GraphQLResolveInfo
+) => ?ResolverOutput<any>
+```
+
+### resolveResources
+
+```
+type ResolveResourcesFn = (
+  resourceIris?: Array<Iri>,
+  context?: any,
+  info?: GraphQLResolveInfo
+) => ?ResolverOutput<any>
+```
+
+### resolveResourcesByPredicate
+
+```
+type ResolveResourcesByPredicateFn = (
+  typeIri?: Array<Iri>,
+  predicateIri?: Iri,
+  value?: any,
+  context?: any,
+  info?: GraphQLResolveInfo
+) => ?ResolverOutput<any>
+```
 
 ## Overriding default values
 
 To override anything there is no method: you directly set the library's internals.
 
-```javascript
+```js
 _['http://the.resource.to/be#altered'].key = value;
 ```
 
@@ -140,17 +322,31 @@ If "key" is already present, the library will use the underlying value and won't
 
 Note that the following overrides must be performed *before* invoking `getObjectType` or `getInterfaceType` or `getEdgeType` or `getConnectionType` since those methods create the GraphQL objects you want to override.
 
-Example:
-```javascript
+Examples:
+```js
 _['http://foo.com#worksForCompany'].graphqlName = 'company';
 // Now the field name for foo:worksForCompany will be 'company'
 
 // Partial modifications to fields are achieved using
-_['http://foo/com#worksForCompany'].graphqlFieldConfigExtension = {
+_['http://foo.com#worksForCompany'].graphqlFieldConfigExtension = {
   args: /* Look Ma', arguments! */
   resolve: customResolveFn,
 };
+
+// Completly overriding a GraphQLObject can be done with
+_['http://foo.com/MyClass'].graphqlObjectType = new GraphQLObjectType({ /* ... */});
 ```
+
+## Using Relay
+
+By using the `relay: true` option:
+
+- The `_.nodeField` and `_.nodeInterface` object are available
+- The `_.getConnectionType` and `_.getEdgeType` methods are available
+- All ObjectTypes exhibit the Node interface
+- The id field is a globalIdField
+
+See the [Relay example](examples/relay).
 
 ## OWL features roadmap
 
@@ -176,14 +372,16 @@ _['http://foo/com#worksForCompany'].graphqlFieldConfigExtension = {
 
 The following features will not be implemented due to their incomptability with GraphQL:
 
-- Some items of the preceding list might be impossible to implement and end up here
+- Some items of the preceding list might be impossible to implement and end up here.
 
 ## Contributing
 
 Yes, thank you. Please lint, update/write tests and add your name to the package.json file before you PR.
 
-## Licence
+## License
 
 Semantic GraphQL is released under the MIT License.
 
-GraphQL is released by Facebook, inc. under the [BSD-license](https://github.com/graphql/graphql-js/blob/master/LICENSE) with an additional [patent grant](https://github.com/graphql/graphql-js/blob/master/PATENTS).
+GraphQL is released by Facebook, inc. under the [BSD-license](https://github.com/graphql/graphql-js/blob/master/LICENSE)
+with an additional
+[patent grant](https://github.com/graphql/graphql-js/blob/master/PATENTS).

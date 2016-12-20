@@ -1,6 +1,6 @@
 let graphqlRelay;
 
-// optionnalPeerDependencies still don't exist, so graphql-relay is a ghost dep
+// optionalPeerDependencies still don't exist, so graphql-relay is a ghost dep
 // let's find it
 function requireGraphqlRelay() {
   if (graphqlRelay) return graphqlRelay;
