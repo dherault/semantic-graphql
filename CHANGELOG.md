@@ -1,6 +1,6 @@
 # Changelog
 
-# tbd
+# 0.5.0
 
 **Breaking changes:**
 - `getIriLocalName` is not exposed/exported by the package anymore.
@@ -9,10 +9,12 @@
 - On in-graph properties, new `shouldAlwaysUseInverseOf` and `shouldNeverUseInverseOf` config keys to modify the resolver's behavior.
 
 **Bug fixes:**
-- `isGraphqlList` is now also infered from `isGraphqlConnection`
+- `isGraphqlList` is now also infered from `isGraphqlConnection`.
+- `preventIdField` config option can now also prevent the Relay id field.
 
 **Miscellaneous:**
 - Tests! :tada: (very basic for now)
+- Better docs
 
 # 0.4.0
 

@@ -24,15 +24,17 @@ function getGraphqlFieldConfigMap(g, iri) {
   const fieldConfigExtensionMap = g[iri].graphqlFieldConfigExtensions || {}; // From userland
 
   // Add id field
-  if (g.config.relay) {
-    fieldConfigMap.id = requireGraphqlRelay().globalIdField(getGraphqlName(g, iri), g.resolvers.resolveSourceId);
-  }
-  else if (!g.config.preventIdField) {
-    fieldConfigMap.id = {
-      type: GraphQLID,
-      description: 'A unique identifier for the resource.',
-      resolve: (source, args, context, info) => g.resolvers.resolveSourceId(source, context, info),
-    };
+  if (!g.config.preventIdField) {
+    if (g.config.relay) {
+      fieldConfigMap.id = requireGraphqlRelay().globalIdField(getGraphqlName(g, iri), g.resolvers.resolveSourceId);
+    }
+    else {
+      fieldConfigMap.id = {
+        type: GraphQLID,
+        description: 'A unique identifier for the resource.',
+        resolve: (source, args, context, info) => g.resolvers.resolveSourceId(source, context, info),
+      };
+    }
   }
 
   // Add other fields

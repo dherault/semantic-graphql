@@ -2,12 +2,12 @@
 
 ## High
 
+- [ ] Fully sync resolvers
 - [ ] Add iri blacklist (userland?)
 - [ ] drop n3 support (requires semantic-toolkit)
 - [ ] support blank nodes
 - [ ] consider restrictions as classes (for now)
 - [ ] allow contracted iris on API (requires semantic-toolkit)
-- [x] allow up and down option for inverseOf inference
 
 ## Low
 
@@ -24,9 +24,11 @@
 - [ ] error messages
 - [ ] docs
 - [ ] tests (test schema (string) generation, and inference execution)
+- [ ] SPARQL example
 
 ## Done
 
+- [x] allow up and down option for inverseOf inference
 - [x] place id field on top of the other fields for introspection queries to look nice
 - [x] use GraphQLObjectTypeConfig.isTypeOf (with multiple class IRI) instead of GraphQLInterfaceTypeConfig.resolveType.
       it's optionnal on relay: https://github.com/graphql/graphql-relay-js/blob/373f2dab5fc6d4ac4cf6394aa94cbebd8cb64650/src/node/node.js

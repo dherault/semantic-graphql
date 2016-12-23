@@ -241,6 +241,9 @@ type ResolveSourceIdFn = (
 ) => ?ID | ?Promise<ID>
 ```
 
+Must be sync if you use Relay.
+See [`globalIdField` source code](https://github.com/graphql/graphql-relay-js/blob/master/src/node/node.js#L107)
+
 ### resolveSourceTypes
 
 ```
@@ -250,7 +253,8 @@ type ResolveSourceTypesFn = (
 ) => Iri | Array<Iri>
 ```
 
-Must be sync. See [this GraphQL issue](https://github.com/graphql/graphql-js/issues/398).
+Must be sync.
+See [this GraphQL issue](https://github.com/graphql/graphql-js/issues/398).
 
 ### resolveSourcePropertyValue
 
