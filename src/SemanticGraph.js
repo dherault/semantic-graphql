@@ -14,7 +14,7 @@ const utf8 = 'utf-8';
 const ttlParser = createRdfParser();
 const parseFileAndIndex = (g, l) => ttlParser.parse(readFileSync(path.join(__dirname, l), utf8)).forEach(t => indexTriple(g, t));
 
-const baseGraph = {};
+const baseGraph = { nTriples: 0 };
 const basePrefixes = {
   rdf: rdfIri,
   rdfs: rdfsIri,
@@ -52,7 +52,7 @@ class SemanticGraph {
     this.getInterfaceType = iri => getGraphqlInterfaceType(this, iri);
     this.getEdgeType = iri => getRelayConnectionDefinitions(this, iri).edgeType;
     this.getConnectionType = iri => getRelayConnectionDefinitions(this, iri).connectionType;
-    this.toString = () => '[SemanticGraph]';
+    this.toString = () => `[SemanticGraph: ${this.nTriples} triples]`;
   }
 
   addFieldOnObjectType(classIri, fieldName, graphqlFieldConfig) {
@@ -89,6 +89,8 @@ function indexTriple(g, { subject, predicate, object }) {
   if (!(isIri(subject) && isIri(predicate)) || g[subject] && g[subject][predicate] && g[subject][predicate].includes(object)) return;
 
   upsert(g, subject, predicate, object);
+
+  g.nTriples++;
 
   if (isIri(object)) upsert(g, object, `_${predicate}`, subject);
 }

@@ -5,6 +5,9 @@
 **Breaking changes:**
 - The names of generated GraphQL types are now capitalized regardless of the terminology.
 
+**Miscellaneous:**
+- `SemanticGraph#toString` now displays the number of triples in the graph.
+
 ## 0.5.1
 
 **Bug fixes:**

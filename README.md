@@ -94,6 +94,7 @@ Have a look at the [examples folder](examples/) to see a complete setup.
 ```
 class SemanticGraph {
   constructor(resolvers: Resolvers, config: ?SemanticGraphConfig),
+  nTriples: number,
   [subject: Iri]: object,
   # Public methods:
   addTriple: AddTripleFn,
@@ -124,7 +125,7 @@ type SemanticGraphConfig = {
 To prevent GraphQL names collisions, you can edit the name directly (see the [override section](#overriding-default-values))
 or specifify prefixes for ontology namespaces.
 The names of the generated GraphQL objects will be prefixed.
-RDF, RDFS and OWL ontologies are by default prefixed with "Rdf", "Rdfs" and "Owl".
+RDF, RDFS and OWL ontologies are by default prefixed with "rdf", "rdfs" and "owl".
 So a fragment on rdfs:Resource should be "on RdfsResource".
 
 ```
