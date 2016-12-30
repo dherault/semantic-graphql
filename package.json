@@ -1,6 +1,6 @@
 {
   "name": "semantic-graphql",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Create GraphQL schemas from RDF-based ontologies",
   "main": "index.js",
   "author": "David Hérault <david.herault@nelson.ai> (https://github.com/dherault)",
@@ -38,7 +38,7 @@
     "mocha": "^3.2.0"
   },
   "dependencies": {
-    "n3": "^0.8.4"
+    "n3": "^0.8.5"
   },
   "peerDependencies": {
     "graphql": "^0.8.2"
