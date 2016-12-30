@@ -11,7 +11,7 @@ function getGraphqlObjectResolver(g, iri, ranges) {
   let inverseOfMap;
 
   // If inverseProperties exists, we can use them to retrieve missing remote data
-  if (!g[iri].shouldNeverUseInverseOf && ([iri][owlInverseOf] || g[iri][_owlInverseOf])) {
+  if (!g[iri].shouldNeverUseInverseOf && (g[iri][owlInverseOf] || g[iri][_owlInverseOf])) {
     const extendedRanges = new Set();
     const inverseProperties = new Set();
 

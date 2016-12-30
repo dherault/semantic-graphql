@@ -1,5 +1,10 @@
 # Changelog
 
+# 0.5.1
+
+**Bug fixes:**
+- Bug on `owl:inverseOf` inference that broke the feature in some cases.
+
 # 0.5.0
 
 **Breaking changes:**
