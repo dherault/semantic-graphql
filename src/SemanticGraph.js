@@ -16,9 +16,9 @@ const parseFileAndIndex = (g, l) => ttlParser.parse(readFileSync(path.join(__dir
 
 const baseGraph = {};
 const basePrefixes = {
-  Rdf: rdfIri,
-  Rdfs: rdfsIri,
-  Owl: owlIri,
+  rdf: rdfIri,
+  rdfs: rdfsIri,
+  owl: owlIri,
 };
 
 parseFileAndIndex(baseGraph, '../ontologies/rdf.ttl');

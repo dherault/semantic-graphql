@@ -1,7 +1,8 @@
 const getIriLocalName = require('../utils/getIriLocalName');
 const memorize = require('../graph/memorize');
+const capitalize = require('../utils/capitalize');
 
-// GraphQL-safe name
+// GraphQL-safe name for GraphQL types
 function getGraphqlName(g, iri) {
   const { prefixes } = g.config;
   const localName = getIriLocalName(iri);
@@ -9,7 +10,7 @@ function getGraphqlName(g, iri) {
 
   const prefix = Object.keys(prefixes).find(key => prefixes[key] === namespaceIri) || '';
 
-  return (prefix + localName).replace(/\W/g, '_');
+  return capitalize(prefix + localName).replace(/\W/g, '_');
 }
 
 module.exports = memorize(getGraphqlName, 'graphqlName');

@@ -6,6 +6,7 @@ const commonTurtlePrefixes = require('./utils/commonTurtlePrefixes');
 const SemanticGraph = require('..');
 const castArrayShape = require('../src/utils/castArrayShape');
 const isNil = require('../src/utils/isNil');
+const capitalize = require('../src/utils/capitalize');
 const { rdfsClass, rdfType, _rdfsDomain } = require('../src/constants');
 
 // TODO: split this file
@@ -28,6 +29,12 @@ describe('utils', () => {
     assert.isFalse(isNil(''));
     assert.isFalse(isNil(0));
     assert.isFalse(isNil([0]));
+  });
+
+  it('capitalize', () => {
+    assert.strictEqual(capitalize(''), '');
+    assert.strictEqual(capitalize('abc'), 'Abc');
+    assert.strictEqual(capitalize('012'), '012');
   });
 });
 

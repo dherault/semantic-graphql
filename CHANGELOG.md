@@ -1,11 +1,16 @@
 # Changelog
 
-# 0.5.1
+## tbd
+
+**Breaking changes:**
+- The names of generated GraphQL types are now capitalized regardless of the terminology.
+
+## 0.5.1
 
 **Bug fixes:**
 - Bug on `owl:inverseOf` inference that broke the feature in some cases.
 
-# 0.5.0
+## 0.5.0
 
 **Breaking changes:**
 - `getIriLocalName` is not exposed/exported by the package anymore.
@@ -21,7 +26,7 @@
 - Tests! :tada: (very basic for now)
 - Better docs
 
-# 0.4.0
+## 0.4.0
 
 **Breaking changes:**
 - `resolvers.resolveSourceTypes` must now be sync.
@@ -33,12 +38,12 @@
 **Miscellaneous:**
 - Promisify using `Promise.resolve` instead of home-made function. It's slower but safer.
 
-# 0.3.1
+## 0.3.1
 
 **Bug fixes:**
 - Warn when traversing graph and encoutering missing vertices.
 
-# 0.3.0
+## 0.3.0
 
 **Breaking changes:**
 - Cannot override `relayEdgeType` and `relayConnectionType` anymore. `relayConnectionDefinitions` override added instead.
@@ -46,12 +51,12 @@
 **Bug fixes:**
 - Bug concerning the creation of Relay types.
 
-# 0.2.1
+## 0.2.1
 
 **Bug fixes:**
 - Fixed a bug concerning the inference of owl:inverseOf.
 
-# 0.2.0
+## 0.2.0
 
 **Breaking changes:**
 - Removed `resolvers.resolveSourceClassIri`.
@@ -73,6 +78,6 @@
 - id field now appears on top when introspecting.
 - graphqlDescription are now created from the locale in config.
 
-# 0.1.0
+## 0.1.0
 
 First release! :tada:
