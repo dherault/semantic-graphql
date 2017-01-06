@@ -3,7 +3,7 @@
   "version": "0.5.1",
   "description": "Create GraphQL schemas from RDF-based ontologies",
   "main": "index.js",
-  "author": "David Hérault <david.herault@nelson.ai> (https://github.com/dherault)",
+  "author": "David Hérault <dherault@nelson.ai> (https://github.com/dherault)",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -26,6 +26,9 @@
   },
   "options": {
     "mocha": "--bail --check-leaks"
+  },
+  "engines": {
+    "node" : ">=6.9.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",

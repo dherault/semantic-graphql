@@ -1,6 +1,7 @@
 # Semantic GraphQL
 
 [![npm version](https://badge.fury.io/js/semantic-graphql.svg)](https://www.npmjs.com/package/semantic-graphql)
+[![Build Status](https://travis-ci.org/nelson-ai/semantic-graphql.svg?branch=master)](https://travis-ci.org/nelson-ai/semantic-graphql)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](#contributing)
 
 Semantic GraphQL provides an API to convert any [RDF](https://www.w3.org/TR/rdf11-primer/), [RDFS](https://www.w3.org/TR/rdf-schema/) and [OWL](http://www.w3.org/TR/owl-primer)-based ontologies into [GraphQL](http://graphql.org/) objects.
