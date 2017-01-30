@@ -3,16 +3,18 @@ const { assert } = require('chai');
 const { GraphQLObjectType, GraphQLInterfaceType } = require('graphql');
 const mockResolvers = require('./utils/mockResolvers');
 const commonTurtlePrefixes = require('./utils/commonTurtlePrefixes');
-const SemanticGraph = require('..');
 const castArrayShape = require('../src/utils/castArrayShape');
 const isNil = require('../src/utils/isNil');
 const capitalize = require('../src/utils/capitalize');
+const { walkmap, walklook } = require('../src/graph/traversal');
 const { rdfsClass, rdfType, _rdfsDomain } = require('../src/constants');
+const ArrayKeyedMap = require('../src/ArrayKeyedMap');
+const SemanticGraph = require('..');
 
 // TODO: split this file
 
 // NOTE: getIriLocalName and isIri will be imported from an external lib someday
-describe('utils', () => {
+describe('Utils', () => {
 
   it('castArrayShape', () => {
     assert.deepEqual(castArrayShape([0, 1, 2], true), [0, 1, 2]);
@@ -35,6 +37,89 @@ describe('utils', () => {
     assert.strictEqual(capitalize(''), '');
     assert.strictEqual(capitalize('abc'), 'Abc');
     assert.strictEqual(capitalize('012'), '012');
+  });
+});
+
+describe('Graph traversal', () => {
+
+  const graph = {
+    a: {
+      x: ['b', 'c'],
+      y: ['d', 'e'],
+    },
+    b: {
+      x: ['a', 'c', 'd'],
+      z: ['a', 'f'],
+    },
+    c: {
+      x: ['c'],
+    },
+    d: {
+      y: ['a', 'b'],
+      z: ['c'],
+    },
+    e: {
+      z: ['c', 'd', 'g'],
+    },
+    f: {
+      x: ['g'],
+    },
+    g: {
+      y: ['a', 'f'],
+    },
+  };
+
+  it('walkmap', () => {
+    // Walmap should traverse the graph in a depth-first manner
+    // using the same exit edge, until all vertices are visited
+    assert.deepEqual([...walkmap(graph, 'a', 'x')], ['a', 'b', 'c', 'd']);
+    assert.deepEqual([...walkmap(graph, 'b', 'x')], ['b', 'a', 'c', 'd']);
+    assert.deepEqual([...walkmap(graph, 'a', 'y')], ['a', 'd', 'b', 'e']);
+    assert.deepEqual([...walkmap(graph, 'b', 'y')], ['b']);
+    assert.deepEqual([...walkmap(graph, 'b', 'z')], ['b', 'a', 'f']);
+  });
+
+  it('walklook', () => {
+    // Walklook should traverse the graph in a breath-first manner
+    // Stopping once a fringe has resolved a result
+    assert.deepEqual([...walklook(graph, 'a', 'x', 'y')], ['d', 'e']);
+    assert.deepEqual([...walklook(graph, 'a', 'x', 'z')], ['a', 'f']);
+    assert.deepEqual([...walklook(graph, 'g', 'y', 'x')], ['b', 'c', 'g']); // BFS with stop condition
+    assert.deepEqual([...walklook(graph, 'g', 'x', 'z')], []);
+    assert.deepEqual([...walklook(graph, 'c', 'x', 'z')], []);
+  });
+});
+
+describe('ArrayKeyedMap', () => {
+
+  it('get/set', () => {
+    const akm = new ArrayKeyedMap();
+
+    assert.doesNotThrow(() => akm.set(['a', 'b', 'c'], 'foo'));
+    assert.doesNotThrow(() => akm.get(['d']));
+    assert.strictEqual(akm.get(['a', 'b', 'c']), 'foo');
+    assert.strictEqual(akm.get(['a', 'c', 'b']), 'foo');
+    assert.strictEqual(akm.get(['b', 'c', 'a']), 'foo');
+    assert.strictEqual(akm.get(['b', 'a', 'c']), 'foo');
+    assert.strictEqual(akm.get(['c', 'a', 'b']), 'foo');
+    assert.strictEqual(akm.get(['c', 'b', 'a']), 'foo');
+  });
+
+  it('has', () => {
+    const akm = new ArrayKeyedMap();
+
+    akm.set(['a', 'b', 'c'], 'foo');
+
+    assert.isTrue(akm.has(['a', 'b', 'c']));
+    assert.isTrue(akm.has(['a', 'c', 'b']));
+    assert.isTrue(akm.has(['b', 'c', 'a']));
+    assert.isTrue(akm.has(['b', 'a', 'c']));
+    assert.isTrue(akm.has(['c', 'a', 'b']));
+    assert.isTrue(akm.has(['c', 'b', 'a']));
+
+    assert.isFalse(akm.has([]));
+    assert.isFalse(akm.has(['a']));
+    assert.isFalse(akm.has(['a', 'b']));
   });
 });
 
@@ -82,7 +167,7 @@ describe('SemanticGraph', () => {
 
 const fooIri = 'http://foo.com/';
 const subject = `${fooIri}Subject`;
-const predicate = `${fooIri}Predicate`;
+const predicate = rdfType;
 const _predicate = `_${predicate}`;
 const object = `${fooIri}Object`;
 const fooPerson = `${fooIri}Person`;

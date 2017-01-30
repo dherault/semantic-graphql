@@ -17,7 +17,6 @@
 - [ ] isGraphqlList: infer desecendant of owl:FunctionalProperty
 - [ ] promisify resolver at set time
 - [ ] add recipes for resolvers
-- [ ] make sure walklook behaves as wanted, find exceptions
 - [ ] refactor and dry up graphql folder
 - [ ] improve objectResolver performance
 - [ ] refactor getGraphqlScalarResolver
@@ -43,3 +42,4 @@
 - [x] ignore class or field globally: userland
 - [x] delete field on an ObjectType: userland ?
 - [x] mutate graph data: wont do
+- [x] make sure walklook behaves as wanted, find exceptions

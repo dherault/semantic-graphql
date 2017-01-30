@@ -1,5 +1,7 @@
 const warn = require('../utils/warn');
 
+// Possible bug: stack overflow
+
 // Both methods walk a graph: g
 // from a given vertex (:=startVertex): iri
 
