@@ -16,7 +16,6 @@
   "engines": {
     "node": ">=6.0.0"
   },
-  "//prepublish": "./scripts/checkgit.sh && npm test && npm run build",
   "scripts": {
     "test": "./node_modules/.bin/mocha $npm_package_options_mocha",
     "coverage": "./node_modules/.bin/istanbul cover _mocha -- $npm_package_options_mocha",
