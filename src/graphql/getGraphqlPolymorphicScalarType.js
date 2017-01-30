@@ -33,7 +33,7 @@ function getGraphqlPolymorphicScalarType(g, ranges) {
     parseValue: coerce,
     parseLiteral: ast => scalarMethods
       .map(({ parseLiteral }) => parseLiteral(ast))
-      .filter(value => value !== null)[0] || null,
+      .filter(value => value !== null)[0] || null, // TODO: use find
   });
 
   memory.set(ranges, type);

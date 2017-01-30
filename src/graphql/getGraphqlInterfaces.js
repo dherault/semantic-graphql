@@ -5,7 +5,7 @@ const getGraphqlInterfaceType = require('./getGraphqlInterfaceType');
 function getGraphqlInterfaces(g, iri) {
   const interfaces = [];
 
-  // Find superClasses of the class and their superClasses
+  // Find super-classes of the class and their super-classes
   walkmap(g, iri, rdfsSubClassOf)
   // Many universal properties, like label and comment, have rdfs:Resource in their domain
   .add(rdfsResource)

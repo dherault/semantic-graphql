@@ -11,9 +11,10 @@ const getGraphqlName = require('./getGraphqlName');
 function getGraphqlFieldConfigMap(g, iri) {
   const properties = new Set();
 
-  // Find superClasses of the class and their superClasses
+  // Find super-classes of the class and their super-classes
   walkmap(g, iri, rdfsSubClassOf)
-  // Many universal properties, like label and comment, have rdfs:Resource in their domain
+  // Everything is a Resource, plus many universal properties
+  // like label and comment, have rdfs:Resource in their domain
   .add(rdfsResource)
   // For each class, find properties on their domain
   .forEach(classIri => g[classIri][_rdfsDomain] &&

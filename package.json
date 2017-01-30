@@ -32,18 +32,18 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "eslint": "^3.12.2",
-    "eslint-config-nelson": "^0.1.0",
+    "eslint": "^3.14.1",
+    "eslint-config-nelson": "^0.2.0",
     "eslint-plugin-import": "^2.2.0",
-    "graphql": "^0.8.2",
-    "graphql-relay": "^0.4.4",
+    "graphql": "^0.9.1",
+    "graphql-relay": "^0.5.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0"
   },
   "dependencies": {
-    "n3": "^0.8.5"
+    "n3": "^0.9.1"
   },
   "peerDependencies": {
-    "graphql": "^0.8.2"
+    "graphql": "^0.9.1"
   }
 }

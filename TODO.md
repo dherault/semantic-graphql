@@ -11,16 +11,20 @@
 
 ## Low
 
+- [ ] store only triples with useful predicates on Graph
 - [ ] support restrictions
 - [ ] Change SemanticGraph API to pass resolvers whenever
 - [ ] isGraphqlList: infer desecendant of owl:FunctionalProperty
 - [ ] promisify resolver at set time
 - [ ] add recipes for resolvers
+- [ ] make sure walklook behaves as wanted, find exceptions
 - [ ] refactor and dry up graphql folder
 - [ ] improve objectResolver performance
+- [ ] refactor getGraphqlScalarResolver
 - [ ] try using interfaces instead of ObjectTypes on fields, to see
 - [ ] support equivalences/sameAs
 - [ ] use a "consider all classes disjoint" option
+- [ ] Document polymorphism
 - [ ] error messages
 - [ ] docs
 - [ ] tests (test schema (string) generation, and inference execution)

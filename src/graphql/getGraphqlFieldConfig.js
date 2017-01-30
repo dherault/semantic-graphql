@@ -18,8 +18,9 @@ const isLiteral = iri => iri.startsWith(xsdIri) || iri === rdfsLiteral;
 
 function getGraphqlFieldConfig(g, iri) {
   // Look for a range, return it if found
-  // Otherwise for each super-property, look for a range, if not found, check their super-properties and so on
-  // In a breath-first manner
+  // Otherwise for each super-property, look for a range,
+  // if not found, check their super-properties and so on
+  // TODO: check walklook, maybe test it
   const ranges = [...walklook(g, iri, rdfsSubPropertyOf, rdfsRange)];
   const nRanges = ranges.length;
 

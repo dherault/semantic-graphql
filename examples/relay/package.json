@@ -10,8 +10,8 @@
   "author": "David Hérault <david.herault@nelson.ai> (https://github.com/dherault)",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.14.0",
-    "express-graphql": "^0.6.1"
+    "express": "^4.14.1",
+    "express-graphql": "^0.6.2"
   },
   "description": ""
 }

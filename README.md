@@ -96,7 +96,8 @@ Have a look at the [examples folder](examples/) to see a complete setup.
 class SemanticGraph {
   constructor(resolvers: Resolvers, config: ?SemanticGraphConfig),
   nTriples: number,
-  [subject: Iri]: object,
+  # The semantic data is stored directly on the graph
+  [subject: Iri]: { [predicate: iri]: Array<object: string> },
   # Public methods:
   addTriple: AddTripleFn,
   parse: ParseFn,
@@ -154,11 +155,11 @@ Appends a triple to the graph. No-op if the subject or predicate IRI is invalid,
 
 ### parse
 
-Will be removed someday
+Deprecated
 
 ### parseFile
 
-Will be removed someday
+Deprecated
 
 ### getObjectType
 
@@ -200,7 +201,7 @@ type AddFieldOnObjectTypeFn = (
 ) => Iri
 ```
 
-Adds a custom field "fieldName" on the GraphQLObjectType and GraphQLInterfaceType representing "classIri".
+Adds a custom field on the GraphQLObjectType and GraphQLInterfaceType representing a class.
 Throws if "classIri" is not found in the graph.
 Returns a random IRI referencing the new virtual rdf:Property.
 
@@ -220,6 +221,8 @@ Throws if "classIri" is not found in the graph.
 
 ## Resolvers
 
+Resolvers are functions needed to resolve data. You have to code them.
+
 ```
 type Resolvers = {
   resolveSourceId: ResolveSourceIdFn,
@@ -235,6 +238,8 @@ type ResolverOutput<x> = x | Array<x> | Promise<x> | Promise<Array<x>>
 
 ### resolveSourceId
 
+Given a source, resolve its id.
+
 ```
 type ResolveSourceIdFn = (
   source?: any,
@@ -244,21 +249,22 @@ type ResolveSourceIdFn = (
 ```
 
 Must be sync if you use Relay.
-See [`globalIdField` source code](https://github.com/graphql/graphql-relay-js/blob/master/src/node/node.js#L107)
+See [`globalIdField`'s source code](https://github.com/graphql/graphql-relay-js/blob/master/src/node/node.js#L107)
 
 ### resolveSourceTypes
+
+Given a source, resolve its rdf:type. Can be a single IRI since its super-classes will be infered.
 
 ```
 type ResolveSourceTypesFn = (
   source?: any,
   info?: GraphQLResolveInfo
-) => Iri | Array<Iri>
+) => ResolverOutput<class: Iri>
 ```
 
-Must be sync.
-See [this GraphQL issue](https://github.com/graphql/graphql-js/issues/398).
-
 ### resolveSourcePropertyValue
+
+Given a source and the IRI of a predicate, resolve the objects for that source and predicate.
 
 ```
 type ResolveSourcePropertyValueFn = (
@@ -271,6 +277,8 @@ type ResolveSourcePropertyValueFn = (
 
 ### resolveResource
 
+Given the IRI of a resource, resolve a "source" for other resolvers to use. You can either return the resource IRI to pass around as source, or fetch all the predicates/objects for that subject and return an object.
+
 ```
 type ResolveResourceFn = (
   resourceIri?: Iri,
@@ -280,6 +288,8 @@ type ResolveResourceFn = (
 ```
 
 ### resolveResources
+
+Same as `resolveResource` but with an array of IRIs.
 
 ```
 type ResolveResourcesFn = (
@@ -291,9 +301,11 @@ type ResolveResourcesFn = (
 
 ### resolveResourcesByPredicate
 
+Given a array of possible rdf:type, a predicate and an object, resolve the subjects matching that pattern.
+
 ```
 type ResolveResourcesByPredicateFn = (
-  typeIri?: Array<Iri>,
+  typeIris?: Array<Iri>,
   predicateIri?: Iri,
   value?: any,
   context?: any,
@@ -334,7 +346,7 @@ _['http://foo.com#worksForCompany'].graphqlName = 'company';
 // Now the field name for foo:worksForCompany will be 'company'
 
 // Partial modifications to fields are achieved using
-_['http://foo.com#worksForCompany'].graphqlFieldConfigExtension = {
+_['http://foo.com#someOtherProperty'].graphqlFieldConfigExtension = {
   args: /* Look Ma', arguments! */
   resolve: customResolveFn,
 };
