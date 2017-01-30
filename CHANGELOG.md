@@ -7,6 +7,8 @@
 
 **Miscellaneous:**
 - `SemanticGraph#toString` now displays the number of triples in the graph.
+- Triples with predicates not used by the lib are not stored in memory.
+- Improved documentation
 
 ## 0.5.1
 
@@ -27,7 +29,7 @@
 
 **Miscellaneous:**
 - Tests! :tada: (very basic for now)
-- Better docs
+- Improved documentation
 
 ## 0.4.0
 

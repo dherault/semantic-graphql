@@ -1,7 +1,10 @@
 const path = require('path');
 const { readFileSync } = require('fs');
 const createRdfParser = require('n3').Parser;
-const { rdfIri, rdfsIri, owlIri, rdfsDomain, rdfsResource } = require('./constants');
+const {
+  rdfIri, rdfsIri, owlIri, rdfsResource,
+  rdfType, rdfsLabel, rdfsComment, rdfsDomain, rdfsRange, rdfsSubClassOf, rdfsSubPropertyOf, owlInverseOf,
+} = require('./constants');
 const invariant = require('./utils/invariant');
 const isIri = require('./utils/isIri');
 const requireGraphqlRelay = require('./requireGraphqlRelay');
@@ -20,6 +23,18 @@ const basePrefixes = {
   rdfs: rdfsIri,
   owl: owlIri,
 };
+
+// Only those predicates are useful for the lib, thus stored in the graph
+const workingPredicates = [
+  rdfType,
+  rdfsLabel,
+  rdfsComment,
+  rdfsDomain,
+  rdfsRange,
+  rdfsSubClassOf,
+  rdfsSubPropertyOf,
+  owlInverseOf,
+];
 
 parseFileAndIndex(baseGraph, '../ontologies/rdf.ttl');
 parseFileAndIndex(baseGraph, '../ontologies/rdfs.ttl');
@@ -86,6 +101,7 @@ class SemanticGraph {
 /* Private methods */
 
 function indexTriple(g, { subject, predicate, object }) {
+  if (!workingPredicates.includes(predicate)) return;
   if (!(isIri(subject) && isIri(predicate)) || g[subject] && g[subject][predicate] && g[subject][predicate].includes(object)) return;
 
   upsert(g, subject, predicate, object);
