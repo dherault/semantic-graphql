@@ -5,6 +5,9 @@
 **Breaking changes:**
 - The names of generated GraphQL types are now capitalized regardless of the terminology.
 
+**New features:**
+- `resolvers.resolveSourceTypes` can now return a Promise!
+
 **Miscellaneous:**
 - `SemanticGraph#toString` now displays the number of triples in the graph.
 - Triples with predicates not used by the lib are not stored in memory.
