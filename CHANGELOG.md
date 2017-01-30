@@ -1,18 +1,18 @@
 # Changelog
 
-## tbd
+## 0.6.0
 
 **Breaking changes:**
 - The names of generated GraphQL types are now capitalized regardless of the terminology.
 
 **New features:**
-- `resolvers.resolveSourceTypes` can now return a Promise!
+- `resolvers.resolveSourceTypes` can now return a Promise.
 
 **Miscellaneous:**
 - `SemanticGraph#toString` now displays the number of triples in the graph.
 - Triples with predicates not used by the lib are not stored in memory.
-- Improved documentation
-- Improved tests
+- Improved documentation.
+- Improved tests.
 
 ## 0.5.1
 
@@ -33,7 +33,7 @@
 
 **Miscellaneous:**
 - Tests! :tada: (very basic for now)
-- Improved documentation
+- Improved documentation.
 
 ## 0.4.0
 

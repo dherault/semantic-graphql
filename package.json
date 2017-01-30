@@ -1,10 +1,10 @@
 {
   "name": "semantic-graphql",
-  "version": "0.5.1",
-  "description": "Create GraphQL schemas from RDF-based ontologies",
-  "main": "index.js",
+  "version": "0.6.0",
+  "description": "Create GraphQL schemas from RDF ontologies",
   "author": "David Hérault <dherault@nelson.ai> (https://github.com/dherault)",
   "license": "MIT",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nelson-ai/semantic-graphql.git"
@@ -14,7 +14,10 @@
   },
   "homepage": "https://github.com/nelson-ai/semantic-graphql#readme",
   "engines": {
-    "node": ">=6.0.0"
+    "node" : ">=6.9.1"
+  },
+  "options": {
+    "mocha": "--bail --check-leaks"
   },
   "scripts": {
     "test": "./node_modules/.bin/mocha $npm_package_options_mocha",
@@ -22,12 +25,6 @@
     "coverage:serve": "cd coverage/lcov-report && python -m SimpleHTTPServer",
     "coverage:all": "npm run coverage && npm run coverage:serve",
     "dev": "cd examples/basic && npm run watch"
-  },
-  "options": {
-    "mocha": "--bail --check-leaks"
-  },
-  "engines": {
-    "node" : ">=6.9.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
