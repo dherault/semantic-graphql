@@ -1,0 +1,15 @@
+{
+  "name": "semantic-graphql-example-foaf",
+  "description": "",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --preserve-symlinks index.js",
+    "watch": "nodemon --watch ../../ --exec \"npm start\"",
+    "//note": "preserve-symlinks because of https://github.com/npm/npm/issues/5875"
+  },
+  "author": "David Hérault <dherault@nelson.ai> (https://github.com/dherault)",
+  "license": "MIT",
+  "dependencies": {
+  }
+}
