@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/nelson-ai/semantic-graphql#readme",
   "engines": {
-    "node" : ">=6.9.1"
+    "node": ">=6.9.1"
   },
   "options": {
     "mocha": "--bail --check-leaks"
@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "coveralls": "^2.11.15",
     "eslint": "^3.14.1",
     "eslint-config-nelson": "^0.2.0",
     "eslint-plugin-import": "^2.2.0",
