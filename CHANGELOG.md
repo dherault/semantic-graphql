@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.1
+
+**Bug fixes:**
+- Improved `isIri` to support more IRIs. See #1 and #2.
+
 ## 0.6.0
 
 **Breaking changes:**
