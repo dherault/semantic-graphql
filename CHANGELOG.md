@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.2
+
+**Miscellaneous:**
+- Updated dependencies and added lockfile.
+
 ## 0.6.1
 
 **Bug fixes:**
