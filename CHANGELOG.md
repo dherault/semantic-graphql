@@ -1,5 +1,10 @@
 # Changelog
 
+## next
+
+**Miscellaneous:**
+- Added package-lock.json in example folders.
+
 ## 0.6.3
 
 **Miscellaneous:**

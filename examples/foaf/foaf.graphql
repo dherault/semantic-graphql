@@ -1,1222 +1,1478 @@
-# An agent (eg. person, group, software or physical artifact).
-type Agent implements AgentInterface, RdfsResourceInterface {
-  # A unique identifier for the resource.
+"""An agent (eg. person, group, software or physical artifact)."""
+type Agent implements AgentInterface & RdfsResourceInterface {
+  """A unique identifier for the resource."""
   id: ID
 
-  # personal mailbox - A  personal mailbox, ie. an Internet mailbox associated
-  # with exactly one owner, the first owner of this mailbox. This is a 'static
-  # inverse functional property', in that  there is (across time and change) at
-  # most one individual that ever has any particular value for foaf:mbox.
+  """
+  personal mailbox - A  personal mailbox, ie. an Internet mailbox associated
+  with exactly one owner, the first owner of this mailbox. This is a 'static
+  inverse functional property', in that  there is (across time and change) at
+  most one individual that ever has any particular value for foaf:mbox.
+  """
   mbox: [OwlThing]
 
-  # sha1sum of a personal mailbox URI name - The sha1sum of the URI of an Internet
-  # mailbox associated with exactly one owner, the  first owner of the mailbox.
+  """
+  sha1sum of a personal mailbox URI name - The sha1sum of the URI of an Internet
+  mailbox associated with exactly one owner, the  first owner of the mailbox.
+  """
   mbox_sha1sum: [String]
 
-  # The gender of this Agent (typically but not necessarily 'male' or 'female').
+  """
+  The gender of this Agent (typically but not necessarily 'male' or 'female').
+  """
   gender: String
 
-  # jabber ID - A jabber ID for something.
+  """jabber ID - A jabber ID for something."""
   jabberID: [String]
 
-  # AIM chat ID - An AIM chat ID.
+  """AIM chat ID - An AIM chat ID."""
   aimChatID: [String]
 
-  # Skype ID - A Skype ID.
+  """Skype ID - A Skype ID."""
   skypeID: [String]
 
-  # ICQ chat ID - An ICQ chat ID.
+  """ICQ chat ID - An ICQ chat ID."""
   icqChatID: [String]
 
-  # Yahoo chat ID - A Yahoo chat ID.
+  """Yahoo chat ID - A Yahoo chat ID."""
   yahooChatID: [String]
 
-  # MSN chat ID - An MSN chat ID.
+  """MSN chat ID - An MSN chat ID."""
   msnChatID: [String]
 
-  # A weblog of some thing (whether person, group, company etc.).
+  """A weblog of some thing (whether person, group, company etc.)."""
   weblog: [Document]
 
-  # An OpenID for an Agent.
+  """An OpenID for an Agent."""
   openid: [Document]
 
-  # A tipjar document for this agent, describing means for payment and reward.
+  """
+  A tipjar document for this agent, describing means for payment and reward.
+  """
   tipjar: [Document]
 
-  # Something that was made by this agent.
+  """Something that was made by this agent."""
   made: [OwlThing]
 
-  # A page about a topic of interest to this person.
+  """A page about a topic of interest to this person."""
   interest: [Document]
 
-  # A thing of interest to this person.
+  """A thing of interest to this person."""
   topic_interest: [OwlThing]
 
-  # Indicates an account held by this agent.
+  """Indicates an account held by this agent."""
   account: [OnlineAccount]
 
-  # account - Indicates an account held by this agent.
+  """account - Indicates an account held by this agent."""
   holdsAccount: [OnlineAccount]
 
-  # The birthday of this Agent, represented in mm-dd string form, eg. '12-31'.
+  """
+  The birthday of this Agent, represented in mm-dd string form, eg. '12-31'.
+  """
   birthday: String
 
-  # The age in years of some agent.
+  """The age in years of some agent."""
   age: String
 
-  # A string expressing what the user is happy for the general public (normally) to know about their current activity.
+  """
+  A string expressing what the user is happy for the general public (normally) to know about their current activity.
+  """
   status: [String]
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
-# Interface for http://xmlns.com/foaf/0.1/Agent
+"""Interface for http://xmlns.com/foaf/0.1/Agent"""
 interface AgentInterface {
-  # A unique identifier for the resource.
+  """A unique identifier for the resource."""
   id: ID
 
-  # personal mailbox - A  personal mailbox, ie. an Internet mailbox associated
-  # with exactly one owner, the first owner of this mailbox. This is a 'static
-  # inverse functional property', in that  there is (across time and change) at
-  # most one individual that ever has any particular value for foaf:mbox.
+  """
+  personal mailbox - A  personal mailbox, ie. an Internet mailbox associated
+  with exactly one owner, the first owner of this mailbox. This is a 'static
+  inverse functional property', in that  there is (across time and change) at
+  most one individual that ever has any particular value for foaf:mbox.
+  """
   mbox: [OwlThing]
 
-  # sha1sum of a personal mailbox URI name - The sha1sum of the URI of an Internet
-  # mailbox associated with exactly one owner, the  first owner of the mailbox.
+  """
+  sha1sum of a personal mailbox URI name - The sha1sum of the URI of an Internet
+  mailbox associated with exactly one owner, the  first owner of the mailbox.
+  """
   mbox_sha1sum: [String]
 
-  # The gender of this Agent (typically but not necessarily 'male' or 'female').
+  """
+  The gender of this Agent (typically but not necessarily 'male' or 'female').
+  """
   gender: String
 
-  # jabber ID - A jabber ID for something.
+  """jabber ID - A jabber ID for something."""
   jabberID: [String]
 
-  # AIM chat ID - An AIM chat ID.
+  """AIM chat ID - An AIM chat ID."""
   aimChatID: [String]
 
-  # Skype ID - A Skype ID.
+  """Skype ID - A Skype ID."""
   skypeID: [String]
 
-  # ICQ chat ID - An ICQ chat ID.
+  """ICQ chat ID - An ICQ chat ID."""
   icqChatID: [String]
 
-  # Yahoo chat ID - A Yahoo chat ID.
+  """Yahoo chat ID - A Yahoo chat ID."""
   yahooChatID: [String]
 
-  # MSN chat ID - An MSN chat ID.
+  """MSN chat ID - An MSN chat ID."""
   msnChatID: [String]
 
-  # A weblog of some thing (whether person, group, company etc.).
+  """A weblog of some thing (whether person, group, company etc.)."""
   weblog: [Document]
 
-  # An OpenID for an Agent.
+  """An OpenID for an Agent."""
   openid: [Document]
 
-  # A tipjar document for this agent, describing means for payment and reward.
+  """
+  A tipjar document for this agent, describing means for payment and reward.
+  """
   tipjar: [Document]
 
-  # Something that was made by this agent.
+  """Something that was made by this agent."""
   made: [OwlThing]
 
-  # A page about a topic of interest to this person.
+  """A page about a topic of interest to this person."""
   interest: [Document]
 
-  # A thing of interest to this person.
+  """A thing of interest to this person."""
   topic_interest: [OwlThing]
 
-  # Indicates an account held by this agent.
+  """Indicates an account held by this agent."""
   account: [OnlineAccount]
 
-  # account - Indicates an account held by this agent.
+  """account - Indicates an account held by this agent."""
   holdsAccount: [OnlineAccount]
 
-  # The birthday of this Agent, represented in mm-dd string form, eg. '12-31'.
+  """
+  The birthday of this Agent, represented in mm-dd string form, eg. '12-31'.
+  """
   birthday: String
 
-  # The age in years of some agent.
+  """The age in years of some agent."""
   age: String
 
-  # A string expressing what the user is happy for the general public (normally) to know about their current activity.
+  """
+  A string expressing what the user is happy for the general public (normally) to know about their current activity.
+  """
   status: [String]
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
-# A document.
-type Document implements DocumentInterface, RdfsResourceInterface {
-  # A unique identifier for the resource.
+"""A document."""
+type Document implements DocumentInterface & RdfsResourceInterface {
+  """A unique identifier for the resource."""
   id: ID
 
-  # A topic of some page or document.
+  """A topic of some page or document."""
   topic: [OwlThing]
 
-  # primary topic - The primary topic of some page or document.
+  """primary topic - The primary topic of some page or document."""
   primaryTopic: OwlThing
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
-# Interface for http://xmlns.com/foaf/0.1/Document
+"""Interface for http://xmlns.com/foaf/0.1/Document"""
 interface DocumentInterface {
-  # A unique identifier for the resource.
+  """A unique identifier for the resource."""
   id: ID
 
-  # A topic of some page or document.
+  """A topic of some page or document."""
   topic: [OwlThing]
 
-  # primary topic - The primary topic of some page or document.
+  """primary topic - The primary topic of some page or document."""
   primaryTopic: OwlThing
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
-# An image.
-type Image implements ImageInterface, DocumentInterface, RdfsResourceInterface {
-  # A unique identifier for the resource.
+"""An image."""
+type Image implements ImageInterface & DocumentInterface & RdfsResourceInterface {
+  """A unique identifier for the resource."""
   id: ID
 
-  # A thing depicted in this representation.
+  """A thing depicted in this representation."""
   depicts: [OwlThing]
 
-  # A derived thumbnail image.
+  """A derived thumbnail image."""
   thumbnail: [Image]
 
-  # A topic of some page or document.
+  """A topic of some page or document."""
   topic: [OwlThing]
 
-  # primary topic - The primary topic of some page or document.
+  """primary topic - The primary topic of some page or document."""
   primaryTopic: OwlThing
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
-# Interface for http://xmlns.com/foaf/0.1/Image
+"""Interface for http://xmlns.com/foaf/0.1/Image"""
 interface ImageInterface {
-  # A unique identifier for the resource.
+  """A unique identifier for the resource."""
   id: ID
 
-  # A thing depicted in this representation.
+  """A thing depicted in this representation."""
   depicts: [OwlThing]
 
-  # A derived thumbnail image.
+  """A derived thumbnail image."""
   thumbnail: [Image]
 
-  # A topic of some page or document.
+  """A topic of some page or document."""
   topic: [OwlThing]
 
-  # primary topic - The primary topic of some page or document.
+  """primary topic - The primary topic of some page or document."""
   primaryTopic: OwlThing
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
-# Online Account - An online account.
-type OnlineAccount implements OnlineAccountInterface, OwlThingInterface, RdfsResourceInterface {
-  # A unique identifier for the resource.
+"""Online Account - An online account."""
+type OnlineAccount implements OnlineAccountInterface & OwlThingInterface & RdfsResourceInterface {
+  """A unique identifier for the resource."""
   id: ID
 
-  # account service homepage - Indicates a homepage of the service provide for this online account.
+  """
+  account service homepage - Indicates a homepage of the service provide for this online account.
+  """
   accountServiceHomepage: [Document]
 
-  # account name - Indicates the name (identifier) associated with this online account.
+  """
+  account name - Indicates the name (identifier) associated with this online account.
+  """
   accountName: [String]
 
-  # The data property that does not relate any individual to any data value.
+  """
+  The data property that does not relate any individual to any data value.
+  """
   bottomDataProperty: [String]
 
-  # The object property that does not relate any two individuals.
+  """The object property that does not relate any two individuals."""
   bottomObjectProperty: [OwlThing]
 
-  # The property that determines that two given individuals are different.
+  """The property that determines that two given individuals are different."""
   differentFrom: [OwlThing]
 
-  # The property that determines that two given individuals are equal.
+  """The property that determines that two given individuals are equal."""
   sameAs: [OwlThing]
 
-  # The data property that relates every individual to every data value.
+  """The data property that relates every individual to every data value."""
   topDataProperty: [String]
 
-  # The object property that relates every two individuals.
+  """The object property that relates every two individuals."""
   topObjectProperty: [OwlThing]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # A homepage for some thing.
+  """A homepage for some thing."""
   homepage: [Document]
 
-  # An agent that  made this thing.
+  """An agent that  made this thing."""
   maker: [Agent]
 
-  # A depiction of some thing.
+  """A depiction of some thing."""
   depiction: [Image]
 
-  # image - An image that can be used to represent some thing (ie. those
-  # depictions which are particularly representative of something, eg. one's photo
-  # on a homepage).
+  """
+  image - An image that can be used to represent some thing (ie. those
+  depictions which are particularly representative of something, eg. one's photo
+  on a homepage).
+  """
   img: [Image]
 
-  # funded by - An organization funding a project or person.
+  """funded by - An organization funding a project or person."""
   fundedBy: [OwlThing]
 
-  # A logo representing some thing.
+  """A logo representing some thing."""
   logo: [OwlThing]
 
-  # is primary topic of - A document that this thing is the primary topic of.
+  """
+  is primary topic of - A document that this thing is the primary topic of.
+  """
   isPrimaryTopicOf: [Document]
 
-  # An OpenID for an Agent.
+  """An OpenID for an Agent."""
   openid: [Document]
 
-  # A page or document about this thing.
+  """A page or document about this thing."""
   page: [Document]
 
-  # A weblog of some thing (whether person, group, company etc.).
+  """A weblog of some thing (whether person, group, company etc.)."""
   weblog: [Document]
 
-  # A tipjar document for this agent, describing means for payment and reward.
+  """
+  A tipjar document for this agent, describing means for payment and reward.
+  """
   tipjar: [Document]
 
-  # A theme.
+  """A theme."""
   theme: [OwlThing]
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
-# Interface for http://xmlns.com/foaf/0.1/OnlineAccount
+"""Interface for http://xmlns.com/foaf/0.1/OnlineAccount"""
 interface OnlineAccountInterface {
-  # A unique identifier for the resource.
+  """A unique identifier for the resource."""
   id: ID
 
-  # account service homepage - Indicates a homepage of the service provide for this online account.
+  """
+  account service homepage - Indicates a homepage of the service provide for this online account.
+  """
   accountServiceHomepage: [Document]
 
-  # account name - Indicates the name (identifier) associated with this online account.
+  """
+  account name - Indicates the name (identifier) associated with this online account.
+  """
   accountName: [String]
 
-  # The data property that does not relate any individual to any data value.
+  """
+  The data property that does not relate any individual to any data value.
+  """
   bottomDataProperty: [String]
 
-  # The object property that does not relate any two individuals.
+  """The object property that does not relate any two individuals."""
   bottomObjectProperty: [OwlThing]
 
-  # The property that determines that two given individuals are different.
+  """The property that determines that two given individuals are different."""
   differentFrom: [OwlThing]
 
-  # The property that determines that two given individuals are equal.
+  """The property that determines that two given individuals are equal."""
   sameAs: [OwlThing]
 
-  # The data property that relates every individual to every data value.
+  """The data property that relates every individual to every data value."""
   topDataProperty: [String]
 
-  # The object property that relates every two individuals.
+  """The object property that relates every two individuals."""
   topObjectProperty: [OwlThing]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # A homepage for some thing.
+  """A homepage for some thing."""
   homepage: [Document]
 
-  # An agent that  made this thing.
+  """An agent that  made this thing."""
   maker: [Agent]
 
-  # A depiction of some thing.
+  """A depiction of some thing."""
   depiction: [Image]
 
-  # image - An image that can be used to represent some thing (ie. those
-  # depictions which are particularly representative of something, eg. one's photo
-  # on a homepage).
+  """
+  image - An image that can be used to represent some thing (ie. those
+  depictions which are particularly representative of something, eg. one's photo
+  on a homepage).
+  """
   img: [Image]
 
-  # funded by - An organization funding a project or person.
+  """funded by - An organization funding a project or person."""
   fundedBy: [OwlThing]
 
-  # A logo representing some thing.
+  """A logo representing some thing."""
   logo: [OwlThing]
 
-  # is primary topic of - A document that this thing is the primary topic of.
+  """
+  is primary topic of - A document that this thing is the primary topic of.
+  """
   isPrimaryTopicOf: [Document]
 
-  # An OpenID for an Agent.
+  """An OpenID for an Agent."""
   openid: [Document]
 
-  # A page or document about this thing.
+  """A page or document about this thing."""
   page: [Document]
 
-  # A weblog of some thing (whether person, group, company etc.).
+  """A weblog of some thing (whether person, group, company etc.)."""
   weblog: [Document]
 
-  # A tipjar document for this agent, describing means for payment and reward.
+  """
+  A tipjar document for this agent, describing means for payment and reward.
+  """
   tipjar: [Document]
 
-  # A theme.
+  """A theme."""
   theme: [OwlThing]
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
-# The class of OWL individuals.
-type OwlThing implements OwlThingInterface, RdfsResourceInterface {
-  # A unique identifier for the resource.
+"""The class of OWL individuals."""
+type OwlThing implements OwlThingInterface & RdfsResourceInterface {
+  """A unique identifier for the resource."""
   id: ID
 
-  # The data property that does not relate any individual to any data value.
+  """
+  The data property that does not relate any individual to any data value.
+  """
   bottomDataProperty: [String]
 
-  # The object property that does not relate any two individuals.
+  """The object property that does not relate any two individuals."""
   bottomObjectProperty: [OwlThing]
 
-  # The property that determines that two given individuals are different.
+  """The property that determines that two given individuals are different."""
   differentFrom: [OwlThing]
 
-  # The property that determines that two given individuals are equal.
+  """The property that determines that two given individuals are equal."""
   sameAs: [OwlThing]
 
-  # The data property that relates every individual to every data value.
+  """The data property that relates every individual to every data value."""
   topDataProperty: [String]
 
-  # The object property that relates every two individuals.
+  """The object property that relates every two individuals."""
   topObjectProperty: [OwlThing]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # A homepage for some thing.
+  """A homepage for some thing."""
   homepage: [Document]
 
-  # An agent that  made this thing.
+  """An agent that  made this thing."""
   maker: [Agent]
 
-  # A depiction of some thing.
+  """A depiction of some thing."""
   depiction: [Image]
 
-  # image - An image that can be used to represent some thing (ie. those
-  # depictions which are particularly representative of something, eg. one's photo
-  # on a homepage).
+  """
+  image - An image that can be used to represent some thing (ie. those
+  depictions which are particularly representative of something, eg. one's photo
+  on a homepage).
+  """
   img: [Image]
 
-  # funded by - An organization funding a project or person.
+  """funded by - An organization funding a project or person."""
   fundedBy: [OwlThing]
 
-  # A logo representing some thing.
+  """A logo representing some thing."""
   logo: [OwlThing]
 
-  # is primary topic of - A document that this thing is the primary topic of.
+  """
+  is primary topic of - A document that this thing is the primary topic of.
+  """
   isPrimaryTopicOf: [Document]
 
-  # An OpenID for an Agent.
+  """An OpenID for an Agent."""
   openid: [Document]
 
-  # A page or document about this thing.
+  """A page or document about this thing."""
   page: [Document]
 
-  # A weblog of some thing (whether person, group, company etc.).
+  """A weblog of some thing (whether person, group, company etc.)."""
   weblog: [Document]
 
-  # A tipjar document for this agent, describing means for payment and reward.
+  """
+  A tipjar document for this agent, describing means for payment and reward.
+  """
   tipjar: [Document]
 
-  # A theme.
+  """A theme."""
   theme: [OwlThing]
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
-# Interface for http://www.w3.org/2002/07/owl#Thing
+"""Interface for http://www.w3.org/2002/07/owl#Thing"""
 interface OwlThingInterface {
-  # A unique identifier for the resource.
+  """A unique identifier for the resource."""
   id: ID
 
-  # The data property that does not relate any individual to any data value.
+  """
+  The data property that does not relate any individual to any data value.
+  """
   bottomDataProperty: [String]
 
-  # The object property that does not relate any two individuals.
+  """The object property that does not relate any two individuals."""
   bottomObjectProperty: [OwlThing]
 
-  # The property that determines that two given individuals are different.
+  """The property that determines that two given individuals are different."""
   differentFrom: [OwlThing]
 
-  # The property that determines that two given individuals are equal.
+  """The property that determines that two given individuals are equal."""
   sameAs: [OwlThing]
 
-  # The data property that relates every individual to every data value.
+  """The data property that relates every individual to every data value."""
   topDataProperty: [String]
 
-  # The object property that relates every two individuals.
+  """The object property that relates every two individuals."""
   topObjectProperty: [OwlThing]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # A homepage for some thing.
+  """A homepage for some thing."""
   homepage: [Document]
 
-  # An agent that  made this thing.
+  """An agent that  made this thing."""
   maker: [Agent]
 
-  # A depiction of some thing.
+  """A depiction of some thing."""
   depiction: [Image]
 
-  # image - An image that can be used to represent some thing (ie. those
-  # depictions which are particularly representative of something, eg. one's photo
-  # on a homepage).
+  """
+  image - An image that can be used to represent some thing (ie. those
+  depictions which are particularly representative of something, eg. one's photo
+  on a homepage).
+  """
   img: [Image]
 
-  # funded by - An organization funding a project or person.
+  """funded by - An organization funding a project or person."""
   fundedBy: [OwlThing]
 
-  # A logo representing some thing.
+  """A logo representing some thing."""
   logo: [OwlThing]
 
-  # is primary topic of - A document that this thing is the primary topic of.
+  """
+  is primary topic of - A document that this thing is the primary topic of.
+  """
   isPrimaryTopicOf: [Document]
 
-  # An OpenID for an Agent.
+  """An OpenID for an Agent."""
   openid: [Document]
 
-  # A page or document about this thing.
+  """A page or document about this thing."""
   page: [Document]
 
-  # A weblog of some thing (whether person, group, company etc.).
+  """A weblog of some thing (whether person, group, company etc.)."""
   weblog: [Document]
 
-  # A tipjar document for this agent, describing means for payment and reward.
+  """
+  A tipjar document for this agent, describing means for payment and reward.
+  """
   tipjar: [Document]
 
-  # A theme.
+  """A theme."""
   theme: [OwlThing]
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
-# A person.
-type Person implements PersonInterface, AgentInterface, SpatialThingInterface, RdfsResourceInterface {
-  # A unique identifier for the resource.
+"""A person."""
+type Person implements PersonInterface & AgentInterface & SpatialThingInterface & RdfsResourceInterface {
+  """A unique identifier for the resource."""
   id: ID
 
-  # A textual geekcode for this person, see http://www.geekcode.com/geek.html.
+  """
+  A textual geekcode for this person, see http://www.geekcode.com/geek.html.
+  """
   geekcode: [String]
 
-  # The first name of a person.
+  """The first name of a person."""
   firstName: [String]
 
-  # The last name of a person.
+  """The last name of a person."""
   lastName: [String]
 
-  # Surname - The surname of some person.
+  """Surname - The surname of some person."""
   surname: [String]
 
-  # The family name of some person.
+  """The family name of some person."""
   family_name: [String]
 
-  # The family name of some person.
+  """The family name of some person."""
   familyName: [String]
 
-  # A .plan comment, in the tradition of finger and '.plan' files.
+  """A .plan comment, in the tradition of finger and '.plan' files."""
   plan: [String]
 
-  # image - An image that can be used to represent some thing (ie. those
-  # depictions which are particularly representative of something, eg. one's photo
-  # on a homepage).
+  """
+  image - An image that can be used to represent some thing (ie. those
+  depictions which are particularly representative of something, eg. one's photo
+  on a homepage).
+  """
   img: [Image]
 
-  # A Myers Briggs (MBTI) personality classification.
+  """A Myers Briggs (MBTI) personality classification."""
   myersBriggs: [String]
 
-  # workplace homepage - A workplace homepage of some person; the homepage of an organization they work for.
+  """
+  workplace homepage - A workplace homepage of some person; the homepage of an organization they work for.
+  """
   workplaceHomepage: [Document]
 
-  # work info homepage - A work info homepage of some person; a page about their work for some organization.
+  """
+  work info homepage - A work info homepage of some person; a page about their work for some organization.
+  """
   workInfoHomepage: [Document]
 
-  # A homepage of a school attended by the person.
+  """A homepage of a school attended by the person."""
   schoolHomepage: [Document]
 
-  # A person known by this person (indicating some level of reciprocated interaction between the parties).
+  """
+  A person known by this person (indicating some level of reciprocated interaction between the parties).
+  """
   knows: [Person]
 
-  # A link to the publications of this person.
+  """A link to the publications of this person."""
   publications: [Document]
 
-  # current project - A current project this person works on.
+  """current project - A current project this person works on."""
   currentProject: [OwlThing]
 
-  # past project - A project this person has previously worked on.
+  """past project - A project this person has previously worked on."""
   pastProject: [OwlThing]
 
-  # personal mailbox - A  personal mailbox, ie. an Internet mailbox associated
-  # with exactly one owner, the first owner of this mailbox. This is a 'static
-  # inverse functional property', in that  there is (across time and change) at
-  # most one individual that ever has any particular value for foaf:mbox.
+  """
+  personal mailbox - A  personal mailbox, ie. an Internet mailbox associated
+  with exactly one owner, the first owner of this mailbox. This is a 'static
+  inverse functional property', in that  there is (across time and change) at
+  most one individual that ever has any particular value for foaf:mbox.
+  """
   mbox: [OwlThing]
 
-  # sha1sum of a personal mailbox URI name - The sha1sum of the URI of an Internet
-  # mailbox associated with exactly one owner, the  first owner of the mailbox.
+  """
+  sha1sum of a personal mailbox URI name - The sha1sum of the URI of an Internet
+  mailbox associated with exactly one owner, the  first owner of the mailbox.
+  """
   mbox_sha1sum: [String]
 
-  # The gender of this Agent (typically but not necessarily 'male' or 'female').
+  """
+  The gender of this Agent (typically but not necessarily 'male' or 'female').
+  """
   gender: String
 
-  # jabber ID - A jabber ID for something.
+  """jabber ID - A jabber ID for something."""
   jabberID: [String]
 
-  # AIM chat ID - An AIM chat ID.
+  """AIM chat ID - An AIM chat ID."""
   aimChatID: [String]
 
-  # Skype ID - A Skype ID.
+  """Skype ID - A Skype ID."""
   skypeID: [String]
 
-  # ICQ chat ID - An ICQ chat ID.
+  """ICQ chat ID - An ICQ chat ID."""
   icqChatID: [String]
 
-  # Yahoo chat ID - A Yahoo chat ID.
+  """Yahoo chat ID - A Yahoo chat ID."""
   yahooChatID: [String]
 
-  # MSN chat ID - An MSN chat ID.
+  """MSN chat ID - An MSN chat ID."""
   msnChatID: [String]
 
-  # A weblog of some thing (whether person, group, company etc.).
+  """A weblog of some thing (whether person, group, company etc.)."""
   weblog: [Document]
 
-  # An OpenID for an Agent.
+  """An OpenID for an Agent."""
   openid: [Document]
 
-  # A tipjar document for this agent, describing means for payment and reward.
+  """
+  A tipjar document for this agent, describing means for payment and reward.
+  """
   tipjar: [Document]
 
-  # Something that was made by this agent.
+  """Something that was made by this agent."""
   made: [OwlThing]
 
-  # A page about a topic of interest to this person.
+  """A page about a topic of interest to this person."""
   interest: [Document]
 
-  # A thing of interest to this person.
+  """A thing of interest to this person."""
   topic_interest: [OwlThing]
 
-  # Indicates an account held by this agent.
+  """Indicates an account held by this agent."""
   account: [OnlineAccount]
 
-  # account - Indicates an account held by this agent.
+  """account - Indicates an account held by this agent."""
   holdsAccount: [OnlineAccount]
 
-  # The birthday of this Agent, represented in mm-dd string form, eg. '12-31'.
+  """
+  The birthday of this Agent, represented in mm-dd string form, eg. '12-31'.
+  """
   birthday: String
 
-  # The age in years of some agent.
+  """The age in years of some agent."""
   age: String
 
-  # A string expressing what the user is happy for the general public (normally) to know about their current activity.
+  """
+  A string expressing what the user is happy for the general public (normally) to know about their current activity.
+  """
   status: [String]
 
-  # based near - A location that something is based near, for some broadly human notion of near.
+  """
+  based near - A location that something is based near, for some broadly human notion of near.
+  """
   based_near: [SpatialThing]
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
-# Interface for http://xmlns.com/foaf/0.1/Person
+"""Interface for http://xmlns.com/foaf/0.1/Person"""
 interface PersonInterface {
-  # A unique identifier for the resource.
+  """A unique identifier for the resource."""
   id: ID
 
-  # A textual geekcode for this person, see http://www.geekcode.com/geek.html.
+  """
+  A textual geekcode for this person, see http://www.geekcode.com/geek.html.
+  """
   geekcode: [String]
 
-  # The first name of a person.
+  """The first name of a person."""
   firstName: [String]
 
-  # The last name of a person.
+  """The last name of a person."""
   lastName: [String]
 
-  # Surname - The surname of some person.
+  """Surname - The surname of some person."""
   surname: [String]
 
-  # The family name of some person.
+  """The family name of some person."""
   family_name: [String]
 
-  # The family name of some person.
+  """The family name of some person."""
   familyName: [String]
 
-  # A .plan comment, in the tradition of finger and '.plan' files.
+  """A .plan comment, in the tradition of finger and '.plan' files."""
   plan: [String]
 
-  # image - An image that can be used to represent some thing (ie. those
-  # depictions which are particularly representative of something, eg. one's photo
-  # on a homepage).
+  """
+  image - An image that can be used to represent some thing (ie. those
+  depictions which are particularly representative of something, eg. one's photo
+  on a homepage).
+  """
   img: [Image]
 
-  # A Myers Briggs (MBTI) personality classification.
+  """A Myers Briggs (MBTI) personality classification."""
   myersBriggs: [String]
 
-  # workplace homepage - A workplace homepage of some person; the homepage of an organization they work for.
+  """
+  workplace homepage - A workplace homepage of some person; the homepage of an organization they work for.
+  """
   workplaceHomepage: [Document]
 
-  # work info homepage - A work info homepage of some person; a page about their work for some organization.
+  """
+  work info homepage - A work info homepage of some person; a page about their work for some organization.
+  """
   workInfoHomepage: [Document]
 
-  # A homepage of a school attended by the person.
+  """A homepage of a school attended by the person."""
   schoolHomepage: [Document]
 
-  # A person known by this person (indicating some level of reciprocated interaction between the parties).
+  """
+  A person known by this person (indicating some level of reciprocated interaction between the parties).
+  """
   knows: [Person]
 
-  # A link to the publications of this person.
+  """A link to the publications of this person."""
   publications: [Document]
 
-  # current project - A current project this person works on.
+  """current project - A current project this person works on."""
   currentProject: [OwlThing]
 
-  # past project - A project this person has previously worked on.
+  """past project - A project this person has previously worked on."""
   pastProject: [OwlThing]
 
-  # personal mailbox - A  personal mailbox, ie. an Internet mailbox associated
-  # with exactly one owner, the first owner of this mailbox. This is a 'static
-  # inverse functional property', in that  there is (across time and change) at
-  # most one individual that ever has any particular value for foaf:mbox.
+  """
+  personal mailbox - A  personal mailbox, ie. an Internet mailbox associated
+  with exactly one owner, the first owner of this mailbox. This is a 'static
+  inverse functional property', in that  there is (across time and change) at
+  most one individual that ever has any particular value for foaf:mbox.
+  """
   mbox: [OwlThing]
 
-  # sha1sum of a personal mailbox URI name - The sha1sum of the URI of an Internet
-  # mailbox associated with exactly one owner, the  first owner of the mailbox.
+  """
+  sha1sum of a personal mailbox URI name - The sha1sum of the URI of an Internet
+  mailbox associated with exactly one owner, the  first owner of the mailbox.
+  """
   mbox_sha1sum: [String]
 
-  # The gender of this Agent (typically but not necessarily 'male' or 'female').
+  """
+  The gender of this Agent (typically but not necessarily 'male' or 'female').
+  """
   gender: String
 
-  # jabber ID - A jabber ID for something.
+  """jabber ID - A jabber ID for something."""
   jabberID: [String]
 
-  # AIM chat ID - An AIM chat ID.
+  """AIM chat ID - An AIM chat ID."""
   aimChatID: [String]
 
-  # Skype ID - A Skype ID.
+  """Skype ID - A Skype ID."""
   skypeID: [String]
 
-  # ICQ chat ID - An ICQ chat ID.
+  """ICQ chat ID - An ICQ chat ID."""
   icqChatID: [String]
 
-  # Yahoo chat ID - A Yahoo chat ID.
+  """Yahoo chat ID - A Yahoo chat ID."""
   yahooChatID: [String]
 
-  # MSN chat ID - An MSN chat ID.
+  """MSN chat ID - An MSN chat ID."""
   msnChatID: [String]
 
-  # A weblog of some thing (whether person, group, company etc.).
+  """A weblog of some thing (whether person, group, company etc.)."""
   weblog: [Document]
 
-  # An OpenID for an Agent.
+  """An OpenID for an Agent."""
   openid: [Document]
 
-  # A tipjar document for this agent, describing means for payment and reward.
+  """
+  A tipjar document for this agent, describing means for payment and reward.
+  """
   tipjar: [Document]
 
-  # Something that was made by this agent.
+  """Something that was made by this agent."""
   made: [OwlThing]
 
-  # A page about a topic of interest to this person.
+  """A page about a topic of interest to this person."""
   interest: [Document]
 
-  # A thing of interest to this person.
+  """A thing of interest to this person."""
   topic_interest: [OwlThing]
 
-  # Indicates an account held by this agent.
+  """Indicates an account held by this agent."""
   account: [OnlineAccount]
 
-  # account - Indicates an account held by this agent.
+  """account - Indicates an account held by this agent."""
   holdsAccount: [OnlineAccount]
 
-  # The birthday of this Agent, represented in mm-dd string form, eg. '12-31'.
+  """
+  The birthday of this Agent, represented in mm-dd string form, eg. '12-31'.
+  """
   birthday: String
 
-  # The age in years of some agent.
+  """The age in years of some agent."""
   age: String
 
-  # A string expressing what the user is happy for the general public (normally) to know about their current activity.
+  """
+  A string expressing what the user is happy for the general public (normally) to know about their current activity.
+  """
   status: [String]
 
-  # based near - A location that something is based near, for some broadly human notion of near.
+  """
+  based near - A location that something is based near, for some broadly human notion of near.
+  """
   based_near: [SpatialThing]
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
@@ -1224,442 +1480,558 @@ type Query {
   person: Person
 }
 
-# The class of RDF Lists.
-type RdfList implements RdfListInterface, RdfsResourceInterface {
-  # A unique identifier for the resource.
+"""The class of RDF Lists."""
+type RdfList implements RdfListInterface & RdfsResourceInterface {
+  """A unique identifier for the resource."""
   id: ID
 
-  # The first item in the subject RDF list.
+  """The first item in the subject RDF list."""
   first: [RdfsResource]
 
-  # The rest of the subject RDF list after the first item.
+  """The rest of the subject RDF list after the first item."""
   rest: [RdfList]
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
-# Interface for http://www.w3.org/1999/02/22-rdf-syntax-ns#List
+"""Interface for http://www.w3.org/1999/02/22-rdf-syntax-ns#List"""
 interface RdfListInterface {
-  # A unique identifier for the resource.
+  """A unique identifier for the resource."""
   id: ID
 
-  # The first item in the subject RDF list.
+  """The first item in the subject RDF list."""
   first: [RdfsResource]
 
-  # The rest of the subject RDF list after the first item.
+  """The rest of the subject RDF list after the first item."""
   rest: [RdfList]
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
-# The class of classes.
-type RdfsClass implements RdfsClassInterface, RdfsResourceInterface {
-  # A unique identifier for the resource.
+"""The class of classes."""
+type RdfsClass implements RdfsClassInterface & RdfsResourceInterface {
+  """A unique identifier for the resource."""
   id: ID
 
-  # The subject is a subclass of a class.
+  """The subject is a subclass of a class."""
   subClassOf: [RdfsClass]
 
-  # The property that determines that two given classes are equivalent, and that is used to specify datatype definitions.
+  """
+  The property that determines that two given classes are equivalent, and that is used to specify datatype definitions.
+  """
   equivalentClass: [RdfsClass]
 
-  # The property that determines the collection of classes or data ranges that build an intersection.
+  """
+  The property that determines the collection of classes or data ranges that build an intersection.
+  """
   intersectionOf: [RdfList]
 
-  # The property that determines the collection of individuals or data values that build an enumeration.
+  """
+  The property that determines the collection of individuals or data values that build an enumeration.
+  """
   oneOf: [RdfList]
 
-  # The property that determines the collection of classes or data ranges that build a union.
+  """
+  The property that determines the collection of classes or data ranges that build a union.
+  """
   unionOf: [RdfList]
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
-# Interface for http://www.w3.org/2000/01/rdf-schema#Class
+"""Interface for http://www.w3.org/2000/01/rdf-schema#Class"""
 interface RdfsClassInterface {
-  # A unique identifier for the resource.
+  """A unique identifier for the resource."""
   id: ID
 
-  # The subject is a subclass of a class.
+  """The subject is a subclass of a class."""
   subClassOf: [RdfsClass]
 
-  # The property that determines that two given classes are equivalent, and that is used to specify datatype definitions.
+  """
+  The property that determines that two given classes are equivalent, and that is used to specify datatype definitions.
+  """
   equivalentClass: [RdfsClass]
 
-  # The property that determines the collection of classes or data ranges that build an intersection.
+  """
+  The property that determines the collection of classes or data ranges that build an intersection.
+  """
   intersectionOf: [RdfList]
 
-  # The property that determines the collection of individuals or data values that build an enumeration.
+  """
+  The property that determines the collection of individuals or data values that build an enumeration.
+  """
   oneOf: [RdfList]
 
-  # The property that determines the collection of classes or data ranges that build a union.
+  """
+  The property that determines the collection of classes or data ranges that build a union.
+  """
   unionOf: [RdfList]
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
-# The class resource, everything.
+"""The class resource, everything."""
 type RdfsResource implements RdfsResourceInterface {
-  # A unique identifier for the resource.
+  """A unique identifier for the resource."""
   id: ID
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
-# Interface for http://www.w3.org/2000/01/rdf-schema#Resource
+"""Interface for http://www.w3.org/2000/01/rdf-schema#Resource"""
 interface RdfsResourceInterface {
-  # A unique identifier for the resource.
+  """A unique identifier for the resource."""
   id: ID
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
-# Spatial Thing.
-type SpatialThing implements SpatialThingInterface, RdfsResourceInterface {
-  # A unique identifier for the resource.
+"""Spatial Thing."""
+type SpatialThing implements SpatialThingInterface & RdfsResourceInterface {
+  """A unique identifier for the resource."""
   id: ID
 
-  # based near - A location that something is based near, for some broadly human notion of near.
+  """
+  based near - A location that something is based near, for some broadly human notion of near.
+  """
   based_near: [SpatialThing]
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }
 
-# Interface for http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing
+"""Interface for http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing"""
 interface SpatialThingInterface {
-  # A unique identifier for the resource.
+  """A unique identifier for the resource."""
   id: ID
 
-  # based near - A location that something is based near, for some broadly human notion of near.
+  """
+  based near - A location that something is based near, for some broadly human notion of near.
+  """
   based_near: [SpatialThing]
 
-  # The subject is an instance of a class.
+  """The subject is an instance of a class."""
   type: [RdfsClass]
 
-  # Idiomatic property used for structured values.
+  """Idiomatic property used for structured values."""
   value: [RdfsResource]
 
-  # A description of the subject resource.
+  """A description of the subject resource."""
   comment: [String]
 
-  # A human-readable name for the subject.
+  """A human-readable name for the subject."""
   label: [String]
 
-  # A name for some thing.
+  """A name for some thing."""
   name: [String]
 
-  # Further information about the subject resource.
+  """Further information about the subject resource."""
   seeAlso: [RdfsResource]
 
-  # The defininition of the subject resource.
+  """The defininition of the subject resource."""
   isDefinedBy: [RdfsResource]
 
-  # A member of the subject resource.
+  """A member of the subject resource."""
   member: [RdfsResource]
 
-  # The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
+  The property that determines the predicate of an annotated axiom or annotated annotation.
+  """
   annotatedProperty: [RdfsResource]
 
-  # The property that determines the subject of an annotated axiom or annotated annotation.
+  """
+  The property that determines the subject of an annotated axiom or annotated annotation.
+  """
   annotatedSource: [RdfsResource]
 
-  # The property that determines the object of an annotated axiom or annotated annotation.
+  """
+  The property that determines the object of an annotated axiom or annotated annotation.
+  """
   annotatedTarget: [RdfsResource]
 
-  # The annotation property that indicates that a given entity has been deprecated.
+  """
+  The annotation property that indicates that a given entity has been deprecated.
+  """
   deprecated: [RdfsResource]
 
-  # The property that determines the collection of members in either a
-  # owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
+  The property that determines the collection of members in either a
+  owl:AllDifferent, owl:AllDisjointClasses or owl:AllDisjointProperties axiom.
+  """
   members: [RdfList]
 
-  # The annotation property that provides version information for an ontology or another OWL construct.
+  """
+  The annotation property that provides version information for an ontology or another OWL construct.
+  """
   versionInfo: [RdfsResource]
 }

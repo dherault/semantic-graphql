@@ -10,6 +10,5 @@
   },
   "author": "David Hérault <dherault@nelson.ai> (https://github.com/dherault)",
   "license": "MIT",
-  "dependencies": {
-  }
+  "dependencies": {}
 }
