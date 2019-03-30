@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.3
+
+**Miscellaneous:**
+- Updated dependencies and change repo information in package.json.
+
 ## 0.6.2
 
 **Miscellaneous:**

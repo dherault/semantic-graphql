@@ -1,17 +1,17 @@
 {
   "name": "semantic-graphql",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "Create GraphQL schemas from RDF ontologies",
   "license": "MIT",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nelson-ai/semantic-graphql.git"
+    "url": "git+https://github.com/dherault/semantic-graphql.git"
   },
   "bugs": {
-    "url": "https://github.com/nelson-ai/semantic-graphql/issues"
+    "url": "https://github.com/dherault/semantic-graphql/issues"
   },
-  "homepage": "https://github.com/nelson-ai/semantic-graphql#readme",
+  "homepage": "https://github.com/dherault/semantic-graphql#readme",
   "engines": {
     "node": ">=6.9.1"
   },
@@ -19,31 +19,28 @@
   "contributors": [
     "Austin Harris (https://github.com/Astn)"
   ],
-  "options": {
-    "mocha": "--bail --check-leaks"
-  },
   "scripts": {
-    "test": "./node_modules/.bin/mocha $npm_package_options_mocha",
-    "coverage": "./node_modules/.bin/istanbul cover _mocha -- $npm_package_options_mocha",
+    "test": "./node_modules/.bin/mocha --bail --check-leaks",
+    "coverage": "./node_modules/.bin/istanbul cover _mocha -- --bail --check-leaks",
     "coverage:serve": "cd coverage/lcov-report && python -m SimpleHTTPServer",
     "coverage:all": "npm run coverage && npm run coverage:serve",
     "dev": "cd examples/basic && npm run watch"
   },
   "devDependencies": {
-    "chai": "^4.0.2",
-    "coveralls": "^2.13.1",
-    "eslint": "^4.1.1",
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.3",
+    "eslint": "^5.16.0",
     "eslint-config-nelson": "^0.2.0",
-    "eslint-plugin-import": "^2.6.1",
-    "graphql": "^0.10.3",
-    "graphql-relay": "^0.5.2",
+    "eslint-plugin-import": "^2.16.0",
+    "graphql": "^14.2.0",
+    "graphql-relay": "^0.6.0",
     "istanbul": "^0.4.5",
-    "mocha": "^3.4.2"
+    "mocha": "^6.0.2"
   },
   "dependencies": {
     "n3": "^0.10.0"
   },
   "peerDependencies": {
-    "graphql": "^0.10.3"
+    "graphql": "^14.2.0"
   }
 }

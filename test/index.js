@@ -278,14 +278,14 @@ describe('GraphQL objects generation', () => {
 
     assert.doesNotThrow(() => PersonType = _.getObjectType(fooPerson));
     assert.instanceOf(PersonType, GraphQLObjectType);
-    assert.doesNotThrow(() => fields = PersonType._typeConfig.fields());
+    assert.doesNotThrow(() => fields = PersonType._fields());
     assert.property(fields, 'name');
     assert.property(fields, 'age');
     assert.property(fields, 'gender');
 
     assert.doesNotThrow(() => PersonType = _.getInterfaceType(fooPerson));
     assert.instanceOf(PersonType, GraphQLInterfaceType);
-    assert.doesNotThrow(() => fields = PersonType._typeConfig.fields());
+    assert.doesNotThrow(() => fields = PersonType._fields());
     assert.property(fields, 'name');
     assert.property(fields, 'age');
     assert.property(fields, 'gender');
