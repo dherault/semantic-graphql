@@ -1,39 +1,40 @@
-const { isLiteral, getLiteralValue, getLiteralLanguage } = require('n3').Util;
-const { rdfsLabel, rdfsComment } = require('../constants');
-const getIriLocalName = require('../utils/getIriLocalName');
-const memorize = require('../graph/memorize');
+const { isLiteral, getLiteralValue, getLiteralLanguage } = require('n3').Util
 
-const englishLocale = 'en';
-const isLiteralWithLocale = locale => l => isLiteral(l) && getLiteralLanguage(l) === locale;
+const { rdfsLabel, rdfsComment } = require('../constants')
+const getIriLocalName = require('../utils/getIriLocalName')
+const memorize = require('../graph/memorize')
+
+const englishLocale = 'en'
+const isLiteralWithLocale = locale => l => isLiteral(l) && getLiteralLanguage(l) === locale
 
 function findValueForLocale(literals, locale) {
-  if (!literals) return null;
+  if (!literals) return null
 
   const literal = literals.find(isLiteralWithLocale(locale))
     || literals.find(isLiteralWithLocale(englishLocale))
-    || literals[0];
+    || literals[0]
 
-  return isLiteral(literal) ? getLiteralValue(literal) : null;
+  return isLiteral(literal) ? getLiteralValue(literal) : null
 }
 
 function getGraphqlDescription(g, iri) {
   // The default locale is "en", can be set with config.locale
-  const { locale = englishLocale } = g.config;
+  const { locale = englishLocale } = g.config
 
-  const label = findValueForLocale(g[iri][rdfsLabel], locale);
-  const comment = findValueForLocale(g[iri][rdfsComment], locale);
+  const label = findValueForLocale(g[iri][rdfsLabel], locale)
+  const comment = findValueForLocale(g[iri][rdfsComment], locale)
 
-  let description = label && getIriLocalName(iri) !== label ? label : '';
+  let description = label && getIriLocalName(iri) !== label ? label : ''
 
   if (comment) {
-    if (description) description += ' - ';
+    if (description) description += ' - '
 
-    description += comment;
+    description += comment
   }
 
-  if (description && !description.endsWith('.')) description += '.';
+  if (description && !description.endsWith('.')) description += '.'
 
-  return description;
+  return description
 }
 
-module.exports = memorize(getGraphqlDescription, 'graphqlDescription');
+module.exports = memorize(getGraphqlDescription, 'graphqlDescription')

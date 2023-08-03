@@ -1,8 +1,10 @@
-const { GraphQLObjectType } = require('graphql');
-const memorize = require('../graph/memorize');
-const ensureResourceExistance = require('../graph/ensureResourceExistance');
-const getGraphqlName = require('./getGraphqlName');
-const getGraphqlDescription = require('./getGraphqlDescription');
+const { GraphQLObjectType } = require('graphql')
+
+const memorize = require('../graph/memorize')
+const ensureResourceExistance = require('../graph/ensureResourceExistance')
+
+const getGraphqlName = require('./getGraphqlName')
+const getGraphqlDescription = require('./getGraphqlDescription')
 
 function getGraphqlObjectType(g, iri) {
 
@@ -11,7 +13,7 @@ function getGraphqlObjectType(g, iri) {
     description: getGraphqlDescription(g, iri),
     fields: () => require('./getGraphqlFieldConfigMap')(g, iri), // dynamic require to prevent require cycles
     interfaces: () => require('./getGraphqlInterfaces')(g, iri),
-  });
+  })
 }
 
-module.exports = ensureResourceExistance(memorize(getGraphqlObjectType, 'graphqlObjectType'));
+module.exports = ensureResourceExistance(memorize(getGraphqlObjectType, 'graphqlObjectType'))

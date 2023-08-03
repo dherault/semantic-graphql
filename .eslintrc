@@ -1,6 +1,6 @@
 {
-  "extends": "nelson",
+  "extends": "dherault",
   "rules": {
-    "import/no-unresolved": [2, { "ignore": ['graphql'] }],
+    "import/no-unresolved": [2, { "ignore": ["graphql"] }]
   }
 }

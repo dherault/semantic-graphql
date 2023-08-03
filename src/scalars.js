@@ -1,4 +1,4 @@
-const { GraphQLID, GraphQLBoolean, GraphQLInt, GraphQLFloat, GraphQLString, Kind } = require('graphql');
+const { GraphQLID, GraphQLBoolean, GraphQLInt, GraphQLFloat, GraphQLString, Kind } = require('graphql')
 
 // https://www.w3.org/TR/xmlschema-2
 // http://graphql.org/docs/api-reference-type-system/#graphqlscalartype
@@ -54,7 +54,7 @@ const graphqlScalarTypes = {
   unsignedShort: GraphQLInt,
   unsignedByte: GraphQLInt,
   positiveInteger: GraphQLInt,
-};
+}
 
 // Not great
 // The most inclusive types must be last
@@ -73,32 +73,32 @@ const graphqlScalarMethods = new Map([
   [GraphQLInt, {
     isOfType: value => typeof value === 'number' && Math.round(value) === value,
     coerce(value) {
-      if (value === '') return null;
+      if (value === '') return null
 
-      const number = Number(value);
+      const number = Number(value)
 
-      if (Math.abs(number) <= Number.MAX_SAFE_INTEGER) return (number < 0 ? Math.ceil : Math.floor)(number);
+      if (Math.abs(number) <= Number.MAX_SAFE_INTEGER) return (number < 0 ? Math.ceil : Math.floor)(number)
 
-      return null;
+      return null
     },
     parseLiteral(ast) {
       if (ast.kind === Kind.INT) {
-        const number = parseInt(ast.value, 10);
+        const number = parseInt(ast.value, 10)
 
-        if (Math.abs(number) <= Number.MAX_SAFE_INTEGER) return number;
+        if (Math.abs(number) <= Number.MAX_SAFE_INTEGER) return number
       }
 
-      return null;
+      return null
     },
   }],
   [GraphQLFloat, {
     isOfType: value => typeof value === 'number',
     coerce(value) {
-      if (value === '') return null;
+      if (value === '') return null
 
-      const number = Number(value);
+      const number = Number(value)
 
-      return number === number ? number : null;
+      return number === number ? number : null
     },
     parseLiteral: ast => ast.kind === Kind.FLOAT || ast.kind === Kind.INT ? parseFloat(ast.value) : null,
   }],
@@ -108,9 +108,9 @@ const graphqlScalarMethods = new Map([
     coerce: String,
     parseLiteral: ast => ast.kind === Kind.STRING || ast.kind === Kind.INT ? ast.value : null,
   }],
-]);
+])
 
 module.exports = {
   graphqlScalarTypes,
   graphqlScalarMethods,
-};
+}

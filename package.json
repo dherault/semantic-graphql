@@ -24,23 +24,22 @@
     "coverage": "./node_modules/.bin/istanbul cover _mocha -- --bail --check-leaks",
     "coverage:serve": "cd coverage/lcov-report && python -m SimpleHTTPServer",
     "coverage:all": "npm run coverage && npm run coverage:serve",
-    "dev": "cd examples/basic && npm run watch"
+    "dev": "cd examples/basic && npm run watch",
+    "lint": "eslint ./src"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "coveralls": "^3.0.3",
-    "eslint": "^5.16.0",
-    "eslint-config-nelson": "^0.2.0",
-    "eslint-plugin-import": "^2.16.0",
-    "graphql": "^14.2.0",
-    "graphql-relay": "^0.6.0",
+    "chai": "^4.3.7",
+    "coveralls": "^3.1.1",
+    "eslint": "^8.46.0",
+    "eslint-config-dherault": "^1.11.2",
     "istanbul": "^0.4.5",
-    "mocha": "^6.0.2"
+    "mocha": "^10.2.0"
   },
   "dependencies": {
     "n3": "^0.10.0"
   },
   "peerDependencies": {
-    "graphql": "^14.2.0"
+    "graphql": "^16.7.1",
+    "graphql-relay": "^0.10.0"
   }
 }

@@ -1,31 +1,32 @@
-const { GraphQLScalarType } = require('graphql');
-const ArrayKeyedMap = require('../ArrayKeyedMap');
-const getIriLocalName = require('../utils/getIriLocalName');
-const { graphqlScalarTypes, graphqlScalarMethods } = require('../scalars');
+const { GraphQLScalarType } = require('graphql')
 
-const memory = new ArrayKeyedMap();
+const ArrayKeyedMap = require('../ArrayKeyedMap')
+const getIriLocalName = require('../utils/getIriLocalName')
+const { graphqlScalarTypes, graphqlScalarMethods } = require('../scalars')
+
+const memory = new ArrayKeyedMap()
 
 function getGraphqlPolymorphicScalarType(g, ranges) {
-  if (memory.has(ranges)) return memory.get(ranges);
+  if (memory.has(ranges)) return memory.get(ranges)
 
   // Polymorphic range: not cached, so we create it
   // NOTE: The current implementation uses the ordered ranges to pick the prefered type when
   // multiple types are available. (typically float and integer, string and id, etc...)
-  const localNames = ranges.map(range => getIriLocalName(range));
-  const scalarTypes = localNames.map(localName => graphqlScalarTypes[localName]);
+  const localNames = ranges.map(range => getIriLocalName(range))
+  const scalarTypes = localNames.map(localName => graphqlScalarTypes[localName])
 
-  if (scalarTypes.some(type => !type)) throw new Error(`Validate much? ranges: ${ranges}`);
+  if (scalarTypes.some(type => !type)) throw new Error(`Validate much? ranges: ${ranges}`)
 
-  const scalarMethods = scalarTypes.map(type => graphqlScalarMethods.get(type));
+  const scalarMethods = scalarTypes.map(type => graphqlScalarMethods.get(type))
 
   // No exception thrown here, GraphQL takes care of it
   const coerce = value => {
-    const correctMethods = scalarMethods.filter(({ isOfType }) => isOfType(value));
+    const correctMethods = scalarMethods.filter(({ isOfType }) => isOfType(value))
 
-    if (!correctMethods.length) return null;
+    if (!correctMethods.length) return null
 
-    return correctMethods[0].coerce(value); // Favors precedence in graphqlScalarMethods
-  };
+    return correctMethods[0].coerce(value) // Favors precedence in graphqlScalarMethods
+  }
 
   const type = new GraphQLScalarType({
     name: `Polymorphic_scalar_${localNames.join('_')}`,
@@ -34,11 +35,11 @@ function getGraphqlPolymorphicScalarType(g, ranges) {
     parseLiteral: ast => scalarMethods
       .map(({ parseLiteral }) => parseLiteral(ast))
       .filter(value => value !== null)[0] || null, // TODO: use find
-  });
+  })
 
-  memory.set(ranges, type);
+  memory.set(ranges, type)
 
-  return type;
+  return type
 }
 
-module.exports = getGraphqlPolymorphicScalarType;
+module.exports = getGraphqlPolymorphicScalarType

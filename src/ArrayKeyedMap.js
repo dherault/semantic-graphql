@@ -6,22 +6,22 @@
   myMap.get(['bar', 'foo']); // 'somevalue'
 */
 
-const sep = Math.random().toString();
-const hash = array => array.sort().join(sep);
+const sep = Math.random().toString()
+const hash = array => array.sort().join(sep)
 // const unhash = key => key.split(sep);
 
 class ArrayKeyedMap extends Map {
 
   get(array) {
-    return super.get(hash(array));
+    return super.get(hash(array))
   }
 
   set(array, value) {
-    return super.set(hash(array), value);
+    return super.set(hash(array), value)
   }
 
   has(array) {
-    return super.has(hash(array));
+    return super.has(hash(array))
   }
 
   /*
@@ -39,4 +39,4 @@ class ArrayKeyedMap extends Map {
   */
 }
 
-module.exports = ArrayKeyedMap;
+module.exports = ArrayKeyedMap

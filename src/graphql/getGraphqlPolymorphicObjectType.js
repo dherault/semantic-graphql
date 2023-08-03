@@ -1,9 +1,10 @@
-const { rdfsResource } = require('../constants');
-const getGraphqlInterfaceType = require('./getGraphqlInterfaceType');
+const { rdfsResource } = require('../constants')
 
-function getGraphqlPolymorphicObjectType(g/*, ranges*/) {
+const getGraphqlInterfaceType = require('./getGraphqlInterfaceType')
+
+function getGraphqlPolymorphicObjectType(g/* , ranges */) {
   // TODO
-  return getGraphqlInterfaceType(g, rdfsResource);
+  return getGraphqlInterfaceType(g, rdfsResource)
 }
 
-module.exports = getGraphqlPolymorphicObjectType;
+module.exports = getGraphqlPolymorphicObjectType

@@ -1,12 +1,12 @@
-let graphqlRelay;
+let graphqlRelay
 
 // optionalPeerDependencies still don't exist, so graphql-relay is a ghost dep
 // let's find it
 function requireGraphqlRelay() {
-  if (graphqlRelay) return graphqlRelay;
+  if (graphqlRelay) return graphqlRelay
 
   try {
-    graphqlRelay = require('graphql-relay');
+    graphqlRelay = require('graphql-relay')
   }
   catch (ex) {
     // Nothing
@@ -15,9 +15,9 @@ function requireGraphqlRelay() {
   if (!graphqlRelay) {
     // Go up until graphql-relay is found
     // Inspired by https://www.npmjs.com/package/parent-require
-    for (let parent = module.parent; parent && !graphqlRelay; parent = parent.parent) {
+    for (let { parent } = module; parent && !graphqlRelay; parent = parent.parent) {
       try {
-        graphqlRelay = parent.require('graphql-relay');
+        graphqlRelay = parent.require('graphql-relay')
       }
       catch (ex) {
         // Nothing
@@ -25,10 +25,10 @@ function requireGraphqlRelay() {
     }
 
     // No pity
-    if (!graphqlRelay) throw new Error('semantic-graphql was not able to find "graphql-relay" as a dependency of your project. Run "npm install graphql-relay" or set the "relay" option to false.');
+    if (!graphqlRelay) throw new Error('semantic-graphql was not able to find "graphql-relay" as a dependency of your project. Run "npm install graphql-relay" or set the "relay" option to false.')
   }
 
-  return graphqlRelay;
+  return graphqlRelay
 }
 
-module.exports = requireGraphqlRelay;
+module.exports = requireGraphqlRelay

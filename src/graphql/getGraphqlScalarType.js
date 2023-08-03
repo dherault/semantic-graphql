@@ -1,12 +1,12 @@
-const { graphqlScalarTypes } = require('../scalars');
-const getIriLocalName = require('../utils/getIriLocalName');
+const { graphqlScalarTypes } = require('../scalars')
+const getIriLocalName = require('../utils/getIriLocalName')
 
 function getGraphqlScalarType(g, iri) {
-  const type = graphqlScalarTypes[getIriLocalName(iri)];
+  const type = graphqlScalarTypes[getIriLocalName(iri)]
 
-  if (!type) throw new Error(`getGraphqlScalarType ${iri})`);
+  if (!type) throw new Error(`getGraphqlScalarType ${iri})`)
 
-  return type;
+  return type
 }
 
-module.exports = getGraphqlScalarType;
+module.exports = getGraphqlScalarType
