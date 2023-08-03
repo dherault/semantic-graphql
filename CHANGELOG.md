@@ -1,9 +1,10 @@
 # Changelog
 
-## next
+## 0.6.4
 
 **Miscellaneous:**
 - Added package-lock.json in example folders.
+- Use new linter config
 
 ## 0.6.3
 
