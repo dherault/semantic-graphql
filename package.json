@@ -1,6 +1,6 @@
 {
   "name": "semantic-graphql",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "Create GraphQL schemas from RDF ontologies",
   "license": "MIT",
   "main": "index.js",
