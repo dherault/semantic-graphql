@@ -36,7 +36,10 @@
     "mocha": "^10.2.0"
   },
   "dependencies": {
-    "n3": "^0.10.0"
+    "n3": "^0.10.0",
+    "nodemon": "^3.1.4",
+    "graphql-http": "^1.22.1",
+    "express": "^4.19.2"
   },
   "peerDependencies": {
     "graphql": "^16.7.1",

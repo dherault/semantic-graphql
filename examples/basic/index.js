@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { GraphQLSchema, GraphQLObjectType, GraphQLList, GraphQLString, printSchema } = require('graphql'); // eslint-disable-line import/no-extraneous-dependencies
-const graphqlHTTP = require('express-graphql');
+const { createHandler } = require('graphql-http/lib/use/express');
 const express = require('express');
 const SemanticGraph = require('../..');
 
@@ -55,7 +55,7 @@ console.log('Schema saved on disk');
 
 // Start server
 express()
-.use('/graphql', graphqlHTTP({
+.use('/graphql', createHandler({
   schema,
   pretty: true,
   graphiql: true,
